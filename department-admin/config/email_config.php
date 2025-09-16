@@ -15,7 +15,7 @@ $from_name = getenv('SENDGRID_FROM_NAME') ?: 'MCiSmartSpace';
 // IMPORTANT: DO NOT COMMIT THE ACTUAL API KEY TO VERSION CONTROL
 if (!$sendgrid_api_key) {
     // For local development only - replace with your actual key
-    $sendgrid_api_key = 'YOUR_SENDGRID_API_KEY_HERE';
+    $sendgrid_api_key = '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';
 }
 
 // SendGrid Configuration

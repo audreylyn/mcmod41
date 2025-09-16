@@ -7,6 +7,7 @@
 ### Option 1: Environment Variables (Recommended for Production)
 
 1. Set environment variables on your server:
+
    ```bash
    SENDGRID_API_KEY=your_actual_sendgrid_api_key_here
    SENDGRID_FROM_EMAIL=mcismartspace@gmail.com
@@ -20,6 +21,7 @@
 1. Open `department-admin/config/email_config.php`
 
 2. Replace `YOUR_SENDGRID_API_KEY_HERE` with your actual API key:
+
    ```php
    $sendgrid_api_key = 'SG.your_actual_api_key_here';
    ```
@@ -37,6 +39,7 @@
 ## Testing the Configuration
 
 After setup, test the email functionality by:
+
 1. Logging into the department admin panel
 2. Try sending an email notification (e.g., reject a room request)
 3. Check if the email is sent successfully

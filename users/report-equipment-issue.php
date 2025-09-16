@@ -34,15 +34,85 @@ if ($userRole === 'Student') {
     }
 }
 
-// Get equipment details from query parameters or sessionStorage
-$unitId = isset($_GET['unit_id']) ? htmlspecialchars($_GET['unit_id']) : '';
-$equipmentName = isset($_GET['name']) ? htmlspecialchars($_GET['name']) : '';
-$serialNumber = isset($_GET['serial']) ? htmlspecialchars($_GET['serial']) : '';
-$roomName = isset($_GET['room']) ? htmlspecialchars($_GET['room']) : '';
-$buildingName = isset($_GET['building']) ? htmlspecialchars($_GET['building']) : '';
+// Get equipment details from query parameters
+// Support both old (unit_id) and new (id) parameter names for backward compatibility
+$unitId = '';
+$equipmentName = '';
+$serialNumber = '';
+$roomName = '';
+$buildingName = '';
+$equipmentId = '';
+$equipmentDescription = '';
+$department = '';
 
-// Initialize variables for equipment type (will be filled from database)
-$equipmentType = '';
+// Check for new simplified parameter structure first
+if (isset($_GET['id']) && !empty($_GET['id'])) {
+    $unitId = htmlspecialchars($_GET['id']);
+    
+    // Fetch equipment details from database using the API endpoint
+    // Use absolute URL to avoid path resolution issues
+    $protocol = $_SERVER['REQUEST_SCHEME'] ?? 'http';
+    $host = $_SERVER['HTTP_HOST'];
+    $apiUrl = $protocol . '://' . $host . '/mcmod41/users/api/get_equipment_details.php?unit_id=' . urlencode($unitId);
+    
+    // Use cURL to fetch equipment details
+    $ch = curl_init();
+    curl_setopt($ch, CURLOPT_URL, $apiUrl);
+    curl_setopt($ch, CURLOPT_RETURNTRANSFER, true);
+    curl_setopt($ch, CURLOPT_TIMEOUT, 10);
+    curl_setopt($ch, CURLOPT_FOLLOWLOCATION, true);
+    curl_setopt($ch, CURLOPT_SSL_VERIFYPEER, false);
+    
+    $apiResponse = curl_exec($ch);
+    $curlError = curl_error($ch);
+    $httpCode = curl_getinfo($ch, CURLINFO_HTTP_CODE);
+    curl_close($ch);
+    
+    // Log the API call for debugging
+    error_log("Equipment API Call - URL: $apiUrl, HTTP Code: $httpCode, cURL Error: $curlError");
+    
+    if (!$curlError && $httpCode === 200) {
+        $responseData = json_decode($apiResponse, true);
+        
+        // Log the API response for debugging
+        error_log("Equipment API Response: " . substr($apiResponse, 0, 500));
+        
+        if ($responseData && $responseData['success'] && isset($responseData['data'])) {
+            $equipmentData = $responseData['data'];
+            
+            // Populate variables from API response
+            $equipmentName = $equipmentData['equipment_name'];
+            $equipmentDescription = $equipmentData['equipment_description'] ?? '';
+            $equipmentCategory = $equipmentData['equipment_category'] ?? '';
+            $serialNumber = $equipmentData['serial_number'] ?? '';
+            $roomName = $equipmentData['room_name'];
+            $buildingName = $equipmentData['building_name'];
+            $equipmentId = $equipmentData['equipment_id'];
+            $department = $equipmentData['department'] ?? '';
+            
+            // For Equipment Type, use the equipment name (which is more descriptive than category)
+            $equipmentType = $equipmentName;
+            
+            error_log("Equipment details loaded via API for unit_id: $unitId - Name: $equipmentName, Room: $roomName, Building: $buildingName");
+        } else {
+            error_log("Failed to get equipment details from API - invalid response: " . $apiResponse);
+        }
+    } else {
+        error_log("Failed to fetch equipment details via API - cURL error: $curlError, HTTP Code: $httpCode");
+    }
+} else {
+    // Fallback to old parameter structure for backward compatibility
+    $unitId = isset($_GET['unit_id']) ? htmlspecialchars($_GET['unit_id']) : '';
+    $equipmentName = isset($_GET['name']) ? htmlspecialchars($_GET['name']) : '';
+    $serialNumber = isset($_GET['serial']) ? htmlspecialchars($_GET['serial']) : '';
+    $roomName = isset($_GET['room']) ? htmlspecialchars($_GET['room']) : '';
+    $buildingName = isset($_GET['building']) ? htmlspecialchars($_GET['building']) : '';
+}
+
+// Initialize variables for equipment type (will be filled from database if not already set)
+if (!isset($equipmentType)) {
+    $equipmentType = '';
+}
 
 $conn = db();
 
@@ -362,7 +432,7 @@ if (!$tableExists) {
                         </div>
                         <div class="info-item">
                             <div class="info-label">Equipment Type</div>
-                            <div class="info-value"><?php echo $equipmentName ?: 'N/A'; ?></div>
+                            <div class="info-value"><?php echo $equipmentType ?: 'N/A'; ?></div>
                         </div>
                         <div class="info-item">
                             <div class="info-label">Location</div>

@@ -51,8 +51,37 @@ require_once __DIR__ . '/middleware/error_handler.php';
                         case 'denied':
                              echo "Access denied.";
                              break;
+                        case 'not_authenticated':
+                            echo "Please log in to report equipment issues.";
+                            if (isset($_GET['equipment_id'])) {
+                                echo " <small>(Equipment ID: " . htmlspecialchars($_GET['equipment_id']) . ")</small>";
+                            }
+                            break;
+                        case 'unauthorized_role':
+                            echo "Your account role is not authorized to report equipment issues.";
+                            break;
+                        case 'invalid_equipment_id':
+                            echo "Invalid or missing equipment ID in QR code.";
+                            break;
+                        case 'equipment_not_found':
+                            echo "The scanned equipment was not found in the system.";
+                            if (isset($_GET['equipment_id'])) {
+                                echo " <small>(Equipment ID: " . htmlspecialchars($_GET['equipment_id']) . ")</small>";
+                            }
+                            break;
+                        case 'system_error':
+                            echo "A system error occurred while processing the QR code.";
+                            break;
+                        case 'unauthorized_access':
+                            echo "Unauthorized access. Please log in first.";
+                            break;
                         default:
-                            echo "An unknown error occurred.";
+                            // Check if there's a custom message from QR redirect
+                            if (isset($_GET['message'])) {
+                                echo htmlspecialchars(urldecode($_GET['message']));
+                            } else {
+                                echo "An unknown error occurred.";
+                            }
                             break;
                     }
                     ?>

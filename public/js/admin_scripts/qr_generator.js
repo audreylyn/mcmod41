@@ -51,21 +51,28 @@ document.addEventListener('DOMContentLoaded', function () {
       return;
     }
 
-    // Create the QR code content - URL with query parameters
+    // Create simplified QR code content - URL with only equipment unit ID
     // Use current domain to ensure proper routing (works with ngrok and local domains)
-    const currentHost = window.location.host;
-    const protocol = window.location.protocol;
-    const baseUrl = `${protocol}//${currentHost}/mcmod41/users/redirect-equipment-report.php`;
+    // const currentHost = window.location.host;
+    // const protocol = window.location.protocol;
+
+    const currentHost = '192.168.8.110';
+    const protocol = 'http:';
+
+    // For deployment: change '/mcmod41' to your actual deployment path
+    // Examples:
+    // - Root deployment: remove '/mcmod41' entirely
+    // - Subdirectory: change to your subdirectory name
+    const baseUrl = `${protocol}//${currentHost}/mcmod41/users/equipment-qr.php`;
     const redirectUrl = new URL(baseUrl);
-    redirectUrl.searchParams.set('unit_id', equipmentData.id);
-    redirectUrl.searchParams.set('name', equipmentData.name);
-    redirectUrl.searchParams.set('room', equipmentData.room);
-    redirectUrl.searchParams.set('building', equipmentData.building);
-    redirectUrl.searchParams.set('serial', equipmentData.serial || '');
+
+    // Only pass the unit_id - all other details will be fetched from database
+    redirectUrl.searchParams.set('id', equipmentData.id);
     const qrContent = redirectUrl.toString();
 
     // Debug: Log the generated URL
-    console.log('Generated QR URL:', qrContent);
+    console.log('Generated simplified QR URL:', qrContent);
+    console.log('Equipment data being encoded:', equipmentData);
 
     // Display equipment info
     qrInfo.innerHTML = `
@@ -81,64 +88,66 @@ document.addEventListener('DOMContentLoaded', function () {
   // Function to generate QR code using GoQR API
   async function generateQRCodeWithGoQR(qrContent, equipmentData) {
     const qrContainer = document.getElementById('qrcode');
-    
+
     // Show loading state
-    qrContainer.innerHTML = '<div class="qr-loading">Generating QR code...</div>';
+    qrContainer.innerHTML =
+      '<div class="qr-loading">Generating QR code...</div>';
     downloadBtn.style.display = 'none';
-    
+
     try {
       // GoQR API endpoint
       const size = '200x200';
       const format = 'png';
       const errorCorrection = 'H'; // High error correction
       const encoding = 'UTF-8';
-      
+
       // Encode the QR content for URL
       const encodedContent = encodeURIComponent(qrContent);
       const goQrUrl = `https://api.qrserver.com/v1/create-qr-code/?size=${size}&format=${format}&ecc=${errorCorrection}&charset=${encoding}&data=${encodedContent}`;
-      
+
       console.log('GoQR API URL:', goQrUrl);
-      
+
       // Create image element
       const qrImage = document.createElement('img');
       qrImage.style.maxWidth = '100%';
       qrImage.style.height = 'auto';
       qrImage.alt = `QR Code for ${equipmentData.name}`;
-      
+
       // Handle image load
-      qrImage.onload = function() {
+      qrImage.onload = function () {
         qrContainer.innerHTML = '';
         qrContainer.appendChild(qrImage);
         currentQrImageUrl = goQrUrl;
-        
+
         // Show download button and set up download functionality
         downloadBtn.style.display = 'block';
         downloadBtn.onclick = function () {
           downloadQRCode(goQrUrl, equipmentData);
         };
       };
-      
+
       // Handle image error
-      qrImage.onerror = function() {
+      qrImage.onerror = function () {
         console.error('Failed to load QR code from GoQR API');
-        qrContainer.innerHTML = '<div class="qr-error">Failed to generate QR code. Please try again.</div>';
+        qrContainer.innerHTML =
+          '<div class="qr-error">Failed to generate QR code. Please try again.</div>';
       };
-      
+
       // Set the source to trigger loading
       qrImage.src = goQrUrl;
-      
     } catch (error) {
       console.error('Error generating QR code:', error);
-      qrContainer.innerHTML = '<div class="qr-error">Error generating QR code. Please try again.</div>';
+      qrContainer.innerHTML =
+        '<div class="qr-error">Error generating QR code. Please try again.</div>';
     }
   }
-  
+
   // Function to download QR code
   async function downloadQRCode(imageUrl, equipmentData) {
     try {
       const response = await fetch(imageUrl);
       const blob = await response.blob();
-      
+
       // Create download link
       const url = window.URL.createObjectURL(blob);
       const a = document.createElement('a');
@@ -147,7 +156,7 @@ document.addEventListener('DOMContentLoaded', function () {
       document.body.appendChild(a);
       a.click();
       document.body.removeChild(a);
-      
+
       // Clean up
       window.URL.revokeObjectURL(url);
     } catch (error) {
