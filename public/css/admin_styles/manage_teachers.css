@@ -1,0 +1,131 @@
+/* Only unique styles not in external CSS */
+.import-btn-acc {
+  border-radius: 0 0.3em 0.3em 0;
+  background-color: rgb(41, 114, 45);
+  color: white;
+  border: none;
+  padding: 0.5rem 1rem;
+  cursor: pointer;
+  display: flex;
+  align-items: center;
+  gap: 5px;
+}
+.import-btn-acc:hover {
+  background-color: rgb(5, 48, 7);
+}
+
+/* Enhanced Modal Styles */
+.modal-lg {
+  max-width: 800px;
+  width: 90%;
+}
+
+.modal-header {
+  border-bottom: 1px solid #e0e0e0;
+  padding: 15px 20px;
+  background-color: #f8f9fa;
+  border-top-left-radius: 8px;
+  border-top-right-radius: 8px;
+}
+
+.modal-title {
+  display: flex;
+  align-items: center;
+  font-size: 1.25rem;
+  font-weight: 600;
+  color: #333;
+}
+
+.modal-title i {
+  margin-right: 8px;
+  color: #4a6fdc;
+}
+
+.modal-body {
+  padding: 20px;
+}
+
+.modal-footer {
+  border-top: 1px solid #e0e0e0;
+  padding: 15px 20px;
+  display: flex;
+  justify-content: flex-end;
+  gap: 10px;
+  margin-top: 20px;
+}
+
+/* Fix password field width - don't make it full width */
+.password-field-container {
+  max-width: 400px;
+  margin: 0 auto;
+}
+
+/* Form actions alignment */
+.form-actions-container {
+  display: flex;
+  justify-content: center;
+  margin-top: 1.5rem;
+}
+
+.form-actions {
+  display: flex;
+  gap: 1rem;
+  align-items: center;
+}
+
+/* Batch upload info styles */
+.batch-upload-info {
+  margin-top: 20px;
+}
+
+.info-card {
+  background-color: #f8f9fa;
+  border: 1px solid #e0e0e0;
+  border-radius: 8px;
+  padding: 20px;
+}
+
+.info-card h4 {
+  margin: 0 0 15px 0;
+  color: #333;
+  display: flex;
+  align-items: center;
+  gap: 8px;
+}
+
+.info-card h4 i {
+  color: #4a6fdc;
+}
+
+.csv-format {
+  background-color: #e8f4fd;
+  border: 1px solid #b3d9ff;
+  border-radius: 4px;
+  padding: 10px;
+  margin: 10px 0;
+  font-family: monospace;
+  text-align: center;
+}
+
+.help-text {
+  margin: 10px 0 0 0;
+  color: #666;
+  font-size: 14px;
+  display: flex;
+  align-items: flex-start;
+  gap: 8px;
+}
+
+.help-text i {
+  color: #ffa500;
+  margin-top: 2px;
+}
+
+/* Excel button hover effect */
+.excel:hover {
+  background-color: #1a5d39 !important;
+}
+
+#importButton:hover {
+  background-color: #3a5dba !important;
+}

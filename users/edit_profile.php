@@ -1,0 +1,700 @@
+<?php
+require '../auth/middleware.php';
+checkAccess(['Student', 'Teacher']);
+
+// Get current user ID and role
+$userId = $_SESSION['user_id'];
+$userRole = $_SESSION['role'];
+
+// Initialize variables for error/success messages
+$successMsg = "";
+$errorMsg = "";
+
+// Fetch user information based on role
+if ($userRole == 'Student') {
+    $sql = "SELECT * FROM student WHERE StudentID = ?";
+    $tableName = "student";
+    $idField = "StudentID";
+} else if ($userRole == 'Teacher') {
+    $sql = "SELECT * FROM teacher WHERE TeacherID = ?";
+    $tableName = "teacher";
+    $idField = "TeacherID";
+}
+
+$stmt = $conn->prepare($sql);
+$stmt->bind_param("i", $userId);
+$stmt->execute();
+$result = $stmt->get_result();
+$userData = $result->fetch_assoc();
+$stmt->close();
+
+// Include room status handler to automatically update room statuses
+require_once '../auth/room_status_handler.php';
+?>
+
+<?php include "../partials/header.php"; ?>
+<link href="../public/css/user_styles/edit_profile.css" rel="stylesheet">
+<style>
+    .main-content {
+        margin-top: 30px;
+    }
+
+    /* Delete Account Modal specific styles for mobile */
+    @media (max-width: 768px) {
+        /* Existing mobile styles... */
+
+        #deleteAccountModal .alert-actions {
+            flex-direction: row;
+            justify-content: space-between;
+            width: 100%;
+        }
+
+        #deleteAccountModal .alert-actions .btn-action {
+            flex: 1;
+            width: 48%;
+            margin: 0;
+            justify-content: center;
+            text-align: center;
+        }
+    }
+
+    @media (max-width: 576px) {
+        /* Existing small mobile styles... */
+
+        #deleteAccountModal .alert-actions {
+            flex-direction: row;
+            gap: 8px;
+        }
+
+        #deleteAccountModal .alert-actions .btn-action {
+            font-size: 13px;
+            min-height: 44px;
+            padding: 8px 6px;
+        }
+    }
+
+    @media (max-width: 768px) {
+        .security-actions {
+            flex-direction: column;
+            gap: 10px;
+            width: 100%;
+        }
+
+        .security-actions .btn {
+            width: 100%;
+            padding: 10px;
+            font-size: 14px;
+            margin-bottom: 5px;
+        }
+
+        .btn-secondary,
+        .security-actions .btn-danger {
+            width: 100%;
+            min-height: 44px;
+            padding: 8px 12px;
+        }
+    }
+
+    .admin-notice {
+        margin: 20px;
+        padding: 15px;
+        border-radius: 5px;
+        background-color: #d1ecf1;
+        border-color: #bee5eb;
+        color: #0c5460;
+    }
+    .input-with-icon {
+        position: relative;
+    }
+    .toggle-password {
+        position: absolute;
+        right: 10px;
+        top: 50%;
+        transform: translateY(-50%);
+        cursor: pointer;
+        color: #888;
+        transition: color 0.2s;
+        z-index: 2;
+    }
+    .toggle-password.active svg path,
+    .toggle-password.active svg circle {
+        stroke: #007bff;
+    }
+    
+    /* Penalty Status Styles */
+    .status-section {
+        padding: 20px;
+    }
+    
+    .status-header {
+        display: flex;
+        align-items: center;
+        margin-bottom: 15px;
+    }
+    
+    .status-header i {
+        margin-right: 15px;
+        color: inherit;
+    }
+    
+    .status-text h4 {
+        margin: 0 0 5px 0;
+        font-weight: bold;
+    }
+    
+    .status-text p {
+        margin: 0;
+        opacity: 0.8;
+    }
+    
+    .penalty-details {
+        margin: 15px 0;
+        padding: 15px;
+        background-color: rgba(255,255,255,0.1);
+        border-radius: 5px;
+    }
+    
+    .detail-row {
+        margin-bottom: 8px;
+        line-height: 1.4;
+    }
+    
+    .detail-row:last-child {
+        margin-bottom: 0;
+    }
+    
+    .ban-restrictions {
+        margin-top: 15px;
+        padding: 15px;
+        background-color: rgba(255,255,255,0.1);
+        border-radius: 5px;
+    }
+    
+    .ban-restrictions h5 {
+        margin-top: 0;
+        margin-bottom: 10px;
+    }
+    
+    .ban-restrictions ul {
+        margin-bottom: 15px;
+        padding-left: 20px;
+    }
+    
+    .ban-restrictions li {
+        margin-bottom: 5px;
+    }
+    
+    .contact-info {
+        margin-bottom: 0;
+        font-style: italic;
+    }
+    
+    .active-benefits {
+        margin-top: 15px;
+        padding: 15px;
+        background-color: rgba(255,255,255,0.1);
+        border-radius: 5px;
+    }
+    
+    .active-benefits h5 {
+        margin-top: 0;
+        margin-bottom: 10px;
+    }
+    
+    .active-benefits ul {
+        margin-bottom: 0;
+        padding-left: 20px;
+    }
+    
+    .active-benefits li {
+        margin-bottom: 5px;
+    }
+</style>
+
+<?php include "layout/sidebar.php"; ?>
+<?php include "layout/topnav.php"; ?>
+
+<!-- Page content -->
+<div class="right_col" role="main">
+    <div class="main-content">
+        <div class="profile-container">
+            <!-- Update message container to exclude password/delete errors -->
+            <div class="message-container">
+                <?php
+                // Only display error messages that aren't related to password change or account deletion
+                if (
+                    isset($_SESSION['error_message']) &&
+                    (!isset($_GET['error_type']) || ($_GET['error_type'] !== 'password_change' && $_GET['error_type'] !== 'delete_account'))
+                ) {
+                    echo '<div class="alert alert-danger"><i class="fa fa-exclamation-circle"></i> ' . htmlspecialchars($_SESSION['error_message']) . '</div>';
+                    unset($_SESSION['error_message']);
+                }
+
+                // Display success messages from session
+                if (isset($_SESSION['success_message'])) {
+                    echo '<div class="alert alert-success alert-auto-fade"><i class="fa fa-check-circle"></i> ' . htmlspecialchars($_SESSION['success_message']) . '</div>';
+                    unset($_SESSION['success_message']);
+                }
+                ?>
+            </div>
+
+            <div class="profile-card">
+                <div class="card-header bg-modal">
+                    <h2 class="bold-personal">Personal Information</h2>
+                    <p>View your profile information</p>
+                </div>
+
+                <!-- Notice about contacting department admin -->
+                <div class="admin-notice alert alert-info">
+                    <i class="fa fa-info-circle"></i> To update your profile information, please contact your department administrator.
+                </div>
+
+                <div class="profile-form">
+                    <!-- footer content -->
+            <footer>
+                <div class="pull-right">
+                    Meycauayan College Incorporated - <a href="#">Mission || Vision || Values</a>
+                </div>
+                <div class="clearfix"></div>
+            </footer>
+            <!-- /footer content -->
+
+            <!-- Chatbot Widget -->
+            <?php include "layout/chatbot-layout.php"; ?>
+
+                    <div class="form-row">
+                        <div class="form-group">
+                            <label for="firstName">First name</label>
+                            <div class="input-with-icon">
+                                <input type="text" id="firstName" name="firstName" value="<?php echo htmlspecialchars($userData['FirstName'] ?? ''); ?>" readonly>
+                            </div>
+                        </div>
+
+                        <div class="form-group">
+                            <label for="lastName">Last name</label>
+                            <div class="input-with-icon">
+                                <input type="text" id="lastName" name="lastName" value="<?php echo htmlspecialchars($userData['LastName'] ?? ''); ?>" readonly>
+                            </div>
+                        </div>
+                    </div>
+
+                    <div class="form-row">
+                        <div class="form-group">
+                            <label for="email">Email</label>
+                            <div class="input-with-icon">
+                                <input type="email" id="email" name="email" value="<?php echo htmlspecialchars($userData['Email'] ?? ''); ?>" readonly>
+                                <span class="verified-badge">
+                                    <i class="fa fa-check-circle"></i> Verified
+                                </span>
+                            </div>
+                        </div>
+
+                        <div class="form-group">
+                            <label for="department">Department</label>
+                            <div class="input-with-icon">
+                                <input type="text" id="department" name="department" value="<?php echo htmlspecialchars($userData['Department'] ?? ''); ?>" readonly>
+                            </div>
+                        </div>
+                    </div>
+
+                    <div class="form-row">
+                        <?php if ($userRole == 'Student'): ?>
+                        <div class="form-group">
+                            <label for="program">Program</label>
+                            <div class="input-with-icon">
+                                <input type="text" id="program" name="program" value="<?php echo htmlspecialchars($userData['Program'] ?? ''); ?>" readonly>
+                            </div>
+                        </div>
+
+                        <div class="form-group">
+                            <label for="yearSection">Year & Section</label>
+                            <div class="input-with-icon">
+                                <input type="text" id="yearSection" name="yearSection" value="<?php echo htmlspecialchars($userData['YearSection'] ?? ''); ?>" readonly>
+                            </div>
+                        </div>
+                        <?php elseif ($userRole == 'Teacher'): ?>
+                        <div class="form-group">
+                            <label for="position">Position</label>
+                            <div class="input-with-icon">
+                                <input type="text" id="position" name="position" value="<?php echo htmlspecialchars($userData['Position'] ?? ''); ?>" readonly>
+                            </div>
+                        </div>
+
+                        <div class="form-group">
+                            <label for="specialization">Specialization</label>
+                            <div class="input-with-icon">
+                                <input type="text" id="specialization" name="specialization" value="<?php echo htmlspecialchars($userData['Specialization'] ?? ''); ?>" readonly>
+                            </div>
+                        </div>
+                        <?php endif; ?>
+                    </div>
+                </div>
+            </div>
+
+            <?php if ($userRole == 'Student'): ?>
+            <!-- Account Status Section for Students -->
+            <div class="profile-card">
+                <div class="card-header bg-modal">
+                    <h2 class="bold-personal">Account Status</h2>
+                    <p>Your current account standing</p>
+                </div>
+                <div class="status-section">
+                    <?php if ($userData['PenaltyStatus'] === 'banned'): ?>
+                        <?php
+                        // Get current penalty details
+                        $penaltyStmt = $conn->prepare("
+                            SELECT p.reason, p.descriptions, p.issued_at, p.expires_at,
+                                   CONCAT(da.FirstName, ' ', da.LastName) as issued_by_name
+                            FROM penalty p
+                            LEFT JOIN dept_admin da ON p.issued_by = da.AdminID
+                            WHERE p.student_id = ? AND p.status = 'active'
+                            ORDER BY p.issued_at DESC LIMIT 1
+                        ");
+                        $penaltyStmt->bind_param("i", $userId);
+                        $penaltyStmt->execute();
+                        $penaltyResult = $penaltyStmt->get_result();
+                        $penaltyInfo = $penaltyResult->fetch_assoc();
+                        ?>
+                        
+                        <div class="alert alert-danger">
+                            <div class="status-header">
+                                <i class="fa fa-ban fa-2x"></i>
+                                <div class="status-text">
+                                    <h4>Account Banned</h4>
+                                    <p>Your account has been temporarily suspended</p>
+                                </div>
+                            </div>
+                            
+                            <?php if ($penaltyInfo): ?>
+                            <div class="penalty-details">
+                                <div class="detail-row">
+                                    <strong>Reason:</strong> <?php echo htmlspecialchars($penaltyInfo['reason']); ?>
+                                </div>
+                                
+                                <?php if ($penaltyInfo['descriptions']): ?>
+                                <div class="detail-row">
+                                    <strong>Details:</strong> <?php echo htmlspecialchars($penaltyInfo['descriptions']); ?>
+                                </div>
+                                <?php endif; ?>
+                                
+                                <div class="detail-row">
+                                    <strong>Issued:</strong> <?php echo date('M d, Y h:i A', strtotime($penaltyInfo['issued_at'])); ?>
+                                    by <?php echo htmlspecialchars($penaltyInfo['issued_by_name']); ?>
+                                </div>
+                                
+                                <?php if ($penaltyInfo['expires_at']): ?>
+                                <div class="detail-row">
+                                    <strong>Expires:</strong> <?php echo date('M d, Y h:i A', strtotime($penaltyInfo['expires_at'])); ?>
+                                </div>
+                                <?php else: ?>
+                                <div class="detail-row">
+                                    <strong>Duration:</strong> Permanent (contact your department admin)
+                                </div>
+                                <?php endif; ?>
+                            </div>
+                            <?php endif; ?>
+                            
+                            <div class="ban-restrictions">
+                                <h5><i class="fa fa-exclamation-triangle"></i> Restrictions:</h5>
+                                <ul>
+                                    <li>Cannot make room reservations</li>
+                                    <li>Cannot report equipment issues</li>
+                                    <li>Limited access to system features</li>
+                                </ul>
+                                <p class="contact-info">
+                                    <strong>Need help?</strong> Contact your department administrator to appeal this decision.
+                                </p>
+                            </div>
+                        </div>
+                    <?php else: ?>
+                        <div class="alert alert-success">
+                            <div class="status-header">
+                                <i class="fa fa-check-circle fa-2x"></i>
+                                <div class="status-text">
+                                    <h4>Account Active</h4>
+                                    <p>Your account is in good standing</p>
+                                </div>
+                            </div>
+                            <div class="active-benefits">
+                                <h5><i class="fa fa-check"></i> Available Services:</h5>
+                                <ul>
+                                    <li>Make room reservations</li>
+                                    <li>Report equipment issues</li>
+                                    <li>Full access to all system features</li>
+                                </ul>
+                            </div>
+                        </div>
+                    <?php endif; ?>
+                </div>
+            </div>
+            <?php endif; ?>
+
+            <div class="profile-card">
+                <div class="card-header bg-modal">
+                    <h2 class="bold-personal">Password & Security</h2>
+                    <p>Update your password and security settings</p>
+                </div>
+                <div class="security-section">
+                    <div class="security-actions">
+                        <button type="button" class="btn btn-action btn-secondary" data-toggle="modal" data-target="#changePasswordModal">
+                            <i class="fa fa-lock mr-2"></i> Change Password
+                        </button>
+                        <button type="button" class="btn btn-action btn-danger" data-toggle="modal" data-target="#deleteAccountModal">
+                            <i class="fa fa-trash mr-2"></i> Delete Account
+                        </button>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </div>
+</div>
+
+<!-- Change Password Modal -->
+<div class="modal" id="changePasswordModal" tabindex="-1" role="dialog">
+    <div class="modal-dialog" role="document">
+        <div class="modal-content">
+            <div class="alert-style-modal">
+                <button type="button" class="close" data-dismiss="modal" aria-label="Close">
+                    <span aria-hidden="true">&times;</span>
+                </button>
+                <h5>Change Password</h5>
+                <!-- Add error message display -->
+                <div id="passwordChangeError" class="modal-error-message" style="display: none;"></div>
+                <form id="passwordChangeForm" action="change_password_process.php" method="post">
+                    <div class="password-form-group">
+                        <label for="currentPassword">Current Password</label>
+                        <div class="input-with-icon">
+                            <input type="password" class="form-control" id="currentPassword" name="currentPassword" required>
+                            <span class="toggle-password" data-target="currentPassword">
+                                <svg width="20" height="20" viewBox="0 0 20 20" fill="none" xmlns="http://www.w3.org/2000/svg">
+                                    <path d="M2 10C3.5 6 7 3 10 3C13 3 16.5 6 18 10C16.5 14 13 17 10 17C7 17 3.5 14 2 10Z" stroke="#888" stroke-width="2" fill="none"/>
+                                    <circle cx="10" cy="10" r="3" stroke="#888" stroke-width="2" fill="none"/>
+                                </svg>
+                            </span>
+                        </div>
+                    </div>
+                    <div class="password-form-group">
+                        <label for="newPassword">New Password</label>
+                        <div class="input-with-icon">
+                            <input type="password" class="form-control" id="newPassword" name="newPassword" required>
+                            <span class="toggle-password" data-target="newPassword">
+                                <svg width="20" height="20" viewBox="0 0 20 20" fill="none" xmlns="http://www.w3.org/2000/svg">
+                                    <path d="M2 10C3.5 6 7 3 10 3C13 3 16.5 6 18 10C16.5 14 13 17 10 17C7 17 3.5 14 2 10Z" stroke="#888" stroke-width="2" fill="none"/>
+                                    <circle cx="10" cy="10" r="3" stroke="#888" stroke-width="2" fill="none"/>
+                                </svg>
+                            </span>
+                        </div>
+                        <small class="password-hint">Password must be at least 8 characters long</small>
+                    </div>
+                    <div class="password-form-group">
+                        <label for="confirmPassword">Confirm New Password</label>
+                        <div class="input-with-icon">
+                            <input type="password" class="form-control" id="confirmPassword" name="confirmPassword" required>
+                            <span class="toggle-password" data-target="confirmPassword">
+                                <svg width="20" height="20" viewBox="0 0 20 20" fill="none" xmlns="http://www.w3.org/2000/svg">
+                                    <path d="M2 10C3.5 6 7 3 10 3C13 3 16.5 6 18 10C16.5 14 13 17 10 17C7 17 3.5 14 2 10Z" stroke="#888" stroke-width="2" fill="none"/>
+                                    <circle cx="10" cy="10" r="3" stroke="#888" stroke-width="2" fill="none"/>
+                                </svg>
+                            </span>
+                        </div>
+                    </div>
+                    <div class="alert-actions">
+                        <button type="button" class="btn-action btn-secondary" data-dismiss="modal">Cancel</button>
+                        <button type="submit" class="btn-action btn-primary">Update Password</button>
+                    </div>
+                </form>
+            </div>
+        </div>
+    </div>
+</div>
+
+<!-- Delete Account Modal -->
+<div class="modal" id="deleteAccountModal" tabindex="-1" role="dialog">
+    <div class="modal-dialog" role="document">
+        <div class="modal-content">
+            <div class="alert-style-modal delete-modal">
+                <button type="button" class="close" data-dismiss="modal" aria-label="Close">
+                    <span aria-hidden="true">&times;</span>
+                </button>
+                <h5>Delete Account</h5>
+                <p class="delete-warning">Warning: This action cannot be undone. All your data will be permanently deleted.</p>
+                <!-- Add error message display -->
+                <div id="deleteAccountError" class="modal-error-message" style="display: none;"></div>
+                <form id="deleteAccountForm" action="delete_account_process.php" method="post">
+                    <div class="password-form-group">
+                        <label for="verifyPassword">Enter your password to confirm</label>
+                        <div class="input-with-icon">
+                            <input type="password" class="form-control" id="verifyPassword" name="verifyPassword" required>
+                            <span class="toggle-password" data-target="verifyPassword">
+                                <svg width="20" height="20" viewBox="0 0 20 20" fill="none" xmlns="http://www.w3.org/2000/svg">
+                                    <path d="M2 10C3.5 6 7 3 10 3C13 3 16.5 6 18 10C16.5 14 13 17 10 17C7 17 3.5 14 2 10Z" stroke="#888" stroke-width="2" fill="none"/>
+                                    <circle cx="10" cy="10" r="3" stroke="#888" stroke-width="2" fill="none"/>
+                                </svg>
+                            </span>
+                        </div>
+                    </div>
+                    <div class="alert-actions">
+                        <button type="button" class="btn-action btn-secondary" data-dismiss="modal">Cancel</button>
+                        <button type="submit" class="btn-action btn-danger">Delete Account</button>
+                    </div>
+                </form>
+            </div>
+        </div>
+    </div>
+</div>
+
+<?php include "../partials/footer.php"; ?>
+
+<script>
+    document.addEventListener('DOMContentLoaded', function() {
+        // Password match validation
+        const passwordForm = document.getElementById('passwordChangeForm');
+        const newPassword = document.getElementById('newPassword');
+        const confirmPassword = document.getElementById('confirmPassword');
+        const currentPasswordInput = document.getElementById('currentPassword');
+
+        if (passwordForm) {
+            passwordForm.addEventListener('submit', function(event) {
+                // Get values
+                const currentVal = currentPasswordInput.value;
+                const newVal = newPassword.value;
+                const confirmVal = confirmPassword.value;
+                const errorElement = document.getElementById('passwordChangeError');
+                errorElement.style.display = 'none';
+                errorElement.textContent = '';
+
+                // Check if new password matches confirmation
+                if (newVal !== confirmVal) {
+                    event.preventDefault();
+                    errorElement.textContent = 'New password and confirmation do not match.';
+                    errorElement.style.display = 'block';
+                    return;
+                }
+
+                // Check password length
+                if (newVal.length < 8) {
+                    event.preventDefault();
+                    errorElement.textContent = 'Password must be at least 8 characters long.';
+                    errorElement.style.display = 'block';
+                    return;
+                }
+
+                // Check if new password is same as current
+                if (currentVal === newVal) {
+                    event.preventDefault();
+                    errorElement.textContent = 'New password must be different from your current password.';
+                    errorElement.style.display = 'block';
+                    return;
+                }
+
+                // Check if new password is too similar (e.g., only 1 char different)
+                let diffCount = 0;
+                for (let i = 0; i < Math.max(currentVal.length, newVal.length); i++) {
+                    if (currentVal[i] !== newVal[i]) diffCount++;
+                }
+                if (diffCount <= 1 && currentVal.length === newVal.length) {
+                    event.preventDefault();
+                    errorElement.textContent = 'New password is too similar to your current password.';
+                    errorElement.style.display = 'block';
+                    return;
+                }
+            });
+        }
+
+        // Delete account confirmation
+        const deleteAccountForm = document.getElementById('deleteAccountForm');
+        if (deleteAccountForm) {
+            deleteAccountForm.addEventListener('submit', function(event) {
+                if (!confirm('Are you absolutely sure you want to delete your account? This action cannot be undone.')) {
+                    event.preventDefault();
+                }
+            });
+        }
+
+        // Check URL for error parameters
+        const urlParams = new URLSearchParams(window.location.search);
+        const errorType = urlParams.get('error_type');
+        const errorMsg = urlParams.get('error_msg');
+
+        // Handle error messages from redirects
+        if (errorType === 'password_change' && errorMsg) {
+            // Show password change modal with error
+            $('#changePasswordModal').modal('show');
+            const errorElement = document.getElementById('passwordChangeError');
+            errorElement.textContent = decodeURIComponent(errorMsg);
+            errorElement.style.display = 'block';
+        } else if (errorType === 'delete_account' && errorMsg) {
+            // Show delete account modal with error
+            $('#deleteAccountModal').modal('show');
+            const errorElement = document.getElementById('deleteAccountError');
+            errorElement.textContent = decodeURIComponent(errorMsg);
+            errorElement.style.display = 'block';
+        }
+
+        // Current password focus handling
+        if (currentPasswordInput) {
+            $('#changePasswordModal').on('shown.bs.modal', function() {
+                currentPasswordInput.focus();
+                // Clear any previous error
+                document.getElementById('passwordChangeError').style.display = 'none';
+            });
+        }
+
+        // Verify password focus handling
+        const verifyPasswordInput = document.getElementById('verifyPassword');
+        if (verifyPasswordInput) {
+            $('#deleteAccountModal').on('shown.bs.modal', function() {
+                verifyPasswordInput.focus();
+                // Clear any previous error
+                document.getElementById('deleteAccountError').style.display = 'none';
+            });
+        }
+
+        // Show/hide password toggle
+        document.querySelectorAll('.toggle-password').forEach(function(toggle) {
+            toggle.addEventListener('click', function() {
+                const targetId = toggle.getAttribute('data-target');
+                const input = document.getElementById(targetId);
+                if (input) {
+                    if (input.type === 'password') {
+                        input.type = 'text';
+                        toggle.classList.add('active');
+                    } else {
+                        input.type = 'password';
+                        toggle.classList.remove('active');
+                    }
+                }
+            });
+        });
+
+        // Add this function to your existing script
+        function setupErrorMessageFade() {
+            // Get all error message elements
+            const errorMessages = document.querySelectorAll('.modal-error-message');
+
+            errorMessages.forEach(message => {
+                if (message.style.display !== 'none') {
+                    // Set a timeout to fade the message after 5 seconds
+                    setTimeout(function() {
+                        // Add fade-out class
+                        message.classList.add('fade-out');
+
+                        // Hide after animation completes
+                        setTimeout(function() {
+                            message.style.display = 'none';
+                            message.classList.remove('fade-out');
+                        }, 1000);
+                    }, 5000);
+                }
+            });
+        }
+
+        // Call the function when showing error messages
+        if (errorType === 'password_change' && errorMsg || errorType === 'delete_account' && errorMsg) {
+            setupErrorMessageFade();
+        }
+    });
+</script>
+
+<!-- Chatbot Widget -->
+<?php include "layout/chatbot-layout.php"; ?>

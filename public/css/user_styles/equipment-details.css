@@ -1,0 +1,104 @@
+/* Equipment details styling */
+.equipment-item {
+  border: 1px solid #eee;
+  border-radius: 5px;
+  padding: 15px;
+  margin-bottom: 15px;
+  background-color: #f9f9f9;
+  transition: all 0.2s ease;
+}
+
+.equipment-item:hover {
+  box-shadow: 0 2px 5px rgba(0, 0, 0, 0.1);
+}
+
+.equipment-header {
+  display: flex;
+  align-items: center;
+  margin-bottom: 10px;
+}
+
+.equipment-name {
+  font-weight: bold;
+  font-size: 16px;
+  color: #333;
+  display: block;
+}
+
+.equipment-status-item {
+  display: flex;
+  align-items: center;
+  margin-bottom: 5px;
+  padding: 3px 0;
+}
+
+.status-indicator {
+  padding: 3px 8px;
+  border-radius: 28px;
+  font-size: 12px;
+  font-weight: 500;
+  margin-right: 10px;
+}
+
+.status-indicator.status-working {
+  background-color: #d4edda;
+  color: #155724;
+}
+
+.status-indicator.status-needs-repair,
+.status-indicator.status-maintenance {
+  background-color: #fff3cd;
+  color: #856404;
+}
+
+.status-indicator.status-missing {
+  background-color: #f8d7da;
+  color: #721c24;
+}
+
+.quantity {
+  font-size: 13px;
+  color: #666;
+  margin-right: 10px;
+}
+
+.warning-icon {
+  color: #ffc107;
+  margin-left: 5px;
+}
+
+.warning-icon i {
+  font-size: 14px;
+}
+
+.equipment-description {
+  font-size: 13px;
+  color: #666;
+  line-height: 1.4;
+  margin-top: 8px;
+  padding-top: 8px;
+  border-top: 1px dashed #eee;
+}
+
+.equipment-loading {
+  padding: 15px;
+  text-align: center;
+  color: #6c757d;
+}
+
+.equipment-loading i {
+  margin-right: 8px;
+}
+
+.equipment-error {
+  color: #dc3545;
+  text-align: center;
+  padding: 10px;
+}
+
+.no-equipment {
+  color: #6c757d;
+  text-align: center;
+  padding: 15px;
+  font-style: italic;
+}

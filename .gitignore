@@ -1,0 +1,46 @@
+# Sensitive configuration files
+department-admin/config/email_config.php
+
+# Environment files
+.env
+.env.local
+.env.production
+
+# API Keys and secrets
+**/config/*_config.php
+!**/config/*.template
+!**/config/*.example
+
+# Uploaded files that might contain sensitive data
+uploads/equipment_issues/*
+uploads/exports/*
+uploads/qr_temp/*
+
+# Temporary files
+*.tmp
+*.temp
+temp/
+tmp/
+
+# System files
+.DS_Store
+Thumbs.db
+desktop.ini
+
+# IDE and editor files
+.vscode/
+.idea/
+*.sublime-*
+
+# Log files
+*.log
+logs/
+
+# Cache files
+cache/
+*.cache
+
+# Backup files
+*.backup
+*.bak
+*~
