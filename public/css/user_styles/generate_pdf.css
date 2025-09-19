@@ -1,0 +1,388 @@
+
+body {
+    font-family: 'Times New Roman', Times, serif;
+    line-height: 1.6;
+    font-size: 12pt;
+    max-width: 216mm;
+    margin: 0 auto;
+    padding: 20px;
+    box-sizing: border-box;
+    position: relative;
+    background-color: #f8f8f5;
+}
+
+#pdf-content {
+    width: 216mm;
+    min-height: 356mm;
+    max-height: 356mm;
+    margin: 0 auto;
+    padding: 10mm 25mm 0 25mm;
+    box-sizing: border-box;
+    position: relative;
+    background-color: #fff;
+    box-shadow: none;
+    border: none;
+    color: #000;
+    overflow: hidden;
+}
+
+.watermark {
+    position: absolute;
+    top: 50%;
+    left: 50%;
+    transform: translate(-50%, -50%) rotate(45deg);
+    font-size: 80px;
+    opacity: 0.15;
+    z-index: -1;
+    font-weight: bold;
+    text-align: center;
+    width: 100%;
+    font-family: 'Times New Roman', Times, serif;
+}
+
+.approved {
+    color: #006400;
+}
+
+.rejected {
+    color: #8B0000;
+}
+
+.header {
+    text-align: center;
+    margin-bottom: 15px;
+    padding-bottom: 5px;
+}
+
+.logo {
+    width: 60px;
+    height: auto;
+    margin: 0 auto 5px;
+    display: block;
+}
+
+h1 {
+    font-size: 18pt;
+    margin: 5px 0 3px;
+    font-weight: bold;
+    color: #111;
+}
+
+.subtitle {
+    font-size: 12pt;
+    margin: 2px 0;
+    font-style: italic;
+}
+
+.office-title {
+    font-size: 14pt;
+    font-weight: bold;
+    margin: 5px 0 2px;
+    color: #333;
+}
+
+.form-title {
+    font-size: 12pt;
+    margin: 2px 0;
+}
+
+.horizontal-line {
+    border-top: 1px solid #000;
+    margin: 15px 0;
+    opacity: 0.7;
+}
+
+.date-line {
+    margin: 10px 0;
+    text-align: left;
+    font-weight: normal;
+}
+
+.addressee {
+    margin: 15px 0;
+    font-weight: bold;
+    letter-spacing: 0.5px;
+}
+
+.thru-line {
+    margin: 10px 0;
+    font-weight: normal;
+}
+
+.subject-line {
+    margin: 15px 0;
+    text-decoration: underline;
+}
+
+.salutation {
+    margin: 15px 0;
+}
+
+.content {
+    margin: 15px 0;
+    text-indent: 40px;
+    text-align: justify;
+    line-height: 1.6;
+}
+
+.form-fields {
+    margin: 15px 0;
+    padding-left: 15px;
+}
+
+.form-field {
+    margin-bottom: 8px;
+    display: flex;
+}
+
+.form-label {
+    width: 200px;
+    font-weight: normal;
+    color: #444;
+}
+
+.form-value {
+    flex-grow: 1;
+    border-bottom: 1px dotted #ccc;
+    padding-bottom: 2px;
+    font-weight: 500;
+}
+
+.agreement {
+    text-align: center;
+    margin: 10px 0;
+    font-style: italic;
+    font-size: 10pt;
+    color: #444;
+}
+
+.signatures {
+    margin-top: 10px;
+}
+
+.signature-row {
+    display: flex;
+    justify-content: space-around;
+    margin-bottom: 15px;
+}
+
+.signature {
+    text-align: center;
+    width: 45%;
+}
+
+.signature-line {
+    border-top: 1px solid #000;
+    margin-top: 20px;
+    margin-bottom: 2px;
+    width: 80%;
+    margin-left: auto;
+    margin-right: auto;
+}
+
+.signature-label {
+    font-size: 8pt;
+    text-align: center;
+    color: #444;
+    font-weight: 500;
+    margin-bottom: 1px;
+}
+
+.noted-signature {
+    text-align: center;
+    margin-top: 10px;
+}
+
+.button-container {
+    text-align: center;
+    margin: 20px 0;
+    padding: 10px;
+    background-color: #f5f5f5;
+    border-radius: 5px;
+    position: sticky;
+    top: 0;
+    z-index: 100;
+    box-shadow: 0 2px 4px rgba(0, 0, 0, 0.1);
+}
+
+.action-button {
+    margin: 0 10px;
+    padding: 10px 20px;
+    background-color: #1f71ae;
+    color: white;
+    border: none;
+    border-radius: 4px;
+    cursor: pointer;
+    font-size: 14px;
+    transition: background-color 0.3s ease;
+}
+
+.action-button:hover {
+    background-color: #165b8e;
+}
+
+#backButton {
+    background-color: #6c757d;
+}
+
+#backButton:hover {
+    background-color: #5a6268;
+}
+
+.no-print {
+    display: none;
+}
+
+/* Responsive styles for mobile devices */
+@media only screen and (max-width: 768px) {
+    body {
+        font-size: 11pt;
+        padding: 10px;
+    }
+
+    #pdf-content {
+        width: 100%;
+        padding: 10px 15px 0 15px;
+        margin: 0;
+        min-height: auto;
+        max-height: none;
+        overflow: visible;
+    }
+
+    /* Preserve PDF dimensions when generating PDF on mobile */
+    body.pdf-generating {
+        font-size: 12pt;
+        padding: 20px;
+        max-width: 216mm;
+    }
+
+    body.pdf-generating #pdf-content {
+        width: 216mm;
+        min-height: 356mm;
+        max-height: 356mm;
+        padding: 10mm 25mm 0 25mm;
+        overflow: hidden;
+    }
+
+    /* Ensure agreement and signatures are visible on mobile during PDF generation */
+    body.pdf-generating .agreement,
+    body.pdf-generating .signatures {
+        display: block !important;
+        visibility: visible !important;
+    }
+
+    body.pdf-generating .signature-row {
+        display: flex !important;
+        justify-content: space-around !important;
+        flex-direction: row !important;
+    }
+
+    body.pdf-generating .signature {
+        width: 45% !important;
+        text-align: center !important;
+        margin-bottom: 15px !important;
+    }
+
+    .button-container {
+        display: flex;
+        flex-direction: column;
+        align-items: center;
+        padding: 10px 5px;
+    }
+
+    .action-button {
+        margin: 5px 0;
+        width: 100%;
+        max-width: 250px;
+    }
+
+    .logo {
+        width: 50px;
+    }
+
+    h1 {
+        font-size: 16pt;
+    }
+
+    .office-title {
+        font-size: 13pt;
+    }
+
+    .form-field {
+        flex-direction: column;
+        margin-bottom: 15px;
+    }
+
+    .form-label {
+        width: 100%;
+        margin-bottom: 3px;
+    }
+
+    .signature-row {
+        flex-direction: column;
+        align-items: center;
+    }
+
+    .signature {
+        width: 90%;
+        margin-bottom: 20px;
+    }
+}
+
+/* Small mobile devices */
+@media only screen and (max-width: 480px) {
+    body {
+        font-size: 10pt;
+        padding: 5px;
+    }
+
+    #pdf-content {
+        padding: 5px 10px 0 10px;
+    }
+
+    /* Preserve PDF dimensions when generating PDF on small mobile */
+    body.pdf-generating {
+        font-size: 12pt;
+        padding: 20px;
+    }
+
+    body.pdf-generating #pdf-content {
+        width: 216mm;
+        min-height: 356mm;
+        max-height: 356mm;
+        padding: 10mm 25mm 0 25mm;
+        overflow: hidden;
+    }
+
+    /* Ensure agreement and signatures are visible on small mobile during PDF generation */
+    body.pdf-generating .agreement,
+    body.pdf-generating .signatures {
+        display: block !important;
+        visibility: visible !important;
+    }
+
+    body.pdf-generating .signature-row {
+        display: flex !important;
+        justify-content: space-around !important;
+        flex-direction: row !important;
+    }
+
+    body.pdf-generating .signature {
+        width: 45% !important;
+        text-align: center !important;
+        margin-bottom: 15px !important;
+    }
+
+    h1 {
+        font-size: 14pt;
+    }
+
+    .date-line,
+    .addressee,
+    .thru-line,
+    .subject-line,
+    .salutation,
+    .content {
+        margin: 8px 0;
+    }
+}
