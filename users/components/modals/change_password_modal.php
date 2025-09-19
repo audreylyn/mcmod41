@@ -1,6 +1,6 @@
 <!-- Change Password Modal -->
 <div class="modal" id="changePasswordModal" tabindex="-1" role="dialog">
-    <div class="modal-dialog" role="document">
+    <div class="modal-dialog modal-dialog-centered" role="document">
         <div class="modal-content">
             <div class="alert-style-modal">
                 <button type="button" class="close" data-dismiss="modal" aria-label="Close">

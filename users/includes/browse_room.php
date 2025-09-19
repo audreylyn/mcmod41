@@ -6,6 +6,9 @@ $userId = $_SESSION['user_id'];
 // Determine if this user should be restricted to their department
 $isRestrictedUser = in_array($userRole, ['Student', 'Teacher']);
 
+// Variable to store student ban status
+$isStudentBanned = false;
+
 // Get DB connection and user's department/buildings when user is restricted
 if ($isRestrictedUser) {
     require_once '../auth/dbh.inc.php';
@@ -13,7 +16,7 @@ if ($isRestrictedUser) {
 
     $user_department = '';
     if ($userRole === 'Student') {
-        $stmt = $conn->prepare("SELECT Department FROM student WHERE StudentID = ?");
+        $stmt = $conn->prepare("SELECT Department, PenaltyStatus FROM student WHERE StudentID = ?");
     } else {
         $stmt = $conn->prepare("SELECT Department FROM teacher WHERE TeacherID = ?");
     }
@@ -24,6 +27,11 @@ if ($isRestrictedUser) {
         $res = $stmt->get_result();
         if ($res && $row = $res->fetch_assoc()) {
             $user_department = $row['Department'];
+            
+            // If it's a student, check their penalty status
+            if ($userRole === 'Student' && isset($row['PenaltyStatus'])) {
+                $isStudentBanned = ($row['PenaltyStatus'] === 'banned');
+            }
         }
         $stmt->close();
     }

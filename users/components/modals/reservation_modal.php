@@ -1,7 +1,7 @@
 
 <!-- Reservation Modal -->
 <div class="modal fade" id="reservationModal" tabindex="-1" role="dialog" aria-labelledby="reservationModalLabel" aria-hidden="true">
-    <div class="modal-dialog modal-lg" role="document">
+    <div class="modal-dialog modal-lg modal-dialog-centered modal-dialog-scrollable" role="document">
         <div class="modal-content">
             <div class="modal-header">
                 <div class="modal-header-content">
@@ -73,8 +73,8 @@
                                     $tomorrow = date('Y-m-d', strtotime('+1 day'));
                                     ?>
                                     <input type="date" id="reservationDate" name="reservationDate" class="form-control date-input" min="<?php echo $tomorrow; ?>" value="<?php echo $tomorrow; ?>" required>
-                                    <small class="form-text text-muted">You can only select tomorrow or later dates</small>
                                 </div>
+                                <small class="form-text text-muted">You can only select tomorrow or later dates</small>
                             </div>
 
                             <div class="form-group">
@@ -158,3 +158,244 @@
         </div>
     </div>
 </div>
+
+<!-- Add responsive styles for the reservation modal -->
+<style>
+    /* Input field icons styling */
+    #reservationModal .date-input-container,
+    #reservationModal .time-input-container {
+        position: relative;
+    }
+    
+    #reservationModal .date-input-icon,
+    #reservationModal .time-input-icon {
+        position: absolute;
+        left: 12px;
+        top: 50%;
+        transform: translateY(-50%);
+        z-index: 10;
+        color: #6c757d;
+        font-size: 16px;
+    }
+    
+    #reservationModal .date-input,
+    #reservationModal .time-input {
+        padding-left: 35px !important;
+        height: 40px;
+    }
+    
+    /* Fix for date input specific appearance */
+    #reservationModal input[type="date"].date-input {
+        -webkit-appearance: none;
+        appearance: none;
+        background-color: #fff;
+    }
+    
+    #reservationModal .duration-container {
+        margin-top: 5px;
+    }
+    
+    #reservationModal .duration-input-group {
+        display: flex;
+        align-items: center;
+        flex-wrap: nowrap;
+        gap: 8px;
+    }
+    
+    #reservationModal .duration-label {
+        color: #6c757d;
+        font-size: 14px;
+        margin: 0 15px 0 5px;
+        min-width: 45px;
+    }
+    
+    #reservationModal .duration-input-group input {
+        text-align: center;
+        padding-right: 5px;
+        padding-left: 5px;
+        min-width: 60px;
+    }
+    
+    /* General responsive improvements */
+    @media (max-width: 768px) {
+        #reservationModal .modal-dialog {
+            margin: 10px auto;
+            max-width: calc(100% - 30px);
+            width: 100%;
+        }
+        
+        #reservationModal .modal-content {
+            border-radius: 12px;
+            box-shadow: 0 2px 10px rgba(0,0,0,0.1);
+        }
+        
+        /* Modal header improvements */
+        #reservationModal .modal-header {
+            padding: 15px;
+            border-bottom: 1px solid #e9ecef;
+        }
+        
+        #reservationModal .modal-header-content {
+            padding-right: 20px;
+        }
+        
+        #reservationModal .modal-title {
+            font-size: 18px;
+            margin-bottom: 2px;
+        }
+        
+        #reservationModal .modal-subtitle {
+            font-size: 13px;
+            color: #6c757d;
+            margin: 0;
+        }
+        
+        /* Add padding to the modal body to avoid full-width appearance */
+        #reservationModal .modal-body {
+            padding: 15px;
+            max-height: 75vh;
+            overflow-y: auto;
+        }
+        
+        #reservationModal .reservation-card {
+            padding: 5px 10px;
+            background-color: #fff;
+            border-radius: 8px;
+            margin: 0 auto;
+            max-width: 95%;
+        }
+        
+        /* Improve spacing in form fields */
+        #reservationModal .form-group {
+            margin-bottom: 15px;
+        }
+        
+        #reservationModal .form-label {
+            font-size: 14px;
+            margin-bottom: 5px;
+        }
+        
+        #reservationModal .form-control {
+            font-size: 14px;
+            padding: 8px 12px;
+        }
+        
+        /* Buttons alignment */
+        #reservationModal .modal-btns {
+            margin-top: 20px;
+        }
+        
+        /* Improve icon positioning in input fields */
+        #reservationModal .date-input-container,
+        #reservationModal .time-input-container {
+            position: relative;
+            display: flex;
+            align-items: center;
+        }
+        
+        #reservationModal .date-input-icon,
+        #reservationModal .time-input-icon {
+            position: absolute;
+            left: 10px;
+            top: 50%;
+            transform: translateY(-50%);
+            color: #6c757d;
+            z-index: 10;
+            pointer-events: none;
+        }
+        
+        #reservationModal .date-input,
+        #reservationModal .time-input {
+            padding-left: 35px;
+        }
+    }
+    
+    /* For very small screens */
+    /* Step progress improvements for mobile */
+    @media (max-width: 576px) {
+        #reservationModal .step-progress {
+            flex-direction: column;
+            align-items: flex-start;
+            padding: 10px 0;
+        }
+        
+        #reservationModal .step-item {
+            width: 100%;
+            margin-bottom: 10px;
+            display: flex;
+            align-items: center;
+        }
+        
+        #reservationModal .step-circle {
+            margin-right: 10px;
+            margin-bottom: 0;
+        }
+        
+        #reservationModal .step-title, 
+        #reservationModal .step-subtitle {
+            text-align: left;
+            margin-left: 0;
+        }
+        
+        /* Make buttons full width on small screens */
+        #reservationModal .modal-btns {
+            flex-direction: column;
+            gap: 10px;
+        }
+        
+        #reservationModal .btn-back,
+        #reservationModal .btn-next,
+        #reservationModal .btn-submit {
+            width: 100%;
+            margin: 0;
+        }
+    }
+    
+    @media (max-width: 375px) {
+        #reservationModal .modal-dialog {
+            margin: 10px 15px;
+            max-width: calc(100% - 30px);
+        }
+        
+        #reservationModal .modal-body {
+            padding: 12px;
+        }
+        
+        #reservationModal .reservation-card {
+            padding: 0 8px;
+        }
+        
+        #reservationModal .step-title {
+            font-size: 13px;
+            font-weight: 600;
+        }
+        
+        #reservationModal .step-subtitle {
+            font-size: 11px;
+        }
+        
+        /* Duration input adjustments for very small screens */
+        #reservationModal .duration-input-group {
+            flex-wrap: wrap;
+        }
+        
+        #reservationModal .duration-input-group input {
+            width: calc(50% - 30px);
+        }
+        
+        /* Adjust icon positioning for very small screens */
+        #reservationModal .date-input-icon,
+        #reservationModal .time-input-icon {
+            font-size: 14px;
+            left: 15px;
+            top: 12px;
+            transform: none;
+        }
+        
+        #reservationModal .date-input,
+        #reservationModal .time-input {
+            padding-left: 28px;
+            height: 38px;
+        }
+    }
+</style>

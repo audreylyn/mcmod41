@@ -9,7 +9,7 @@
                 </button>
             </div>
             <div class="modal-body">
-                <div id="reservationDetailsContent">
+                <div id="reservationDetailsContent" class="modal-content-container">
                     <!-- Content will be filled by JavaScript -->
                 </div>
             </div>

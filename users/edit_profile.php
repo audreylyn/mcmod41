@@ -33,6 +33,11 @@ require_once '../auth/room_status_handler.php';
 ?>
 
 <?php include "../partials/header.php"; ?>
+<style>
+.profile-card {
+  margin-block: 30px;
+}
+</style>
 <link href="../public/css/user_styles/edit_profile.css" rel="stylesheet">
 <link href="../public/css/user_styles/edit_profile2.css" rel="stylesheet">
 

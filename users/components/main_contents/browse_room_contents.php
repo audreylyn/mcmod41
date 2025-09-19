@@ -3,6 +3,16 @@
     <div>
         <div class="row">
             <div class="col-md-12">
+                <!-- Display banned account alert for students with banned status -->
+                <?php if ($userRole === 'Student' && $isStudentBanned): ?>
+                <div class="banned-account-alert">
+                    <div class="alert-content">
+                        <h4>Account Restricted</h4>
+                        <p>Your account has been temporarily suspended. You can browse rooms but cannot make reservations.</p>
+                    </div>
+                </div>
+                <?php endif; ?>
+                
                 <!-- Updated Search and Filter Section based on the provided image -->
                 <div class="search-filter-wrapper">
                     <div class="search-bar-container">
@@ -177,6 +187,14 @@
                 <!-- Room Display Section Stays the Same -->
                 <div class="row" id="roomsGrid">
                     <?php
+                    // Check for user role and banned status for JavaScript
+                    $jsUserRole = json_encode($userRole);
+                    $jsIsStudentBanned = json_encode($isStudentBanned);
+                    echo "<script>
+                        const userRole = {$jsUserRole};
+                        const isStudentBanned = {$jsIsStudentBanned};
+                    </script>";
+                    
                     // Start building the query with basic structure
                     $base_sql = "SELECT r.id, r.room_name, r.room_type, r.capacity, r.RoomStatus, b.id as building_id, b.building_name, 
                 (SELECT COUNT(*) FROM equipment_units eu WHERE eu.room_id = r.id) as equipment_count
@@ -317,7 +335,7 @@
                                     $statusText = "Unknown";
                             }
                     ?>
-                            <div class="col-md-4 room-card"
+                            <div class="col-md-4 room-card <?php echo ($userRole === 'Student' && $isStudentBanned) ? 'room-card-banned' : ''; ?>"
                                 data-room-id="<?php echo $roomId; ?>"
                                 data-building-id="<?php echo $buildingId; ?>"
                                 data-building-name="<?php echo htmlspecialchars($buildingName); ?>"
@@ -356,9 +374,15 @@
                                                 <i class="fa fa-info-circle"></i> View Details
                                             </button>
                                             <?php if ($status == 'available') { ?>
+                                                <?php if ($userRole === 'Student' && $isStudentBanned) { ?>
+                                                <button type="button" class="btn-reserve" disabled title="Your account is restricted">
+                                                    <i class="fa fa-ban"></i> Restricted
+                                                </button>
+                                                <?php } else { ?>
                                                 <button type="button" class="btn-reserve" onclick="showReservationModal(<?php echo $roomId; ?>)">
                                                     <i class="fa fa-calendar-plus-o"></i> Reserve
                                                 </button>
+                                                <?php } ?>
                                             <?php } else { ?>
                                                 <button type="button" class="btn-unavailable" disabled>
                                                     <i class="fa fa-calendar-times-o"></i> Unavailable

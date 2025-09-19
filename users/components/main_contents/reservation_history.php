@@ -23,20 +23,24 @@
         <h3 class="title">Reservation History</h3>
         <p class="subtitle">View your complete history of room reservations</p>
 
-        <!-- Search and Filter Row -->
-        <div class="search-filter-row">
-            <div class="search-container">
-                <i class="fa fa-search search-icon"></i>
-                <input type="text" id="searchInput" placeholder="Search by room or building...">
-            </div>
-            <div class="status-filter">
-                <span class="status-filter-label">Status:</span>
-                <select class="status-filter-select" id="statusFilter">
-                    <option value="all">All Reservations</option>
-                    <option value="approved">Approved</option>
-                    <option value="pending">Pending</option>
-                    <option value="rejected">Rejected</option>
-                </select>
+        <!-- Search and Filter Section -->
+        <div class="wrap-report">
+            <div class="search-wrapper">
+                <div class="search-wrapper-inner">
+                    <div class="search-box">
+                        <i class="fa fa-search search-icon"></i>
+                        <input type="text" id="searchInput" placeholder="Search by room or building...">
+                    </div>
+                    <div class="status-filter">
+                        <select id="statusFilter" class="filter-select">
+                            <option value="all">All Reservations</option>
+                            <option value="approved">Approved</option>
+                            <option value="pending">Pending</option>
+                            <option value="rejected">Rejected</option>
+                        </select>
+                    </div>
+                </div>
+                <a href="users_browse_room.php" class="btn-primary">Make a Reservation</a>
             </div>
         </div>
 
@@ -170,9 +174,8 @@
                             <div class="room-info">
                                 <div class="room-name">
                                     <?php echo $roomName; ?>
-                                    <span class="status-badge <?php echo $badgeClass; ?>"><?php echo $statusLabel; ?></span>
                                 </div>
-                                <div class="building-name"><?php echo $buildingName; ?></div>
+                                <span class="status-badge <?php echo $badgeClass; ?>"><?php echo $statusLabel; ?></span>
                             </div>
                             <div class="reservation-time">
                                 <div class="reservation-date">

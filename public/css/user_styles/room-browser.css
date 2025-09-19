@@ -15,7 +15,19 @@
 
 @media (max-width: 768px) {
   .view-toggle.btn-group {
-      display: none !important;
+    display: none !important;
+  }
+
+  /* Improve room grid layout on mobile */
+  #roomsGrid .col-md-4 {
+    padding-left: 8px;
+    padding-right: 8px;
+  }
+
+  /* Add more padding to container on mobile */
+  .right_col {
+    padding-left: 10px;
+    padding-right: 10px;
   }
 }
 
@@ -85,7 +97,8 @@
 }
 
 /* Filters */
-#buildingFilter, #roomTypeFilter {
+#buildingFilter,
+#roomTypeFilter {
   height: 48px;
   border-radius: 6px;
   padding-left: 15px;
@@ -159,6 +172,17 @@
   display: flex;
   flex-direction: column;
   position: relative;
+}
+
+/* Responsive room card styles */
+@media (max-width: 768px) {
+  .room-card {
+    margin-bottom: 15px;
+  }
+
+  .room-card .x_panel {
+    box-shadow: 0 1px 4px rgba(0, 0, 0, 0.08);
+  }
 }
 
 .room-card .x_panel::before {
@@ -247,6 +271,37 @@
   align-items: center;
 }
 
+/* Responsive styles for room content */
+@media (max-width: 768px) {
+  .room-card .x_title {
+    padding: 0.75rem;
+  }
+
+  .room-card .x_content {
+    padding: 0 0.75rem;
+  }
+
+  .room-info {
+    margin-bottom: 0.5rem;
+    font-size: 0.8125rem;
+  }
+}
+
+@media (max-width: 480px) {
+  .room-card .x_title h2 {
+    font-size: 1.125rem;
+  }
+
+  .room-card .x_title p {
+    font-size: 0.8125rem;
+  }
+
+  .room-card .label {
+    padding: 0.35rem 0.65rem;
+    font-size: 0.75rem;
+  }
+}
+
 .room-info:nth-child(1) {
   margin-top: 0.75rem;
 }
@@ -271,7 +326,9 @@
   gap: 1rem;
 }
 
-.btn-view, .btn-reserve, .btn-unavailable {
+.btn-view,
+.btn-reserve,
+.btn-unavailable {
   min-width: 160px;
   height: 44px;
   padding: 0.75rem 1.5rem;
@@ -285,6 +342,48 @@
   flex: 0 0 auto;
   transition: all 0.2s ease;
   cursor: pointer;
+}
+
+/* Responsive styles for action buttons */
+@media (max-width: 992px) {
+  .btn-view,
+  .btn-reserve,
+  .btn-unavailable {
+    min-width: 130px;
+    padding: 0.6rem 1rem;
+    font-size: 0.875rem;
+  }
+}
+
+@media (max-width: 768px) {
+  .action-buttons {
+    flex-direction: column;
+    padding: 0.75rem;
+    gap: 0.5rem;
+  }
+
+  .btn-view,
+  .btn-reserve,
+  .btn-unavailable {
+    width: 100%;
+    min-width: 100%;
+    height: 40px;
+    padding: 0.5rem;
+  }
+}
+
+@media (max-width: 480px) {
+  .action-buttons {
+    padding: 0.5rem;
+    gap: 0.4rem;
+  }
+
+  .btn-view,
+  .btn-reserve,
+  .btn-unavailable {
+    height: 38px;
+    font-size: 0.8125rem;
+  }
 }
 
 .btn-view {
@@ -346,7 +445,8 @@
   border: none;
   position: relative;
   border-left: 4px solid transparent;
-  background-image: linear-gradient(#fff, #fff), linear-gradient(90deg, #d1a300, #e4b22b);
+  background-image: linear-gradient(#fff, #fff),
+    linear-gradient(90deg, #d1a300, #e4b22b);
   background-origin: border-box;
   background-clip: padding-box, border-box;
 }
@@ -478,7 +578,8 @@
   .room-card.col-md-12 .x_title {
     border-left: none;
     border-top: 8px solid transparent;
-    background-image: linear-gradient(#fff, #fff), linear-gradient(90deg, #d1a300, #e4b22b);
+    background-image: linear-gradient(#fff, #fff),
+      linear-gradient(90deg, #d1a300, #e4b22b);
     background-origin: border-box;
     background-clip: padding-box, border-box;
   }
@@ -516,35 +617,35 @@
   .search-filter-container {
     padding: 1rem;
   }
-  
+
   .page-title h3 {
     font-size: 1.5rem;
   }
-  
+
   .room-card.col-md-12 .x_panel {
     flex-direction: column;
   }
-  
+
   .room-card.col-md-12 .x_title,
   .room-card.col-md-12 .x_content {
     width: 100%;
   }
-  
+
   .room-card.col-md-12 .x_title {
     border-right: none;
     border-top: 4px solid #0f4228;
   }
-  
+
   .room-card.col-md-12 .room-details {
     flex-direction: column;
     align-items: flex-start;
   }
-  
+
   .room-card.col-md-12 .room-info {
     margin-bottom: 1rem;
     margin-right: 0;
   }
-  
+
   .room-card.col-md-12 .action-buttons {
     margin-top: 1rem;
     width: 100%;
@@ -615,4 +716,4 @@
 
 .modal-body {
   padding: 1.5rem;
-} 
+}

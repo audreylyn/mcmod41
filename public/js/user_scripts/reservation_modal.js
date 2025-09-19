@@ -4,6 +4,20 @@ let isCapacityValid = true;
 
 // Store room capacity when opening the reservation modal
 function showReservationModal(roomId) {
+  // Check if student is banned - prevent reservation
+  if (
+    typeof userRole !== 'undefined' &&
+    userRole === 'Student' &&
+    typeof isStudentBanned !== 'undefined' &&
+    isStudentBanned
+  ) {
+    // Show alert instead of opening modal
+    alert(
+      'Your account is currently restricted. You cannot make room reservations at this time.'
+    );
+    return; // Stop function execution
+  }
+
   // Reset form fields
   document.getElementById('reservationForm').reset();
 

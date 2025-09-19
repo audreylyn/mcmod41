@@ -220,19 +220,7 @@
                             </div>
                         </div>
                         <?php elseif ($userRole == 'Teacher'): ?>
-                        <div class="form-group">
-                            <label for="position">Position</label>
-                            <div class="input-with-icon">
-                                <input type="text" id="position" name="position" value="<?php echo htmlspecialchars($userData['Position'] ?? ''); ?>" readonly>
-                            </div>
-                        </div>
-
-                        <div class="form-group">
-                            <label for="specialization">Specialization</label>
-                            <div class="input-with-icon">
-                                <input type="text" id="specialization" name="specialization" value="<?php echo htmlspecialchars($userData['Specialization'] ?? ''); ?>" readonly>
-                            </div>
-                        </div>
+                        <!-- Teacher-specific fields can be added here in the future if needed -->
                         <?php endif; ?>
                     </div>
                 </div>

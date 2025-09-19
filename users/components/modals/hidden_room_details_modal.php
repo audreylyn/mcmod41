@@ -3,11 +3,11 @@
                 <div class="room-details-container">
                 <div class="room-header-info">
                     <div class="row">
-                        <div class="col-md-8">
+                        <div class="col-md-8 col-xs-12">
                             <h3 class="room-name">{roomName}</h3>
                             <p class="building-name">{buildingName}</p>
                         </div>
-                        <div class="col-md-4 text-right">
+                        <div class="col-md-4 col-xs-12 text-right room-status-container">
                             <span class="label label-{statusClass}"{statusTooltip}>
                                 <i class="fa fa-{statusIcon}"></i> {statusText}
                             </span>
@@ -18,7 +18,7 @@
         <div class="room-info-section">
             <h4>Room Information</h4>
             <div class="row">
-                <div class="col-md-6">
+                <div class="col-md-6 col-sm-6 col-xs-12">
                     <div class="info-item">
                         <i class="fa fa-building"></i>
                         <div class="info-content">
@@ -27,7 +27,7 @@
                         </div>
                     </div>
                 </div>
-                <div class="col-md-6">
+                <div class="col-md-6 col-sm-6 col-xs-12">
                     <div class="info-item">
                         <i class="fa fa-th-large"></i>
                         <div class="info-content">
@@ -38,7 +38,7 @@
                 </div>
             </div>
             <div class="row">
-                <div class="col-md-6">
+                <div class="col-md-6 col-sm-6 col-xs-12">
                     <div class="info-item">
                         <i class="fa fa-users"></i>
                         <div class="info-content">
@@ -47,7 +47,7 @@
                         </div>
                     </div>
                 </div>
-                <div class="col-md-6">
+                <div class="col-md-6 col-sm-6 col-xs-12">
                     <div class="info-item">
                         <i class="fa fa-clock-o"></i>
                         <div class="info-content">
