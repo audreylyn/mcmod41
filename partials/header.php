@@ -26,7 +26,6 @@
     <link href="../public/css/user_styles/room-browser.css" rel="stylesheet">
     <link href="../public/css/user_styles/room-browser-styles.css" rel="stylesheet">
     <link href="../public/css/user_styles/room-reservation.css" rel="stylesheet">
-    <link href="../public/css/user_styles/room_status.css" rel="stylesheet">
     <link href="../public/css/user_styles/reservation_history.css" rel="stylesheet">
 
     <style>

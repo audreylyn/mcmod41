@@ -77,15 +77,7 @@ include 'includes/browse_room.php';
             <?php include "components/modals/room_details_modal.php"; ?>
             <?php include "components/modals/reservation_modal.php"; ?>
             <?php include "components/modals/hidden_room_details_modal.php"; ?>
-
-            <!-- footer content -->
-            <footer>
-                <div class="pull-right">
-                    Meycauayan College Incorporated - <a href="#">Mission || Vision || Values</a>
-                </div>
-                <div class="clearfix"></div>
-            </footer>
-            <!-- /footer content -->
+            <?php include "components/shared/footer.php"; ?>
 
             <!-- Chatbot Widget -->
             <?php include "layout/chatbot-layout.php"; ?>
@@ -134,11 +126,11 @@ include 'includes/browse_room.php';
             </script>
 
 
-            <!-- Include jQuery first if not already included earlier -->
-            <script src="https://code.jquery.com/jquery-3.6.0.min.js"></script>
-            <!-- Include external JavaScript files -->
-            <script src="../public/js/user_scripts/room-browser-scripts.js"></script>
-            <script src="../public/js/user_scripts/room-details-direct.js"></script>
-            <script src="../public/js/user_scripts/reservation_modal.js"></script>
+<!-- Include jQuery first if not already included earlier -->
+<script src="https://code.jquery.com/jquery-3.6.0.min.js"></script>
+<!-- Include external JavaScript files -->
+<script src="../public/js/user_scripts/room-browser-scripts.js"></script>
+<script src="../public/js/user_scripts/room-details-direct.js"></script>
+<script src="../public/js/user_scripts/reservation_modal.js"></script>
 
-            <?php include "../partials/footer.php"; ?>
+<?php include "../partials/footer.php"; ?>

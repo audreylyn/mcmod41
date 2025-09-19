@@ -107,19 +107,20 @@ class SendGridEmailService {
                 body { font-family: Arial, sans-serif; line-height: 1.6; color: #333; margin: 0; padding: 20px; background-color: #f4f4f4; }
                 .container { max-width: 600px; margin: 0 auto; background: white; padding: 30px; border-radius: 10px; box-shadow: 0 0 10px rgba(0,0,0,0.1); }
                 .header { background: #28a745; color: white; padding: 20px; text-align: center; border-radius: 5px; margin-bottom: 30px; }
+                .header h1 { font-size: 20px; margin: 0; }
                 .content { padding: 0 10px; }
                 .details { background: #f8f9fa; padding: 20px; border-radius: 5px; margin: 20px 0; }
                 .detail-item { margin: 10px 0; padding: 8px 0; border-bottom: 1px solid #e9ecef; }
                 .detail-item:last-child { border-bottom: none; }
                 .label { font-weight: bold; color: #495057; }
                 .footer { text-align: center; margin-top: 30px; padding-top: 20px; border-top: 1px solid #e9ecef; color: #6c757d; font-size: 14px; }
-                .success-badge { background: #28a745; color: white; padding: 5px 15px; border-radius: 20px; font-size: 14px; font-weight: bold; }
+                .success-badge { background: #28a745; color: white; padding: 3px 10px; border-radius: 15px; font-size: 12px; font-weight: bold; }
             </style>
         </head>
         <body>
             <div class='container'>
                 <div class='header'>
-                    <h1>✅ Room Reservation Approved</h1>
+                    <h1>Room Reservation Approved</h1>
                 </div>
                 
                 <div class='content'>
@@ -221,6 +222,7 @@ Please do not reply to this email.
                 body { font-family: Arial, sans-serif; line-height: 1.6; color: #333; margin: 0; padding: 20px; background-color: #f4f4f4; }
                 .container { max-width: 600px; margin: 0 auto; background: white; padding: 30px; border-radius: 10px; box-shadow: 0 0 10px rgba(0,0,0,0.1); }
                 .header { background: #dc3545; color: white; padding: 20px; text-align: center; border-radius: 5px; margin-bottom: 30px; }
+                .header h1 { font-size: 20px; margin: 0; }
                 .content { padding: 0 10px; }
                 .details { background: #f8f9fa; padding: 20px; border-radius: 5px; margin: 20px 0; }
                 .detail-item { margin: 10px 0; padding: 8px 0; border-bottom: 1px solid #e9ecef; }
@@ -228,13 +230,13 @@ Please do not reply to this email.
                 .label { font-weight: bold; color: #495057; }
                 .reason-box { background: #fff3cd; border: 1px solid #ffeaa7; padding: 15px; border-radius: 5px; margin: 15px 0; }
                 .footer { text-align: center; margin-top: 30px; padding-top: 20px; border-top: 1px solid #e9ecef; color: #6c757d; font-size: 14px; }
-                .rejected-badge { background: #dc3545; color: white; padding: 5px 15px; border-radius: 20px; font-size: 14px; font-weight: bold; }
+                .rejected-badge { background: #dc3545; color: white; padding: 3px 10px; border-radius: 15px; font-size: 12px; font-weight: bold; }
             </style>
         </head>
         <body>
             <div class='container'>
                 <div class='header'>
-                    <h1>📋 Room Reservation Update</h1>
+                    <h1>Room Reservation Update</h1>
                 </div>
                 
                 <div class='content'>
