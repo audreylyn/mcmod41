@@ -287,6 +287,7 @@ $(document).ready(function () {
     info: true,
     responsive: true,
     pageLength: 10,
+    dom: '<"top d-flex align-items-center justify-content-between mb-3"<"d-flex align-items-center"l>f>rt<"bottom"ip><"clear">',
     columnDefs: [
       { orderable: false, targets: -1 }, // Disable sorting on the actions column
     ],

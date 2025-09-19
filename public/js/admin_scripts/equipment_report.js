@@ -8,8 +8,12 @@ $(document).ready(function () {
       lengthMenu: '_MENU_',
       info: 'Showing _START_ to _END_ of _TOTAL_ entries',
     },
-    dom: 'rt<"bottom"ip><"clear">',
+    dom: '<"top d-flex align-items-center justify-content-between mb-3"<"d-flex align-items-center"l>f>rt<"bottom"ip><"clear">',
     pageLength: 10,
+    lengthMenu: [
+      [10, 25, 50, -1],
+      [10, 25, 50, 'All'],
+    ],
     ordering: true,
     columnDefs: [
       {

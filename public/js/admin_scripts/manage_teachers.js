@@ -6,7 +6,7 @@ $(document).ready(function () {
       search: '_INPUT_',
       searchPlaceholder: 'Search teachers...',
     },
-    dom: '<"top"lf>rt<"bottom"ip><"clear">',
+    dom: '<"top d-flex align-items-center justify-content-between mb-3"<"d-flex align-items-center"l>f>rt<"bottom"ip><"clear">',
     lengthMenu: [
       [10, 25, 50, -1],
       [10, 25, 50, 'All'],

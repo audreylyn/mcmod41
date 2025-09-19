@@ -8,6 +8,7 @@ $(document).ready(function () {
   if (!$.fn.DataTable.isDataTable('#studentsTable')) {
     $('#studentsTable').DataTable({
       pageLength: 10,
+      dom: '<"top d-flex align-items-center justify-content-between mb-3"<"d-flex align-items-center"l>f>rt<"bottom"ip><"clear">',
       lengthMenu: [
         [10, 25, 50, -1],
         [10, 25, 50, 'All'],
@@ -15,7 +16,8 @@ $(document).ready(function () {
       order: [[0, 'asc']],
       responsive: true,
       language: {
-        search: 'Search students:',
+        search: '_INPUT_',
+        searchPlaceholder: 'Search students...',
         lengthMenu: 'Show _MENU_ entries',
         info: 'Showing _START_ to _END_ of _TOTAL_ students',
         paginate: {

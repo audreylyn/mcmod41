@@ -20,6 +20,7 @@ include 'includes/equipment_report.php'
     <!-- DataTables CSS -->
     <link rel="stylesheet" href="https://cdn.datatables.net/1.11.5/css/jquery.dataTables.min.css">
     <link rel="stylesheet" href="../public/css/admin_styles/datatables.css">
+    <link rel="stylesheet" href="../public/css/admin_styles/datatable-fixes.css">
     <link rel="stylesheet" href="../public/css/admin_styles/equipment_report.css">
 </head>
 

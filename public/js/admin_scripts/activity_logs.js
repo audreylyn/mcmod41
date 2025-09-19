@@ -7,11 +7,15 @@ $(document).ready(function () {
       searchPlaceholder: 'Search by user, room, activity...',
       info: 'Showing _START_ to _END_ of _TOTAL_ entries',
     },
-    dom: 'rt<"bottom"p><"clear">', // Only show pagination at bottom
+    dom: '<"top d-flex align-items-center justify-content-between mb-3"<"d-flex align-items-center"l>f>rt<"bottom"ip><"clear">', // Show entries and search at top
     pageLength: 10,
     ordering: true,
     paging: true,
-    lengthChange: false, // Disable built-in length changing
+    lengthChange: true, // Enable built-in length changing
+    lengthMenu: [
+      [10, 25, 50, -1],
+      [10, 25, 50, 'All'],
+    ],
     columnDefs: [
       {
         targets: -1,
