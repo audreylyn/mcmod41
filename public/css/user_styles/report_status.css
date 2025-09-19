@@ -1,0 +1,41 @@
+.search-wrapper {
+  display: flex;
+  justify-content: space-between;
+  align-items: center;
+  gap: 15px;
+  width: 100%;
+  max-width: 100%;
+  flex-wrap: wrap;
+}
+
+.search-wrapper-inner {
+  display: flex;
+  gap: 15px;
+  flex-wrap: nowrap;
+}
+
+.rejection-reason {
+  background-color: #fff3f3;
+  border-left: 4px solid #dc3545;
+  padding: 12px 15px;
+  margin-top: 8px;
+  border-radius: 4px;
+}
+
+.rejection-reason p {
+  margin: 0;
+  color: #721c24;
+}
+
+.report-id {
+  font-weight: bold;
+  color: #0056b3;
+  font-size: 1.1em;
+  letter-spacing: 0.5px;
+}
+
+@media screen and (max-width: 768px) {
+  .search-wrapper-inner {
+    flex-wrap: wrap;
+  }
+}
