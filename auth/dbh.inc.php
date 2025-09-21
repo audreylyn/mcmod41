@@ -1,44 +1,46 @@
 <?php
-// Start session if not already started
 if (session_status() === PHP_SESSION_NONE) {
     session_start();
 }
 
-// Set timezone to UTC
 date_default_timezone_set('UTC');
 
-// Centralized database connection (singleton)
 function db(): mysqli
 {
     static $conn = null;
 
-    if ($conn instanceof mysqli) {
-        // Ensure the connection is alive; reconnect if needed
-        if (@$conn->ping()) {
-            return $conn;
-        }
+    if ($conn instanceof mysqli && @$conn->ping()) {
+        return $conn;
     }
 
-    // Allow env overrides but keep sensible defaults
-    $host = getenv('DB_HOST') ?: 'localhost';
-    $user = getenv('DB_USER') ?: 'root';
-    $pass = getenv('DB_PASS') ?: '';
-    $name = getenv('DB_NAME') ?: 'my_db';
+    // Azure MySQL connection settings
+    $host = getenv('DB_HOST') ?: 'mcismartspace-server.mysql.database.azure.com';
+    $user = getenv('DB_USER') ?: 'njahfwkicy'; 
+    $pass = getenv('DB_PASS') ?: 'dHckIeBqf$Yj3OzQ';
+    $name = getenv('DB_NAME') ?: 'mcismartspace-database';
+    $port = 3306;
 
-    $conn = new mysqli($host, $user, $pass, $name);
-    if ($conn->connect_error) {
-        error_log('Database connection failed: ' . $conn->connect_error);
-        http_response_code(500);
-        die('Database connection error.');
+    // Path to SSL certificate
+    $ssl_ca = __DIR__ . '/../DigiCertGlobalRootCA.crt.pem';
+
+    $conn = mysqli_init();
+    if (!$conn) {
+        die('mysqli_init failed');
     }
 
-    // Ensure proper charset
-    @$conn->set_charset('utf8mb4');
+    // ✅ Attach SSL CA cert
+    mysqli_ssl_set($conn, NULL, NULL, $ssl_ca, NULL, NULL);
 
-    // Expose a global for legacy code expecting $conn
+    // ✅ Use SSL mode
+    mysqli_real_connect($conn, $host, $user, $pass, $name, $port, NULL, MYSQLI_CLIENT_SSL);
+
+    if (mysqli_connect_errno()) {
+        die('Database connection failed: ' . mysqli_connect_error());
+    }
+
+    $conn->set_charset('utf8mb4');
     $GLOBALS['conn'] = $conn;
     return $conn;
 }
 
-// Initialize connection early for files expecting $conn immediately
 db();
