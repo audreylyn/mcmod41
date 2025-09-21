@@ -12,8 +12,10 @@
 function connectToDatabase()
 {
     try {
-        // Define the SSL certificate path
-        $ssl_cert = __DIR__ . '/../DigiCertGlobalRootCA.crt.pem';
+        // Define the SSL certificate path - works for both local and Azure environments
+        $ssl_cert = file_exists(__DIR__ . '/../DigiCertGlobalRootCA.crt.pem') 
+            ? __DIR__ . '/../DigiCertGlobalRootCA.crt.pem'
+            : '/home/site/wwwroot/DigiCertGlobalRootCA.crt.pem';
 
         // Initialize connection
         $conn = mysqli_init();
