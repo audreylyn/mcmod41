@@ -54,7 +54,6 @@ $adminDepartment = $_SESSION['department'] ?? '';
 // Handle filters
 $roomFilter = isset($_GET['room_id']) ? intval($_GET['room_id']) : 0;
 $buildingFilter = isset($_GET['building_id']) ? intval($_GET['building_id']) : 0;
-$usageFilter = isset($_GET['usage']) ? $_GET['usage'] : '';
 $dateFilter = isset($_GET['date_range']) ? intval($_GET['date_range']) : 30;
 
 // Base query - only show approved status rows
@@ -113,17 +112,6 @@ if ($buildingFilter > 0) {
     $sql .= " AND b.id = ?";
     $params[] = $buildingFilter;
     $types .= "i";
-}
-
-// Usage filter (upcoming/active/completed)
-if (!empty($usageFilter)) {
-    if ($usageFilter == 'upcoming') {
-        $sql .= " AND rr.ReservationDate > CURDATE()";
-    } else if ($usageFilter == 'active') {
-        $sql .= " AND rr.ReservationDate = CURDATE()";
-    } else if ($usageFilter == 'completed') {
-        $sql .= " AND rr.ReservationDate < CURDATE()";
-    }
 }
 
 // Date range filter

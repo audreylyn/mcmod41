@@ -11,7 +11,7 @@ $(document).ready(function () {
     pageLength: 10,
     ordering: true,
     paging: true,
-    lengthChange: true, // Enable built-in length changing
+    lengthChange: true,
     lengthMenu: [
       [10, 25, 50, -1],
       [10, 25, 50, 'All'],
@@ -24,71 +24,33 @@ $(document).ready(function () {
     ],
   });
 
-  // Custom search handling
-  $('#customSearch').on('keyup', function () {
-    table.search(this.value).draw();
-  });
+  // Usage status filter
+  $('#usage-filter').on('change', function () {
+    var selectedStatus = $(this).val();
 
-  // Handle custom entries select
-  $('#entriesSelect').on('change', function () {
-    table.page.len(parseInt($(this).val())).draw();
-  });
-
-  // Apply filters button
-  $('#apply-filters').on('click', function () {
-    var usageFilter = $('#usage-filter').val();
-    var buildingFilter = $('#building-filter').val();
-    var roomFilter = $('#room-filter').val();
-    var dateFilter = $('#date-filter').val();
-
-    var url = 'dept_room_activity_logs.php?';
-
-    if (usageFilter) url += 'usage=' + usageFilter + '&';
-    if (buildingFilter) url += 'building_id=' + buildingFilter + '&';
-    if (roomFilter) url += 'room_id=' + roomFilter + '&';
-    if (dateFilter) url += 'date_range=' + dateFilter + '&';
-
-    // Remove trailing &
-    url = url.replace(/&$/, '');
-
-    window.location.href = url;
-  });
-
-  // Reset filters button
-  $('#reset-filters').on('click', function () {
-    window.location.href = 'dept_room_activity_logs.php';
-  });
-
-  // Building filter change event
-  $('#building-filter').on('change', function () {
-    var buildingId = $(this).val();
-
-    // If no building is selected, show all rooms
-    if (!buildingId) {
-      $('#room-filter option').show();
-      return;
-    }
-
-    // Hide rooms that don't belong to the selected building
-    $('#room-filter option').each(function () {
-      var optionText = $(this).text();
-      var selectedBuilding = $('#building-filter option:selected').text();
-
-      if ($(this).val() === '') {
-        // Always show "All Rooms" option
-        $(this).show();
-      } else if (optionText.indexOf(selectedBuilding) >= 0) {
-        $(this).show();
-      } else {
-        $(this).hide();
+    if (selectedStatus === '') {
+      // Show all rows
+      table.column(4).search('').draw();
+    } else {
+      // Filter by status - using column index 4 (Status column)
+      var searchTerm = '';
+      if (selectedStatus === 'upcoming') {
+        searchTerm = 'Upcoming|Later Today';
+      } else if (selectedStatus === 'active') {
+        searchTerm = 'Active Now';
+      } else if (selectedStatus === 'completed') {
+        searchTerm = 'Completed|Completed Today';
       }
-    });
 
-    // Reset room selection if the current selection is now hidden
-    if ($('#room-filter option:selected').is(':hidden')) {
-      $('#room-filter').val('');
+      table.column(4).search(searchTerm, true, false).draw();
     }
   });
+
+  // Apply the current usage filter on page load
+  var currentUsageFilter = $('#usage-filter').val();
+  if (currentUsageFilter) {
+    $('#usage-filter').trigger('change');
+  }
 
   // Auto-fade success messages after 3 seconds
   if ($('.alert-success').length > 0) {

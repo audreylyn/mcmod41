@@ -15,36 +15,21 @@
     <?php endif; ?>
 
     <div class="card-content">
+        <!-- Usage Status Filter -->
+        <div style="display: flex; justify-content: flex-end; align-items: center; margin-bottom: 15px;">
+            <div>
+                <label style="font-size: 0.875rem; color: #64748b; margin-bottom: 0.375rem; display: block; font-weight: 500;">Filter by Usage Status</label>
+                <select id="usage-filter" class="form-select" style="width: 180px;">
+                    <option value="">All Usage</option>
+                    <option value="upcoming" <?php echo isset($_GET['usage']) && $_GET['usage'] === 'upcoming' ? 'selected' : ''; ?>>Upcoming</option>
+                    <option value="active" <?php echo isset($_GET['usage']) && $_GET['usage'] === 'active' ? 'selected' : ''; ?>>Currently Active</option>
+                    <option value="completed" <?php echo isset($_GET['usage']) && $_GET['usage'] === 'completed' ? 'selected' : ''; ?>>Completed</option>
+                </select>
+            </div>
+        </div>
+        
         <!-- Activity Logs Table -->
         <div class="table-container">
-            <div style="display: flex; justify-content: space-between; align-items: center; margin-bottom: 15px;">
-                <div style="display: flex; align-items: center;">
-                    <label style="margin-right: 10px;">Show</label>
-                    <select id="entriesSelect" class="form-select" style="width: 80px; margin-right: 10px;">
-                        <option value="10">10</option>
-                        <option value="25">25</option>
-                        <option value="50">50</option>
-                        <option value="100">100</option>
-                    </select>
-                    <label>entries</label>
-                </div>
-                <div style="display: flex; align-items: center; gap: 15px;">
-                    <div>
-                        <label style="font-size: 0.875rem; color: #64748b; margin-bottom: 0.375rem; display: block; font-weight: 500;">Usage Status</label>
-                        <select id="usage-filter" class="form-select" style="width: 150px;">
-                            <option value="">All Usage</option>
-                            <option value="upcoming" <?php echo isset($_GET['usage']) && $_GET['usage'] === 'upcoming' ? 'selected' : ''; ?>>Upcoming</option>
-                            <option value="active" <?php echo isset($_GET['usage']) && $_GET['usage'] === 'active' ? 'selected' : ''; ?>>Currently Active</option>
-                            <option value="completed" <?php echo isset($_GET['usage']) && $_GET['usage'] === 'completed' ? 'selected' : ''; ?>>Completed</option>
-                        </select>
-                    </div>                  
-                    <!-- Search bar -->
-                    <div>
-                        <label style="font-size: 0.875rem; color: #64748b; margin-bottom: 0.375rem; display: block; font-weight: 500;">Search</label>
-                        <input type="text" id="customSearch" class="form-select" style="width: 100%; padding: 0.5rem; border: 1px solid #e2e8f0; border-radius: 0.375rem;" placeholder="Search by user, room, or activity...">
-                    </div>
-                </div>
-            </div>
             <table id="activityTable" class="table is-fullwidth is-striped">
                 <thead>
                     <tr class="titles">

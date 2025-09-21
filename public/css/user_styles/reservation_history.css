@@ -74,7 +74,7 @@
 }
 
 .btn-primary {
-  background-color: #2563eb;
+  background-color: #0f4228;
   color: white;
   border: none;
   border-radius: 8px;
@@ -87,7 +87,7 @@
 }
 
 .btn-primary:hover {
-  background-color: #1e40af;
+  background-color: #0a2e1c;
 }
 
 /* Media queries for responsive design */
