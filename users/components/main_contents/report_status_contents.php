@@ -30,9 +30,22 @@
                         </select>
                     </div>
                 </div>
-                <a href="qr-scan.php" class="btn-primary">Report an Issue</a>
+                <?php if ($userRole === 'Student' && $isBanned): ?>
+                    <button class="btn-primary disabled" disabled title="Account banned - Cannot report issues">
+                        <i class="fa fa-ban"></i> Report an Issue (Banned)
+                    </button>
+                <?php else: ?>
+                    <a href="qr-scan.php" class="btn-primary">Report an Issue</a>
+                <?php endif; ?>
             </div>
         </div>
+
+        <?php if ($userRole === 'Student' && $isBanned): ?>
+            <div class="alert alert-danger banned-account-alert" role="alert">
+                <i class="fa fa-exclamation-triangle"></i>
+                <strong>Account Banned: </strong> Your account has been banned and you cannot report equipment issues. Please contact your department administrator for assistance.
+            </div>
+        <?php endif; ?>
 
         <?php
         // If redirected here due to banned status when attempting to report equipment,

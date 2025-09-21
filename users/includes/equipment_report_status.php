@@ -3,6 +3,22 @@
 $userId = $_SESSION['user_id'];
 $userRole = $_SESSION['role'];
 
+// Check if student is banned (only for students)
+$isBanned = false;
+if ($userRole === 'Student') {
+    $banCheckSql = "SELECT PenaltyStatus FROM student WHERE StudentID = ?";
+    $banStmt = $conn->prepare($banCheckSql);
+    $banStmt->bind_param("i", $userId);
+    $banStmt->execute();
+    $banResult = $banStmt->get_result();
+    
+    if ($banResult->num_rows > 0) {
+        $banData = $banResult->fetch_assoc();
+        $isBanned = ($banData['PenaltyStatus'] === 'banned');
+    }
+    $banStmt->close();
+}
+
 // Determine ID field based on user role
 $idField = ($userRole === 'Student') ? 'student_id' : 'teacher_id';
 

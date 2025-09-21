@@ -362,11 +362,21 @@ body {
   justify-content: center;
 }
 
+.btn-primary.disabled,
+.btn-primary:disabled {
+  background-color: #d1d5db !important;
+  color: #6b7280 !important;
+  cursor: not-allowed !important;
+  border: 1px solid #d1d5db !important;
+  opacity: 0.6;
+  text-decoration: none;
+}
+
 .btn-primary {
   display: inline-flex;
   align-items: center;
   gap: 8px;
-  background-color: #0f4228;
+  background-color: #0f4228 !important;
   color: white;
   font-weight: 600;
   padding: 12px 20px;
@@ -466,4 +476,61 @@ body {
   .report-details {
     padding: 0 15px 15px;
   }
+}
+
+/* Banned Account Styles */
+.banned-account-alert {
+  background-color: #fef2f2;
+  border: 1px solid #fecaca;
+  color: #dc2626;
+  padding: 16px;
+  border-radius: 8px;
+  margin-bottom: 24px;
+  display: flex;
+  align-items: center;
+  gap: 12px;
+  font-weight: 500;
+}
+
+.banned-account-alert i {
+  font-size: 1.2rem;
+  color: #dc2626;
+}
+
+.btn-primary.disabled {
+  background-color: #d1d5db !important;
+  color: #6b7280 !important;
+  cursor: not-allowed !important;
+  border: 1px solid #d1d5db !important;
+  opacity: 0.6;
+  text-decoration: none;
+}
+
+.btn-primary.disabled:hover {
+  background-color: #d1d5db !important;
+  color: #6b7280 !important;
+  transform: none !important;
+  box-shadow: none !important;
+}
+
+.btn-primary.disabled i {
+  margin-right: 8px;
+}
+
+/* Alert styles */
+.alert {
+  padding: 12px 16px;
+  margin-bottom: 20px;
+  border-radius: 6px;
+  font-weight: 500;
+}
+
+.alert-danger {
+  background-color: #fef2f2;
+  border: 1px solid #fecaca;
+  color: #dc2626;
+}
+
+.alert i {
+  margin-right: 8px;
 }

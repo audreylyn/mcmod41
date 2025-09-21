@@ -77,6 +77,28 @@ require_once '../auth/room_status_handler.php';
             });
         }
 
+        // Handle banned account alert visibility
+        const bannedAlert = document.querySelector('.banned-account-alert');
+        if (bannedAlert) {
+            // Make sure alert is visible and prominent
+            bannedAlert.style.display = 'flex';
+            
+            // Optionally scroll to alert if user tries to click disabled button
+            const disabledButton = document.querySelector('.btn-primary.disabled');
+            if (disabledButton) {
+                disabledButton.addEventListener('click', function(e) {
+                    e.preventDefault();
+                    bannedAlert.scrollIntoView({ behavior: 'smooth', block: 'center' });
+                    
+                    // Add a brief highlight effect
+                    bannedAlert.style.backgroundColor = '#fee2e2';
+                    setTimeout(() => {
+                        bannedAlert.style.backgroundColor = '#fef2f2';
+                    }, 1000);
+                });
+            }
+        }
+
         // Call this when the document is ready
         if (typeof updateValidationIcons === 'function') {
             updateValidationIcons();
