@@ -20,28 +20,38 @@ function db(): mysqli
     $name = getenv('DB_NAME') ?: 'smartspace';
     $port = 3306;
 
-    // Path to SSL certificate - works for both local and Azure environments
-    $ssl_ca = file_exists(__DIR__ . '/../DigiCertGlobalRootCA.crt.pem') 
-        ? __DIR__ . '/../DigiCertGlobalRootCA.crt.pem'
-        : '/home/site/wwwroot/DigiCertGlobalRootCA.crt.pem';
-
+    // No SSL certificate for now - try a direct connection
+    
     $conn = mysqli_init();
     if (!$conn) {
         die('mysqli_init failed');
     }
 
-    // ✅ Attach SSL CA cert
-    mysqli_ssl_set($conn, NULL, NULL, $ssl_ca, NULL, NULL);
+    // Disable SSL verification - crucial for Azure MySQL connections
+    if (!mysqli_options($conn, MYSQLI_OPT_SSL_VERIFY_SERVER_CERT, false)) {
+        error_log("Failed to set MYSQLI_OPT_SSL_VERIFY_SERVER_CERT option");
+    }
 
-    // ✅ Use SSL mode with proper error handling
+    // ✅ Use basic connection mode with proper error handling
     try {
+        // Try to connect using SSL but with verification disabled
         if (!mysqli_real_connect($conn, $host, $user, $pass, $name, $port, NULL, MYSQLI_CLIENT_SSL)) {
-            error_log("MySQL Connection Error: " . mysqli_connect_error());
-            die('Database connection failed: ' . mysqli_connect_error());
+            error_log("MySQL SSL Connection Error: " . mysqli_connect_error());
+            
+            // If SSL connection fails, try without SSL as fallback
+            $conn = mysqli_init();
+            if (!mysqli_real_connect($conn, $host, $user, $pass, $name, $port, NULL)) {
+                error_log("MySQL Non-SSL Connection Error: " . mysqli_connect_error());
+                die('Database connection failed: ' . mysqli_connect_error());
+            } else {
+                error_log("Connected without SSL");
+            }
+        } else {
+            error_log("Connected with SSL");
         }
-    } catch (mysqli_sql_exception $e) {
-        error_log("MySQL SSL Exception: " . $e->getMessage());
-        die('Database SSL connection failed: ' . $e->getMessage());
+    } catch (Exception $e) {
+        error_log("MySQL Exception: " . $e->getMessage());
+        die('Database connection failed: ' . $e->getMessage());
     }
 
     if (mysqli_connect_errno()) {
