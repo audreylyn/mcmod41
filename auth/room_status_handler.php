@@ -23,10 +23,10 @@ function connectToDatabase()
 
         // Establish connection with SSL
         $conn->real_connect(
-            "mcismartspace-server.mysql.database.azure.com", 
-            "njahfwkicy", 
-            "dHckIeBqf$Yj3OzQ", 
-            "mcismartspace-database",
+            "smartspace.mysql.database.azure.com", 
+            "adminuser", 
+            "SmartDb2025!", 
+            "smartspace",
             3306,
             NULL,
             MYSQLI_CLIENT_SSL

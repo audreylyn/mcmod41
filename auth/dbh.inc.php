@@ -14,10 +14,10 @@ function db(): mysqli
     }
 
     // Azure MySQL connection settings
-    $host = getenv('AZURE_MYSQL_HOST') ?: 'mcismartspace-server.mysql.database.azure.com';
-    $user = getenv('AZURE_MYSQL_USERNAME') ?: 'njahfwkicy'; 
-    $pass = getenv('AZURE_MYSQL_PASSWORD') ?: 'dHckIeBqf$Yj3OzQ';
-    $name = getenv('AZURE_MYSQL_DBNAME') ?: 'mcismartspace-database';
+    $host = getenv('DB_HOST') ?: 'smartspace.mysql.database.azure.com';
+    $user = getenv('DB_USER') ?: 'adminuser'; 
+    $pass = getenv('DB_PASS') ?: 'SmartDb2025!';
+    $name = getenv('DB_NAME') ?: 'smartspace';
     $port = 3306;
 
     // Path to SSL certificate
