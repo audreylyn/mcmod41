@@ -68,9 +68,6 @@
                 <button type="button" class="btn btn-action btn-secondary" data-toggle="modal" data-target="#changePasswordModal">
                     <i class="fa fa-lock mr-2"></i> Change Password
                 </button>
-                <button type="button" class="btn btn-action btn-danger" data-toggle="modal" data-target="#deleteAccountModal">
-                    <i class="fa fa-trash mr-2"></i> Delete Account
-                </button>
             </div>
         </div>
     </div>
