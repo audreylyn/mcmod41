@@ -56,14 +56,12 @@ document.addEventListener('DOMContentLoaded', function () {
     // const currentHost = window.location.host;
     // const protocol = window.location.protocol;
 
-    const currentHost = '192.168.8.110';
-    const protocol = 'http:';
+    const currentHost = window.location.host;
+    const protocol = window.location.protocol;
 
-    // For deployment: change '/mcmod41' to your actual deployment path
-    // Examples:
-    // - Root deployment: remove '/mcmod41' entirely
-    // - Subdirectory: change to your subdirectory name
-    const baseUrl = `${protocol}//${currentHost}/mcmod41/users/equipment-qr.php`;
+    // adjust path if needed (remove /mcmod41 if deployed at root)
+    const baseUrl = `${protocol}//${currentHost}/users/equipment-qr.php`;
+
     const redirectUrl = new URL(baseUrl);
 
     // Only pass the unit_id - all other details will be fetched from database
