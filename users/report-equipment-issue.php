@@ -50,10 +50,18 @@ if (isset($_GET['id']) && !empty($_GET['id'])) {
     $unitId = htmlspecialchars($_GET['id']);
     
     // Fetch equipment details from database using the API endpoint
-    // Use absolute URL to avoid path resolution issues
+    // Use absolute URL with dynamic path detection to avoid path resolution issues
     $protocol = $_SERVER['REQUEST_SCHEME'] ?? 'http';
     $host = $_SERVER['HTTP_HOST'];
-    $apiUrl = $protocol . '://' . $host . '/mcmod41/users/api/get_equipment_details.php?unit_id=' . urlencode($unitId);
+    
+    // Detect if we're in a subdirectory (like /mcmod41/) - same logic as QR files
+    $requestUri = $_SERVER['REQUEST_URI'] ?? '';
+    $basePath = '';
+    if (strpos($requestUri, '/mcmod41/') !== false) {
+        $basePath = '/mcmod41';
+    }
+    
+    $apiUrl = $protocol . '://' . $host . $basePath . '/users/api/get_equipment_details.php?unit_id=' . urlencode($unitId);
     
     // Use cURL to fetch equipment details
     $ch = curl_init();
@@ -69,13 +77,13 @@ if (isset($_GET['id']) && !empty($_GET['id'])) {
     curl_close($ch);
     
     // Log the API call for debugging
-    error_log("Equipment API Call - URL: $apiUrl, HTTP Code: $httpCode, cURL Error: $curlError");
+    error_log("Equipment API Call - URL: $apiUrl, HTTP Code: $httpCode, cURL Error: $curlError, Response Length: " . strlen($apiResponse));
     
     if (!$curlError && $httpCode === 200) {
         $responseData = json_decode($apiResponse, true);
         
         // Log the API response for debugging
-        error_log("Equipment API Response: " . substr($apiResponse, 0, 500));
+        error_log("Equipment API Response (first 1000 chars): " . substr($apiResponse, 0, 1000));
         
         if ($responseData && $responseData['success'] && isset($responseData['data'])) {
             $equipmentData = $responseData['data'];
