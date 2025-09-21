@@ -52,25 +52,37 @@ document.addEventListener('DOMContentLoaded', function () {
     }
 
     // Create simplified QR code content - URL with only equipment unit ID
-    // Use current domain to ensure proper routing (works with ngrok and local domains)
-    // const currentHost = window.location.host;
-    // const protocol = window.location.protocol;
+    // Use current domain to ensure proper routing
+    const currentHost = window.location.host;
+    const protocol = window.location.protocol;
 
-    const currentHost = '192.168.8.110';
-    const protocol = 'http:';
+    // Uncomment these lines for local development if needed
+    // const currentHost = '192.168.8.110';
+    // const protocol = 'http:';
 
-    // For deployment: change '/mcmod41' to your actual deployment path
-    // Examples:
-    // - Root deployment: remove '/mcmod41' entirely
-    // - Subdirectory: change to your subdirectory name
-    const baseUrl = `${protocol}//${currentHost}/mcmod41/users/equipment-qr.php`;
+    // Determine if we're in a root deployment or subdirectory based on the current URL
+    // This automatically adapts to Azure deployment or local development
+    let basePath = '';
+
+    // Check if we're in the mcmod41 directory for local development
+    if (window.location.pathname.includes('/mcmod41/')) {
+      basePath = '/mcmod41';
+    }
+
+    const baseUrl = `${protocol}//${currentHost}${basePath}/users/equipment-qr.php`;
     const redirectUrl = new URL(baseUrl);
 
     // Only pass the unit_id - all other details will be fetched from database
     redirectUrl.searchParams.set('id', equipmentData.id);
     const qrContent = redirectUrl.toString();
 
-    // Debug: Log the generated URL
+    // Debug: Log the generated URL and environment details
+    console.log('Current environment:', {
+      host: window.location.host,
+      protocol: window.location.protocol,
+      pathname: window.location.pathname,
+      basePath: basePath,
+    });
     console.log('Generated simplified QR URL:', qrContent);
     console.log('Equipment data being encoded:', equipmentData);
 
