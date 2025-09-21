@@ -53,14 +53,15 @@ document.addEventListener('DOMContentLoaded', function () {
 
     // Create simplified QR code content - URL with only equipment unit ID
     // Use current domain to ensure proper routing (works with ngrok and local domains)
-    // const currentHost = window.location.host;
-    // const protocol = window.location.protocol;
-
     const currentHost = window.location.host;
     const protocol = window.location.protocol;
 
-    // adjust path if needed (remove /mcmod41 if deployed at root)
-    const baseUrl = `${protocol}//${currentHost}/users/equipment-qr.php`;
+    // Determine the base path - check if we're in mcmod41 subdirectory
+    const currentPath = window.location.pathname;
+    const isInSubdirectory = currentPath.includes('/mcmod41/');
+    const basePath = isInSubdirectory ? '/mcmod41' : '';
+
+    const baseUrl = `${protocol}//${currentHost}${basePath}/users/equipment-qr.php`;
 
     const redirectUrl = new URL(baseUrl);
 

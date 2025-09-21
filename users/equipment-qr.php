@@ -69,10 +69,18 @@ function validateEquipmentId($id) {
  * Redirect with error message
  */
 function redirectWithError($errorCode, $message, $equipmentId = null) {
-    // Use more reliable URL construction
+    // Use more reliable URL construction with proper path detection
     $protocol = $_SERVER['REQUEST_SCHEME'] ?? 'http';
     $host = $_SERVER['HTTP_HOST'];
-    $loginUrl = $protocol . '://' . $host . '/mcmod41/index.php';
+    
+    // Detect if we're in a subdirectory (like /mcmod41/)
+    $requestUri = $_SERVER['REQUEST_URI'] ?? '';
+    $basePath = '';
+    if (strpos($requestUri, '/mcmod41/') !== false) {
+        $basePath = '/mcmod41';
+    }
+    
+    $loginUrl = $protocol . '://' . $host . $basePath . '/index.php';
     
     $params = [
         'error' => $errorCode,
@@ -101,10 +109,18 @@ function redirectWithError($errorCode, $message, $equipmentId = null) {
  * Redirect to equipment report page
  */
 function redirectToReport($equipmentId) {
-    // Use reliable URL construction 
+    // Use reliable URL construction with proper path detection
     $protocol = $_SERVER['REQUEST_SCHEME'] ?? 'http';
     $host = $_SERVER['HTTP_HOST'];
-    $reportUrl = $protocol . '://' . $host . '/mcmod41/users/report-equipment-issue.php?id=' . $equipmentId;
+    
+    // Detect if we're in a subdirectory (like /mcmod41/)
+    $requestUri = $_SERVER['REQUEST_URI'] ?? '';
+    $basePath = '';
+    if (strpos($requestUri, '/mcmod41/') !== false) {
+        $basePath = '/mcmod41';
+    }
+    
+    $reportUrl = $protocol . '://' . $host . $basePath . '/users/report-equipment-issue.php?id=' . $equipmentId;
     
     logQrRedirect('SUCCESS', "Redirecting to equipment report page", [
         'equipment_id' => $equipmentId,
@@ -153,8 +169,14 @@ try {
     }
     
     // Verify equipment exists by making a quick API call
-    // Use relative path to avoid domain/SSL issues
-    $apiUrl = $_SERVER['REQUEST_SCHEME'] . '://' . $_SERVER['HTTP_HOST'] . '/mcmod41/users/api/get_equipment_details.php?unit_id=' . $validatedId;
+    // Use relative path to avoid domain/SSL issues with proper path detection
+    $requestUri = $_SERVER['REQUEST_URI'] ?? '';
+    $basePath = '';
+    if (strpos($requestUri, '/mcmod41/') !== false) {
+        $basePath = '/mcmod41';
+    }
+    
+    $apiUrl = $_SERVER['REQUEST_SCHEME'] . '://' . $_SERVER['HTTP_HOST'] . $basePath . '/users/api/get_equipment_details.php?unit_id=' . $validatedId;
     
     logQrRedirect('INFO', 'Checking equipment existence via API', [
         'equipment_id' => $validatedId,
