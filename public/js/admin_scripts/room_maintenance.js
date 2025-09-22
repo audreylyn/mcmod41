@@ -128,20 +128,15 @@ function showAlert(type, message) {
 }
 
 function renderConflicts(conflicts, message) {
-  // Clear existing alerts
+  // Clear existing alerts first
   const existingAlerts = document.querySelectorAll('.alert');
   existingAlerts.forEach((alert) => alert.remove());
 
-  // Put friendly message at top
-  const container = document.querySelector('.maintenance-container');
-  const alert = document.createElement('div');
-  alert.className = 'alert alert-error';
-  alert.innerHTML = `<i class="mdi mdi-alert-circle icon"></i> ${message}`;
-  container.insertBefore(alert, container.firstChild);
-
-  // Build table
+  // Build table (without creating background alert)
   const list = document.getElementById('conflictsList');
   list.innerHTML = '';
+
+  // Build table
   const table = document.createElement('table');
   table.style.width = '100%';
   table.style.borderCollapse = 'collapse';

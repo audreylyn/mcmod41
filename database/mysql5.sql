@@ -121,8 +121,17 @@ CREATE TABLE room_maintenance (
   end_date TIMESTAMP NULL,
   admin_id INT,
   FOREIGN KEY (room_id) REFERENCES rooms(id),
-  FOREIGN KEY (admin_id) REFERENCES dept_admin(AdminID)
+  FOREIGN KEY (admin_id) REFERENCES dept_admin(AdminID) ON DELETE CASCADE
 );
+
+-- Delete this, may ON DELETE CASCADE NA
+ALTER TABLE room_maintenance 
+DROP FOREIGN KEY room_maintenance_ibfk_2;
+
+-- Add the new foreign key with CASCADE delete
+ALTER TABLE room_maintenance 
+ADD CONSTRAINT room_maintenance_ibfk_2 
+FOREIGN KEY (admin_id) REFERENCES dept_admin(AdminID) ON DELETE CASCADE;
 
 
 -- =========================
