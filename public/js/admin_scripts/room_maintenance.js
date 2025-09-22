@@ -77,7 +77,6 @@ function performStatusUpdate(
     .then((response) => response.json())
     .then((data) => {
       if (data.success) {
-        closeModal();
         showAlert('success', data.message);
         // Reload page to reflect changes
         setTimeout(() => {
@@ -240,6 +239,7 @@ document
       return;
     }
 
+    closeModal();
     performStatusUpdate(roomId, 'maintenance', reason, startDate, endDate);
   });
 
