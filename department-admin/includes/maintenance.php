@@ -161,7 +161,21 @@ $rooms_query = "
         CONCAT(da.FirstName, ' ', da.LastName) as maintenance_admin
     FROM rooms r
     JOIN buildings b ON r.building_id = b.id
-    LEFT JOIN room_maintenance rm ON r.id = rm.room_id AND (rm.end_date IS NULL OR rm.end_date >= CURDATE())
+    LEFT JOIN (
+        SELECT 
+            rm.id, 
+            rm.room_id, 
+            rm.reason, 
+            rm.admin_id, 
+            rm.start_date, 
+            rm.end_date
+        FROM room_maintenance rm
+        INNER JOIN (
+            SELECT room_id, MAX(id) as max_id
+            FROM room_maintenance
+            GROUP BY room_id
+        ) latest ON rm.id = latest.max_id
+    ) rm ON r.id = rm.room_id AND (rm.end_date IS NULL OR rm.end_date >= CURDATE())
     LEFT JOIN dept_admin da ON rm.admin_id = da.AdminID
     WHERE b.department = ? OR r.room_type = 'Gymnasium'
     ORDER BY b.building_name, r.room_name
