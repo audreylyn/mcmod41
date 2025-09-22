@@ -12,14 +12,14 @@
             <div class="field">
                 <label class="label">First Name</label>
                 <div class="control">
-                    <input class="input" type="text" name="first_name" id="edit_first_name" pattern="[A-Za-z\s]+" required>
+                    <input class="input" type="text" name="edit_first_name" id="edit_first_name" pattern="[A-Za-z\s]+" required>
                 </div>
             </div>
             
             <div class="field">
                 <label class="label">Last Name</label>
                 <div class="control">
-                    <input class="input" type="text" name="last_name" id="edit_last_name" pattern="[A-Za-z\s]+" required>
+                    <input class="input" type="text" name="edit_last_name" id="edit_last_name" pattern="[A-Za-z\s]+" required>
                 </div>
             </div>
             
@@ -27,7 +27,7 @@
                 <label class="label">Department</label>
                 <div class="control">
                     <div class="select" style="width: 100%;">
-                        <select name="department" id="edit_department" required style="width: 100%;">
+                        <select name="edit_department" id="edit_department" required style="width: 100%;">
                             <option value="">Select Department</option>
                             <?php foreach ($departments as $dept): ?>
                                 <option value="<?= htmlspecialchars($dept) ?>"><?= htmlspecialchars($dept) ?></option>
@@ -40,7 +40,7 @@
             <div class="field">
                 <label class="label">Email</label>
                 <div class="control">
-                    <input class="input" type="email" name="email" id="edit_email" required>
+                    <input class="input" type="email" name="edit_email" id="edit_email" required>
                 </div>
             </div>
             
@@ -65,3 +65,21 @@
         </div>
     </div>
 </div>
+
+<!-- Modal for confirming admin deletion -->
+<div id="deleteConfirmModal" class="modal">
+    <div class="modal-content" style="width: 450px; max-width: 90%;">
+        <span class="close" id="closeDeleteConfirmModal">&times;</span>
+        <h2 id="deleteModalTitle">Confirm Deletion</h2>
+        <div id="deleteModalMessage" style="margin: 20px 0;">
+            Warning: Deleting this administrator will permanently remove all associated students, teachers, and their transaction records. This action cannot be undone.
+        </div>
+        <div class="field" style="margin-top: 20px; display: flex; justify-content: flex-end;">
+            <div class="control">
+                <button type="button" id="cancelDeleteButton" class="is-reset modal-button" style="background-color: #ccc; margin-right: 10px;">Cancel</button>
+                <button type="button" id="confirmDeleteButton" class="modal-button" style="background-color: #d32f2f;">Delete</button>
+            </div>
+        </div>
+    </div>
+</div>
+

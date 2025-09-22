@@ -158,7 +158,8 @@ function validateEditAdminForm(form) {
     .querySelector('[name="edit_department"]')
     .value.trim();
   const email = form.querySelector('[name="edit_email"]').value.trim();
-  const password = form.querySelector('[name="edit_password"]').value;
+  const passwordField = form.querySelector('[name="edit_password"]');
+  const password = passwordField ? passwordField.value : '';
 
   let isValid = true;
   let errors = [];
@@ -255,6 +256,7 @@ function submitEditForm() {
 
   // Get form data
   const formData = new FormData(document.getElementById('editAdminForm'));
+  formData.append('action', 'update');
 
   // Send AJAX request
   $.ajax({
@@ -296,51 +298,71 @@ function submitEditForm() {
 
 // Function to delete an admin via AJAX
 function deleteAdmin(adminId) {
-  // Confirm deletion
-  if (!confirm('Are you sure you want to delete this admin?')) {
-    return;
-  }
+  const modal = document.getElementById('deleteConfirmModal');
+  const confirmBtn = document.getElementById('confirmDeleteButton');
+  const cancelBtn = document.getElementById('cancelDeleteButton');
+  const closeBtn = document.getElementById('closeDeleteConfirmModal');
 
-  // Show loader
-  document.getElementById('ajaxLoader').style.display = 'flex';
-  document.getElementById('ajaxLoaderText').textContent =
-    'Deleting administrator...';
+  // Show the modal
+  modal.style.display = 'block';
+  void modal.offsetWidth; // Trigger reflow for animation
+  modal.classList.add('show');
 
-  // Create form data
-  const formData = new FormData();
-  formData.append('action', 'delete');
-  formData.append('admin_id', adminId);
+  // When the user clicks "Delete", proceed with deletion
+  confirmBtn.onclick = function () {
+    modal.classList.remove('show');
+    setTimeout(() => {
+      modal.style.display = 'none';
+    }, 300);
+    
+    // Show loader
+    document.getElementById('ajaxLoader').style.display = 'flex';
+    document.getElementById('ajaxLoaderText').textContent = 'Deleting administrator...';
 
-  // Send AJAX request
-  $.ajax({
-    url: 'includes/add_admin_ajax.php',
-    type: 'POST',
-    data: formData,
-    contentType: false,
-    processData: false,
-    success: function (response) {
-      // Hide loader
-      document.getElementById('ajaxLoader').style.display = 'none';
+    const formData = new FormData();
+    formData.append('action', 'delete');
+    formData.append('admin_id', adminId);
 
-      if (response.success) {
-        // Show success message
-        showModal('Success', response.message, 'success');
+    // Send AJAX request
+    $.ajax({
+      url: 'includes/add_admin_ajax.php',
+      type: 'POST',
+      data: formData,
+      contentType: false,
+      processData: false,
+      success: function (response) {
+        document.getElementById('ajaxLoader').style.display = 'none';
+        if (response.success) {
+          showModal('Success', response.message, 'success');
+          updateDataTable(response.data);
+        } else {
+          showModal('Error', response.message, 'error');
+        }
+      },
+      error: function (xhr, status, error) {
+        document.getElementById('ajaxLoader').style.display = 'none';
+        showModal('Error', 'An error occurred: ' + error, 'error');
+      },
+    });
+  };
 
-        // Reload the DataTable with new data
-        updateDataTable(response.data);
-      } else {
-        // Show error message
-        showModal('Error', response.message, 'error');
-      }
-    },
-    error: function (xhr, status, error) {
-      // Hide loader
-      document.getElementById('ajaxLoader').style.display = 'none';
+  // Functions to close the modal without deleting
+  const closeModal = function () {
+    modal.classList.remove('show');
+    setTimeout(() => {
+      modal.style.display = 'none';
+    }, 300);
+  };
 
-      // Show error message
-      showModal('Error', 'An error occurred: ' + error, 'error');
-    },
-  });
+  cancelBtn.onclick = closeModal;
+  closeBtn.onclick = closeModal;
+
+  // Also close if the user clicks outside the modal content
+  window.addEventListener('click', function (event) {
+    if (event.target == modal) {
+      closeModal();
+    }
+  }, { once: true }); // Use 'once' to avoid adding multiple listeners
 }
 
 // Function to import admins via AJAX

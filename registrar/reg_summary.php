@@ -42,6 +42,23 @@ include "includes/add_room.php";
         <?php include 'components/modals/add_edit_room_modal.php'; ?>
         <?php include 'components/modals/message_modal.php'; ?>
 
+        <!-- Modal for confirming room deletion -->
+        <div id="deleteRoomConfirmModal" class="modal">
+            <div class="modal-content" style="width: 450px; max-width: 90%;">
+                <span class="close" id="closeDeleteRoomConfirmModal">&times;</span>
+                <h2 id="deleteRoomModalTitle">Confirm Deletion</h2>
+                <div id="deleteRoomModalMessage" style="margin: 20px 0;">
+                    Are you sure you want to delete this room? This action cannot be undone.
+                </div>
+                <div class="field" style="margin-top: 20px; display: flex; justify-content: flex-end;">
+                    <div class="control">
+                        <button type="button" id="cancelDeleteRoomButton" class="is-reset modal-button" style="background-color: #ccc; margin-right: 10px;">Cancel</button>
+                        <button type="button" id="confirmDeleteRoomButton" class="modal-button" style="background-color: #d32f2f;">Delete</button>
+                    </div>
+                </div>
+            </div>
+        </div>
+
         <?php
         $stmt->close();
         $conn->close();
@@ -62,6 +79,7 @@ include "includes/add_room.php";
             <?php include 'components/shared/session_messages.php'; ?>
         }
     </script>
+
 
 </body>
 </html>

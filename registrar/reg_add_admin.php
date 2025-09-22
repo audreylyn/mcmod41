@@ -33,7 +33,10 @@ include "includes/message.php";
         .button-container  { 
             display: flex;
             gap: 3px;
+            justify-content: center;
         }
+
+
     </style>
 </head>
 

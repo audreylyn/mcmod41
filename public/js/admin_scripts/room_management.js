@@ -104,14 +104,10 @@ $(document).ready(function () {
             response.new_rooms.forEach(function (room) {
               // Create action buttons
               const actionButtons = `
-                                <button class="button is-info is-small" onclick='openEditModal(${JSON.stringify(
-                                  room
-                                )})'>
+                                <button class="styled-button is-small" onclick='openEditModal(${JSON.stringify(room)})'>
                                     <span class="icon"><i class="mdi mdi-pencil"></i></span>
                                 </button>
-                                <button class="button is-danger is-small" onclick="if(confirm('Are you sure you want to delete this room?')) window.location.href='?delete_room=${
-                                  room.room_id
-                                }'">
+                                <button class="styled-button is-reset is-small" onclick="deleteRoom('${room.room_id}')">
                                     <span class="icon"><i class="mdi mdi-trash-can"></i></span>
                                 </button>
                             `;
@@ -221,4 +217,39 @@ function openEditModal(data) {
   $('#roomModal').fadeIn(300);
   updateCapacityLimit(); // Update the capacity limit when editing
   return false; // Prevent any default action
+}
+
+function deleteRoom(roomId) {
+  const modal = document.getElementById('deleteRoomConfirmModal');
+  const confirmBtn = document.getElementById('confirmDeleteRoomButton');
+  const cancelBtn = document.getElementById('cancelDeleteRoomButton');
+  const closeBtn = document.getElementById('closeDeleteRoomConfirmModal');
+
+  // Show the modal
+  modal.style.display = 'block';
+  void modal.offsetWidth; // Trigger reflow for animation
+  modal.classList.add('show');
+
+  // When the user clicks "Delete", redirect to the delete URL
+  confirmBtn.onclick = function () {
+    window.location.href = '?delete_room=' + roomId;
+  };
+
+  // Functions to close the modal without deleting
+  const closeModal = function () {
+    modal.classList.remove('show');
+    setTimeout(() => {
+      modal.style.display = 'none';
+    }, 300);
+  };
+
+  cancelBtn.onclick = closeModal;
+  closeBtn.onclick = closeModal;
+
+  // Also close if the user clicks outside the modal content
+  window.addEventListener('click', function (event) {
+    if (event.target == modal) {
+      closeModal();
+    }
+  }, { once: true }); // Use 'once' to avoid adding multiple listeners
 }

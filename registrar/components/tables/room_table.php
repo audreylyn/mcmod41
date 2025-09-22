@@ -91,7 +91,7 @@
                                 <button class="styled-button is-small" onclick='openEditModal(<?= json_encode($row) ?>)'>
                                     <span class="icon"><i class="mdi mdi-pencil"></i></span>
                                 </button>
-                                <button class="styled-button is-reset is-small" onclick="if(confirm('Are you sure you want to delete this room?')) window.location.href='?delete_room=<?= urlencode($room_id) ?>'">
+                                <button class="styled-button is-reset is-small" onclick="deleteRoom('<?= urlencode($room_id) ?>')">
                                     <span class="icon"><i class="mdi mdi-trash-can"></i></span>
                                 </button>
                             <?php endif; ?>

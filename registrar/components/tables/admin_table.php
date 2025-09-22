@@ -36,7 +36,7 @@
                             <td data-label="Email"><?= htmlspecialchars($row['Email']) ?></td>
                             <td class="action-buttons">
                                 <div class="button-container">
-                                    <button class="styled-button is-small" 
+                                    <button class="is-small styled-button" 
                                         onclick="openEditModal('<?= htmlspecialchars($row['AdminID']) ?>', 
                                         '<?= htmlspecialchars($row['FirstName']) ?>', 
                                         '<?= htmlspecialchars($row['LastName']) ?>', 
@@ -44,7 +44,7 @@
                                         '<?= htmlspecialchars($row['Email']) ?>')">
                                         <i class="mdi mdi-pencil"></i>
                                     </button>
-                                    <button class="styled-button is-reset is-small"
+                                    <button class="is-small styled-button is-reset"
                                         onclick="deleteAdmin(<?= htmlspecialchars($row['AdminID']) ?>)">
                                         <i class="mdi mdi-delete"></i>
                                     </button>

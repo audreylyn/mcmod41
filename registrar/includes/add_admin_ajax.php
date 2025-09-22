@@ -81,10 +81,10 @@ try {
     else if ($_SERVER["REQUEST_METHOD"] == "POST" && isset($_POST['action']) && $_POST['action'] == 'update') {
         // Get form data and sanitize
         $admin_id = filter_input(INPUT_POST, 'admin_id', FILTER_SANITIZE_NUMBER_INT);
-        $first_name = trim(filter_input(INPUT_POST, 'first_name', FILTER_SANITIZE_SPECIAL_CHARS));
-        $last_name = trim(filter_input(INPUT_POST, 'last_name', FILTER_SANITIZE_SPECIAL_CHARS));
-        $department = trim(filter_input(INPUT_POST, 'department', FILTER_SANITIZE_SPECIAL_CHARS));
-        $email = trim(filter_input(INPUT_POST, 'email', FILTER_SANITIZE_EMAIL));
+        $first_name = trim(filter_input(INPUT_POST, 'edit_first_name', FILTER_SANITIZE_SPECIAL_CHARS));
+        $last_name = trim(filter_input(INPUT_POST, 'edit_last_name', FILTER_SANITIZE_SPECIAL_CHARS));
+        $department = trim(filter_input(INPUT_POST, 'edit_department', FILTER_SANITIZE_SPECIAL_CHARS));
+        $email = trim(filter_input(INPUT_POST, 'edit_email', FILTER_SANITIZE_EMAIL));
         
         // Validate inputs
         if (empty($admin_id) || empty($first_name) || empty($last_name) || empty($department) || empty($email)) {
@@ -235,23 +235,12 @@ function generateActionsHtml($row) {
     $department = htmlspecialchars($row['Department']);
     $email = htmlspecialchars($row['Email']);
     
-    return '<button class="button is-info styled-button" onclick="openEditModal(\'' . $adminId . '\', \'' . $firstName . '\', \'' . $lastName . '\', \'' . $department . '\', \'' . $email . '\')">
-              <span class="icon">
-                <svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-linecap="round" stroke-linejoin="round" width="24" height="24" stroke-width="2">
-                  <path d="M11 4H4a2 2 0 0 0-2 2v14a2 2 0 0 0 2 2h14a2 2 0 0 0 2-2v-7"></path>
-                  <path d="M18.5 2.5a2.121 2.121 0 0 1 3 3L12 15l-4 1 1-4 9.5-9.5z"></path>
-                </svg>
-              </span>
-            </button>
-            <button class="button is-danger styled-button is-reset" onclick="deleteAdmin(' . $adminId . ')">
-              <span class="icon">
-                <svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-linecap="round" stroke-linejoin="round" width="24" height="24" stroke-width="2">
-                  <path d="M4 7l16 0"></path>
-                  <path d="M10 11l0 6"></path>
-                  <path d="M14 11l0 6"></path>
-                  <path d="M5 7l1 12a2 2 0 0 0 2 2h8a2 2 0 0 0 2 -2l1 -12"></path>
-                  <path d="M9 7v-3a1 1 0 0 1 1 -1h4a1 1 0 0 1 1 1v3"></path>
-                </svg>
-              </span>
-            </button>';
+    return '<div class="button-container">' .
+    '<button class="is-small styled-button" onclick="openEditModal(\'' . $adminId . '\', \'' . $firstName . '\', \'' . $lastName . '\', \'' . $department . '\', \'' . $email . '\')">' .
+    '<i class="mdi mdi-pencil"></i>' .
+    '</button>' .
+    '<button class="is-small styled-button is-reset" onclick="deleteAdmin(' . $adminId . ')">' .
+    '<i class="mdi mdi-delete"></i>' .
+    '</button>' .
+    '</div>';
 }
