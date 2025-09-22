@@ -39,7 +39,8 @@ if ($_SERVER['REQUEST_METHOD'] === 'POST' && isset($_POST['action'])) {
         // Validate status
         $valid_statuses = ['available', 'maintenance'];
         if (!in_array($new_status, $valid_statuses)) {
-            echo json_encode(['success' => false, 'message' => 'Invalid status']);
+            $_SESSION['form_response'] = ['success' => false, 'message' => 'Invalid status'];
+            header("Location: " . $_SERVER['REQUEST_URI']);
             exit;
         }
         
@@ -55,7 +56,8 @@ if ($_SERVER['REQUEST_METHOD'] === 'POST' && isset($_POST['action'])) {
         $result = $stmt->get_result();
         
         if ($result->num_rows === 0) {
-            echo json_encode(['success' => false, 'message' => 'Unauthorized to modify this room']);
+            $_SESSION['form_response'] = ['success' => false, 'message' => 'Unauthorized to modify this room'];
+            header("Location: " . $_SERVER['REQUEST_URI']);
             exit;
         }
         
@@ -97,6 +99,7 @@ if ($_SERVER['REQUEST_METHOD'] === 'POST' && isset($_POST['action'])) {
                 }
                 // Friendly message uses the earliest conflict
                 $first = $conflicts[0];
+                $message = "Room has approved reservation. Maintenance cannot be set until these reservations are finished.";
                 $message = "Room has approved reservation. Maintenance cannot be set until these reservations are finished.";
                 echo json_encode(['success' => false, 'message' => $message, 'conflicts' => $conflicts]);
                 exit;
