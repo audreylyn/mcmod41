@@ -73,15 +73,29 @@ if ($_SERVER['REQUEST_METHOD'] === 'POST' && isset($_POST['update_status'])) {
     }
 }
 
-// Fetch summary counts for dashboard
+// Get admin department for filtering
+$admin_department = $_SESSION['department'] ?? '';
+
+// Fetch summary counts for dashboard - filtered by department
 $countsSql = "SELECT 
-              SUM(CASE WHEN status = 'pending' THEN 1 ELSE 0 END) as pending_count,
-              SUM(CASE WHEN status = 'in_progress' THEN 1 ELSE 0 END) as in_progress_count,
-              SUM(CASE WHEN status = 'resolved' THEN 1 ELSE 0 END) as resolved_count,
-              SUM(CASE WHEN status = 'rejected' THEN 1 ELSE 0 END) as rejected_count,
+              SUM(CASE WHEN ei.status = 'pending' THEN 1 ELSE 0 END) as pending_count,
+              SUM(CASE WHEN ei.status = 'in_progress' THEN 1 ELSE 0 END) as in_progress_count,
+              SUM(CASE WHEN ei.status = 'resolved' THEN 1 ELSE 0 END) as resolved_count,
+              SUM(CASE WHEN ei.status = 'rejected' THEN 1 ELSE 0 END) as rejected_count,
               COUNT(*) as total_count
-              FROM equipment_issues";
-$countsResult = $conn->query($countsSql);
+              FROM equipment_issues ei
+              LEFT JOIN student s ON ei.student_id = s.StudentID
+              LEFT JOIN teacher t ON ei.teacher_id = t.TeacherID";
+
+if (!empty($admin_department)) {
+    $countsSql .= " WHERE (s.Department = ? OR t.Department = ?)";
+    $countsStmt = $conn->prepare($countsSql);
+    $countsStmt->bind_param('ss', $admin_department, $admin_department);
+    $countsStmt->execute();
+    $countsResult = $countsStmt->get_result();
+} else {
+    $countsResult = $conn->query($countsSql);
+}
 $countData = $countsResult->fetch_assoc();
 
 // Set up filtering options
@@ -95,7 +109,6 @@ $params = [];
 $types = '';
 
 // Department-Based Access Control
-$admin_department = $_SESSION['department'] ?? '';
 if (!empty($admin_department)) {
     $filterConditions[] = "(s.Department = ? OR t.Department = ?)";
     $params[] = $admin_department;
