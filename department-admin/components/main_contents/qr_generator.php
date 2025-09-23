@@ -14,8 +14,8 @@
                         if ($department) {
                             // Map session department to database department for special cases
                             $map = [
-                                'education and arts' => 'Education, Arts, and Sciences',
-                                'criminal justice' => 'Criminal Justice Education'
+                                'education and arts' => 'Education and Arts',
+                                'criminal justice' => 'Criminal Justice'
                             ];
                             $likeDepartment = '%' . $department . '%';
                             $deptLower = strtolower($department);
