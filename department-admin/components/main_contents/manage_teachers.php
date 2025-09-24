@@ -15,7 +15,7 @@
                 </div>
             </header>
             <div class="card-content">
-                <table id="teacherTable" class="teacher-table display is-fullwidth">
+                <table id="teacherTable" class="adminTable teacher-table display is-fullwidth">
                     <thead>
                         <tr>
                             <th>First Name</th>
@@ -63,7 +63,7 @@
 <div id="tab-add" class="tab-content">
     <div class="card add-teacher-card">
         <header class="card-header">
-            <div class="new-title-container" style="width: 100%; display: flex; justify-content: space-between; align-items: center; padding: 1rem;">
+            <div class="new-title-container" style="width: 100%; display: flex; justify-content: space-between; align-items: center;">
                 <p class="new-title"><i class="mdi mdi-account-plus"></i> ADD NEW TEACHER</p>
                 <div style="display: flex; flex-direction: column; align-items: flex-end;">
                     <form id="importForm" method="post" action="includes/import_teachers.php" enctype="multipart/form-data" style="display: flex;">
@@ -98,7 +98,7 @@
                             </svg>
                             <input type="file" id="teacherFileInput" name="file" accept=".csv,.xlsx,.xls" style="display: none;" onchange="updateFileName()" />
                         </button>
-                        <button id="importButton" type="submit" class="import-btn-acc">
+                        <button id="importButton" type="submit" class="import-btn-acc" disabled style="opacity: 0.5; cursor: not-allowed;">
                             <svg
                                 fill="#fff"
                                 xmlns="http://www.w3.org/2000/svg"
@@ -109,6 +109,18 @@
                                     d="M19 9h-4V3H9v6H5l7 7 7-7zM5 18v2h14v-2H5z"></path>
                             </svg>
                             Import
+                        </button>
+                        <button type="button" class="download-template-btn" onclick="downloadTeacherTemplate()">
+                            <svg
+                                fill="#fff"
+                                xmlns="http://www.w3.org/2000/svg"
+                                width="20"
+                                height="20"
+                                viewBox="0 0 24 24">
+                                <path
+                                    d="M14,2H6A2,2 0 0,0 4,4V20A2,2 0 0,0 6,22H18A2,2 0 0,0 20,20V8L14,2M18,20H6V4H13V9H18V20Z"></path>
+                            </svg>
+                            Template
                         </button>
                     </form>
                     <small id="fileName" style="margin-top: 5px; color: #666; font-size: 12px;">No file selected</small>

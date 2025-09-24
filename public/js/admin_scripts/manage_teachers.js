@@ -44,6 +44,22 @@ $(document).ready(function () {
   });
 });
 
+// Toggle password visibility function
+function togglePasswordVisibility(inputId) {
+  const passwordInput = document.getElementById(inputId);
+  const icon = passwordInput.nextElementSibling.querySelector('i');
+
+  if (passwordInput.type === 'password') {
+    passwordInput.type = 'text';
+    icon.classList.remove('mdi-eye');
+    icon.classList.add('mdi-eye-off');
+  } else {
+    passwordInput.type = 'password';
+    icon.classList.remove('mdi-eye-off');
+    icon.classList.add('mdi-eye');
+  }
+}
+
 // Email validation function
 function validateEmail(email) {
   const emailRegex = /^[^\s@]+@[^\s@]+\.[^\s@]+$/;
@@ -153,11 +169,41 @@ function updateFileName() {
   const fileName = document.getElementById('fileName');
 
   if (fileInput.files.length > 0) {
-    fileName.textContent = fileInput.files[0].name;
-    fileName.style.color = '#4a6fdc';
+    const selectedFile = fileInput.files[0].name;
+    
+    // Validate file type
+    const allowedTypes = ['.csv', '.xlsx', '.xls'];
+    const fileExtension = selectedFile.toLowerCase().substring(selectedFile.lastIndexOf('.'));
+    
+    if (!allowedTypes.includes(fileExtension)) {
+      alert('Please select a valid CSV or Excel file (.csv, .xlsx, .xls)');
+      fileInput.value = '';
+      fileName.textContent = 'No file selected';
+      fileName.style.color = '#666';
+      return;
+    }
+    
+    fileName.innerHTML = `
+      <span style="color: #4caf50;">
+        <i class="mdi mdi-file-check"></i>
+        Selected: <strong>${selectedFile}</strong>
+      </span>
+    `;
+    
+    // Enable the import button
+    const importButton = document.getElementById('importButton');
+    importButton.style.opacity = '1';
+    importButton.style.cursor = 'pointer';
+    importButton.disabled = false;
   } else {
     fileName.textContent = 'No file selected';
     fileName.style.color = '#666';
+    
+    // Disable the import button
+    const importButton = document.getElementById('importButton');
+    importButton.style.opacity = '0.5';
+    importButton.style.cursor = 'not-allowed';
+    importButton.disabled = true;
   }
 }
 
@@ -227,3 +273,20 @@ document.addEventListener('DOMContentLoaded', function () {
     window.history.replaceState({}, document.title, url);
   }
 });
+
+// Download teacher template function
+function downloadTeacherTemplate() {
+  const csvContent = 'FirstName,LastName,Email,Password\nJohn,Doe,john.doe@example.com,password123\nJane,Smith,jane.smith@example.com,password456';
+  const blob = new Blob([csvContent], { type: 'text/csv;charset=utf-8;' });
+  const link = document.createElement('a');
+  
+  if (link.download !== undefined) {
+    const url = URL.createObjectURL(blob);
+    link.setAttribute('href', url);
+    link.setAttribute('download', 'teacher_template.csv');
+    link.style.visibility = 'hidden';
+    document.body.appendChild(link);
+    link.click();
+    document.body.removeChild(link);
+  }
+}

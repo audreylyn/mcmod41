@@ -14,7 +14,7 @@
                 </div>
             </header>
             <div class="card-content">
-                <table id="studentTable" class="student-table display is-fullwidth">
+                <table id="studentTable" class="adminTable student-table display is-fullwidth">
                     <thead>
                         <tr>
                             <th>First Name</th>
@@ -103,7 +103,7 @@
                             </svg>
                             <input type="file" id="studentFileInput" name="file" accept=".csv,.xlsx,.xls" style="display: none;" onchange="handleFileSelect(this)" />
                         </button>
-                        <button id="importButton" type="submit" disabled style="border-radius: 0 0.3em 0.3em 0; background-color: rgb(41, 114, 45); color: white; border: none; padding: 0.5rem 1rem; cursor: not-allowed; opacity: 0.5; display: flex; align-items: center; gap: 5px;">
+                        <button id="importButton" type="submit" class="import-btn-acc" disabled style="opacity: 0.5; cursor: not-allowed;">
                             <svg
                                 fill="#fff"
                                 xmlns="http://www.w3.org/2000/svg"
@@ -114,6 +114,18 @@
                                     d="M19 9h-4V3H9v6H5l7 7 7-7zM5 18v2h14v-2H5z"></path>
                             </svg>
                             Import
+                        </button>
+                        <button type="button" class="download-template-btn" onclick="downloadStudentTemplate()">
+                            <svg
+                                fill="#fff"
+                                xmlns="http://www.w3.org/2000/svg"
+                                width="20"
+                                height="20"
+                                viewBox="0 0 24 24">
+                                <path
+                                    d="M14,2H6A2,2 0 0,0 4,4V20A2,2 0 0,0 6,22H18A2,2 0 0,0 20,20V8L14,2M18,20H6V4H13V9H18V20Z"></path>
+                            </svg>
+                            Template
                         </button>
                     </form>
                     <small id="fileName" style="margin-top: 5px; color: #666; font-size: 12px;">No file selected</small>

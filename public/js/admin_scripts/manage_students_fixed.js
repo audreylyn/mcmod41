@@ -492,3 +492,20 @@ function openEditModal(
 function closeModal(modalId) {
   document.getElementById(modalId).classList.remove('show');
 }
+
+// Download student template function
+function downloadStudentTemplate() {
+  const csvContent = 'FirstName,LastName,Email,Program,YearSection,Password\nJohn,Doe,john.doe@example.com,BSA,BSA 4-1,password123\nJane,Smith,jane.smith@example.com,BSBA-FM,BSBA-FM 3-2,password456';
+  const blob = new Blob([csvContent], { type: 'text/csv;charset=utf-8;' });
+  const link = document.createElement('a');
+  
+  if (link.download !== undefined) {
+    const url = URL.createObjectURL(blob);
+    link.setAttribute('href', url);
+    link.setAttribute('download', 'student_template.csv');
+    link.style.visibility = 'hidden';
+    document.body.appendChild(link);
+    link.click();
+    document.body.removeChild(link);
+  }
+}

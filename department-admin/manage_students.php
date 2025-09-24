@@ -23,7 +23,7 @@ include 'includes/manage_students.php';
     <link rel="stylesheet" href="../public/css/admin_styles/datatables.css">
     <link rel="stylesheet" href="../public/css/admin_styles/datatable-fixes.css">
     <link rel="stylesheet" href="../public/css/admin_styles/manage_accounts.css">
-    
+    <link rel="stylesheet" href="../public/css/admin_styles/manage_teachers.css">
 
 </head>
 
