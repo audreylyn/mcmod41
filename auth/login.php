@@ -40,7 +40,7 @@ if ($_SERVER["REQUEST_METHOD"] == "POST") {
                 'email' => $email,
                 'name' => 'Registrar'
             ];
-            $redirectUrl = "../registrar/registrar.php";
+            $redirectUrl = "../registrar/";
         }
     }
 

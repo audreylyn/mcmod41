@@ -18,13 +18,13 @@ if ($_SERVER["REQUEST_METHOD"] == "POST") {
     // Validate inputs
     if (empty($admin_id) || empty($first_name) || empty($last_name) || empty($department) || empty($email)) {
         $_SESSION['error_message'] = "All fields are required.";
-        header("Location: ../reg_add_admin.php");
+        header("Location: ../reg_add_admin");
         exit;
     }
     
     if (!filter_var($email, FILTER_VALIDATE_EMAIL)) {
         $_SESSION['error_message'] = "Invalid email format.";
-        header("Location: ../reg_add_admin.php");
+        header("Location: ../reg_add_admin");
         exit;
     }
     
@@ -36,7 +36,7 @@ if ($_SERVER["REQUEST_METHOD"] == "POST") {
     
     if ($check_email_result->num_rows > 0) {
         $_SESSION['error_message'] = "Email already exists. Please use a different email.";
-        header("Location: ../reg_add_admin.php");
+        header("Location: ../reg_add_admin");
         exit;
     }
     $check_email_stmt->close();
@@ -55,10 +55,10 @@ if ($_SERVER["REQUEST_METHOD"] == "POST") {
     $conn->close();
     
     // Redirect back to the admin page
-    header("Location: ../reg_add_admin.php");
+    header("Location: ../reg_add_admin");
     exit;
 } else {
     // If not a POST request, redirect to the admin page
-    header("Location: ../reg_add_admin.php");
+    header("Location: ../reg_add_admin");
     exit;
 }

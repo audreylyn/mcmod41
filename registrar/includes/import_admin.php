@@ -22,7 +22,7 @@ if (isset($_POST['importSubmit'])) {
     $fileType = pathinfo($_FILES['file']['name'], PATHINFO_EXTENSION);
     if (!in_array(strtolower($fileType), ['csv', 'xlsx', 'xls'])) {
         $message = "Only CSV and Excel files are allowed (.csv, .xlsx, .xls).";
-        header("Location: ../reg_add_admin.php?status=$status&msg=" . urlencode($message));
+        header("Location: ../reg_add_admin?status=$status&msg=" . urlencode($message));
         exit();
     }
 
@@ -157,7 +157,7 @@ if (isset($_POST['importSubmit'])) {
         } else {
             // Handle Excel files (requires PHPSpreadsheet or similar)
             $message = "Excel file support is not yet implemented. Please use CSV format for now.";
-            header("Location: ../reg_add_admin.php?status=$status&msg=" . urlencode($message));
+            header("Location: ../reg_add_admin?status=$status&msg=" . urlencode($message));
             exit();
         }
 
@@ -202,7 +202,7 @@ if (isset($_POST['importSubmit'])) {
 $db->close();
 
 // Redirect back to the admin page
-header("Location: ../reg_add_admin.php?status=$status&msg=" . urlencode($message));
+header("Location: ../reg_add_admin?status=$status&msg=" . urlencode($message));
 exit();
 ?>
 

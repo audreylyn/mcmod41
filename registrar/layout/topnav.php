@@ -16,7 +16,9 @@ $currentPage = basename($_SERVER['PHP_SELF']);
 // Map page filenames to readable titles for breadcrumbs
 $pageTitles = [
     'registrar.php' => 'Dashboard',
+    'index.php' => 'Dashboard',
     'reg_add_admin.php' => 'Add Admin',
+    'reg_add_admin' => 'Add Admin',
     'reg_add_blg.php' => 'Add Building',
     'reg_summary.php' => 'Facility Management',
     'reg_add_equipt.php' => 'Add Equipment',

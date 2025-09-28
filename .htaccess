@@ -1,0 +1,18 @@
+RewriteEngine On
+
+# Hide .php extension for registrar.php specifically
+# Handle requests to /registrar/ (with trailing slash)
+RewriteRule ^registrar/$ registrar/registrar.php [L]
+
+# Handle requests to /registrar (without trailing slash) - redirect to with trailing slash
+RewriteRule ^registrar$ registrar/ [R=301,L]
+
+# Hide .php extension for reg_add_admin.php specifically
+RewriteRule ^registrar/reg_add_admin$ registrar/reg_add_admin.php [L]
+
+# Prevent direct access to .php files (redirect to clean URLs)
+RewriteCond %{THE_REQUEST} \s/+[^/\s]*?/registrar/registrar\.php[\s?] [NC]
+RewriteRule ^registrar/registrar\.php$ registrar/ [R=301,L]
+
+RewriteCond %{THE_REQUEST} \s/+[^/\s]*?/registrar/reg_add_admin\.php[\s?] [NC]
+RewriteRule ^registrar/reg_add_admin\.php$ registrar/reg_add_admin [R=301,L]
