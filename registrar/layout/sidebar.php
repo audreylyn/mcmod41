@@ -6,7 +6,7 @@ $currentPage = basename($_SERVER['PHP_SELF']);
 $menuItems = [
     [
         'type' => 'single',
-        'page' => './',
+        'page' => 'registrar.php',
         'title' => 'Dashboard',
         'icon' => '<svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-linecap="round" stroke-linejoin="round" width="24" height="24" stroke-width="2">
                     <path d="M5 4h4a1 1 0 0 1 1 1v6a1 1 0 0 1 -1 1h-4a1 1 0 0 1 -1 -1v-6a1 1 0 0 1 1 -1"></path>
@@ -17,7 +17,7 @@ $menuItems = [
     ],
     [
         'type' => 'single',
-        'page' => 'reg_add_admin',
+        'page' => 'reg_add_admin.php',
         'title' => 'Add Admin',
         'icon' => '<svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-linecap="round" stroke-linejoin="round" width="24" height="24" stroke-width="2">
                     <path d="M8 7a4 4 0 1 0 8 0a4 4 0 0 0 -8 0"></path>
