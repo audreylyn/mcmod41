@@ -1,0 +1,32 @@
+# GitBook build files
+_book/
+node_modules/
+
+# GitBook plugins
+book.pdf
+book.epub
+book.mobi
+
+# OS generated files
+.DS_Store
+.DS_Store?
+._*
+.Spotlight-V100
+.Trashes
+ehthumbs.db
+Thumbs.db
+
+# Editor files
+*.swp
+*.swo
+*~
+
+# Temporary files
+*.tmp
+*.temp
+
+# Log files
+*.log
+
+# GitBook legacy
+.bookignore
