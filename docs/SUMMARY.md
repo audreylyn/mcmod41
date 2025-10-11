@@ -44,21 +44,26 @@
 ## Technical Documentation
 * [System Architecture](technical/system-overview.md)
 * [Database Schema](technical/database-schema.md)
-* [API Documentation](technical/api-documentation.md)
 * [Installation Guide](technical/installation.md)
 * [Configuration](technical/configuration.md)
 * [Security Features](technical/security.md)
 * [PWA Features](technical/pwa-features.md)
 
-## Support & Maintenance
+## Support
 * [Troubleshooting](support/troubleshooting.md)
 * [FAQ](support/faq.md)
 * [Contact Support](support/contact.md)
-* [System Updates](support/updates.md)
-* [Backup & Recovery](support/backup-recovery.md)
+
+## Resources
+* [Installation Guide](resources/installation-guide.md)
+* [Video Tutorials](resources/video-tutorials.md)
+
+## Legal
+* [Privacy Policy](legal/privacy-policy.md)
+* [Terms of Service](legal/terms-of-service.md)
+* [Cookie Policy](legal/cookie-policy.md)
+* [Accessibility](legal/accessibility.md)
 
 ## Appendices
 * [Glossary](appendices/glossary.md)
-* [Keyboard Shortcuts](appendices/shortcuts.md)
-* [Browser Compatibility](appendices/browser-compatibility.md)
-* [Change Log](appendices/changelog.md)
+* [Changelog](appendices/changelog.md)
