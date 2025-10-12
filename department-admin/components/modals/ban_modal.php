@@ -38,8 +38,8 @@
                     
                     <div class="mb-3">
                         <label for="banExpiry" class="form-label">Ban Expiry Date (Optional)</label>
-                        <input type="datetime-local" class="form-control" id="banExpiry" name="expiry_date">
-                        <div class="form-text">Leave empty for permanent ban</div>
+                        <input type="date" class="form-control" id="banExpiry" name="expiry_date">
+                        <div class="form-text">Leave empty for permanent ban. Time will be set to current time automatically.</div>
                     </div>
                 </form>
             </div>

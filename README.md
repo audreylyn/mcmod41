@@ -44,3 +44,14 @@ function connectToDatabase()
 ```
 
 By updating these two locations, your application should be able to connect to the production database successfully.
+
+
+
+What happens when:
+
+A student/teacher submits a room reservation request
+The request stays "pending" (admin doesn't approve/reject it)
+The reservation date passes while it's still pending
+Now we have an expired pending request
+
+

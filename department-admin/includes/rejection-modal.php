@@ -14,7 +14,7 @@
                                 <button type="button" class="reason-option" onclick="selectReason('Room unavailable due to maintenance')">Room unavailable</button>
                                 <button type="button" class="reason-option" onclick="selectReason('Scheduling conflict with another event')">Scheduling conflict</button>
                                 <button type="button" class="reason-option" onclick="selectReason('Insufficient information provided')">Insufficient info</button>
-                                <button type="button" class="reason-option" onclick="selectReason('Exceeds room capacity')">Exceeds capacity</button>
+                                <button type="button" class="reason-option" onclick="selectReason('Sorry, your request has expired and is no longer valid')">Expired</button>
                                 <button type="button" class="reason-option" onclick="selectReason('Request does not meet department policy')">Policy violation</button>
                             </div>
                         </div>

@@ -9,7 +9,23 @@ require_once __DIR__ . '/middleware/error_handler.php';
     <meta charset="UTF-8">
     <meta http-equiv="X-UA-Compatible" content="IE=edge">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    
+    <!-- PWA Meta Tags -->
+    <meta name="theme-color" content="#007bff">
+    <meta name="mobile-web-app-capable" content="yes">
+    <meta name="apple-mobile-web-app-capable" content="yes">
+    <meta name="apple-mobile-web-app-status-bar-style" content="default">
+    <meta name="apple-mobile-web-app-title" content="SmartSpace">
+    <meta name="application-name" content="SmartSpace">
+    <meta name="msapplication-TileColor" content="#007bff">
+    <meta name="msapplication-TileImage" content="public/assets/logo.webp">
+    
+    <!-- Icons and Manifest -->
     <link rel="icon" href="public/assets/logo.webp" type="image/webp" />
+    <link rel="apple-touch-icon" href="public/assets/logo.webp">
+    <link rel="manifest" href="manifest.json">
+    
+    <!-- Fonts and Styles -->
     <link href="https://fonts.googleapis.com/css2?family=Plus+Jakarta+Sans:wght@400;500;600;700&display=swap" rel="stylesheet">
     <link rel="stylesheet" href="public/css/login.css">
     <title>SmartSpace | Room Management System</title>
@@ -135,6 +151,98 @@ require_once __DIR__ . '/middleware/error_handler.php';
     </div>
     
     <script src="./public/js/alert.js"></script>
+    
+    <!-- PWA Service Worker Registration -->
+    <script>
+        // Register service worker for PWA functionality
+        if ('serviceWorker' in navigator) {
+            window.addEventListener('load', function() {
+                navigator.serviceWorker.register('/sw.js')
+                    .then(function(registration) {
+                        console.log('ServiceWorker registration successful with scope: ', registration.scope);
+                        
+                        // Check for updates
+                        registration.addEventListener('updatefound', function() {
+                            const newWorker = registration.installing;
+                            newWorker.addEventListener('statechange', function() {
+                                if (newWorker.state === 'installed' && navigator.serviceWorker.controller) {
+                                    // New content is available, refresh the page
+                                    if (confirm('New version available! Refresh to update?')) {
+                                        window.location.reload();
+                                    }
+                                }
+                            });
+                        });
+                    })
+                    .catch(function(err) {
+                        console.log('ServiceWorker registration failed: ', err);
+                    });
+            });
+        }
+
+        // PWA Install Prompt
+        let deferredPrompt;
+        window.addEventListener('beforeinstallprompt', (e) => {
+            console.log('PWA install prompt triggered');
+            e.preventDefault();
+            deferredPrompt = e;
+            
+            // Show install button or banner (you can customize this)
+            showInstallPromotion();
+        });
+
+        function showInstallPromotion() {
+            // Create install button if it doesn't exist
+            if (!document.getElementById('installButton')) {
+                const installButton = document.createElement('button');
+                installButton.id = 'installButton';
+                installButton.textContent = 'Install App';
+                installButton.style.cssText = `
+                    position: fixed;
+                    top: 20px;
+                    right: 20px;
+                    background: #007bff;
+                    color: white;
+                    border: none;
+                    padding: 10px 20px;
+                    border-radius: 5px;
+                    cursor: pointer;
+                    font-size: 14px;
+                    z-index: 1000;
+                    box-shadow: 0 2px 10px rgba(0,0,0,0.2);
+                `;
+                
+                installButton.addEventListener('click', async () => {
+                    if (deferredPrompt) {
+                        deferredPrompt.prompt();
+                        const { outcome } = await deferredPrompt.userChoice;
+                        console.log(`User response to the install prompt: ${outcome}`);
+                        deferredPrompt = null;
+                        installButton.remove();
+                    }
+                });
+                
+                document.body.appendChild(installButton);
+                
+                // Auto-hide after 10 seconds
+                setTimeout(() => {
+                    if (installButton && installButton.parentNode) {
+                        installButton.remove();
+                    }
+                }, 10000);
+            }
+        }
+
+        // Handle app installed event
+        window.addEventListener('appinstalled', (evt) => {
+            console.log('SmartSpace PWA was installed');
+            // Remove install button if it exists
+            const installButton = document.getElementById('installButton');
+            if (installButton) {
+                installButton.remove();
+            }
+        });
+    </script>
 </body>
 
 </html>

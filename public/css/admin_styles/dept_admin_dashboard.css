@@ -414,3 +414,476 @@ body {
   background-color: var(--danger-color);
   color: white;
 }
+
+/* Activity Display Styles */
+.activity-name {
+  margin: 8px 0;
+  color: var(--primary-color);
+  font-size: 14px;
+}
+
+.room-type {
+  color: var(--text-muted);
+  font-size: 12px;
+  font-weight: normal;
+}
+
+.issue-meta span {
+  display: block;
+  margin: 4px 0;
+  font-size: 12px;
+  color: var(--text-muted);
+}
+
+.issue-meta span:first-child {
+  color: var(--text-color);
+  font-weight: 500;
+}
+
+/* Badge improvements */
+.badge {
+  display: inline-block;
+  padding: 4px 8px;
+  border-radius: 12px;
+  font-size: 11px;
+  font-weight: 500;
+  text-transform: uppercase;
+  letter-spacing: 0.5px;
+  margin-top: 4px;
+}
+
+.badge-upcoming {
+  background-color: #e3f2fd;
+  color: #1976d2;
+}
+
+.badge-active-now {
+  background-color: #e8f5e8;
+  color: #2e7d32;
+  animation: pulse 2s infinite;
+}
+
+.badge-completed {
+  background-color: #f3e5f5;
+  color: #7b1fa2;
+}
+
+@keyframes pulse {
+  0% { opacity: 1; }
+  50% { opacity: 0.7; }
+  100% { opacity: 1; }
+}
+
+/* Reports Section Styles */
+.reports-container {
+  display: flex;
+  flex-direction: column;
+  gap: 30px;
+}
+
+.date-range-section h4,
+.report-options h4,
+.export-options h4 {
+  color: var(--primary-color);
+  font-weight: 600;
+  margin-bottom: 15px;
+  font-size: 1.1rem;
+  border-bottom: 2px solid var(--secondary-color);
+  padding-bottom: 8px;
+}
+
+.date-inputs {
+  display: flex;
+  flex-wrap: wrap;
+  gap: 20px;
+  align-items: end;
+}
+
+.date-input-group {
+  display: flex;
+  flex-direction: column;
+  gap: 5px;
+}
+
+.date-input-group label {
+  font-weight: 500;
+  color: var(--text-color);
+  font-size: 0.9rem;
+}
+
+.date-input {
+  padding: 10px 12px;
+  border: 2px solid #e1e5e9;
+  border-radius: 8px;
+  font-size: 0.95rem;
+  transition: var(--transition);
+  background-color: white;
+}
+
+.date-input:focus {
+  outline: none;
+  border-color: var(--primary-color);
+  box-shadow: 0 0 0 3px rgba(30, 86, 49, 0.1);
+}
+
+.quick-filters {
+  display: flex;
+  gap: 10px;
+  flex-wrap: wrap;
+}
+
+.quick-filter-btn {
+  padding: 8px 16px;
+  background-color: var(--bg-color);
+  border: 2px solid var(--primary-color);
+  color: var(--primary-color);
+  border-radius: 20px;
+  font-size: 0.85rem;
+  font-weight: 500;
+  cursor: pointer;
+  transition: var(--transition);
+}
+
+.quick-filter-btn:hover,
+.quick-filter-btn.active {
+  background-color: var(--primary-color);
+  color: white;
+}
+
+.report-buttons {
+  display: grid;
+  grid-template-columns: repeat(auto-fit, minmax(280px, 1fr));
+  gap: 15px;
+}
+
+.report-btn {
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  padding: 20px;
+  background-color: white;
+  border: 2px solid #e1e5e9;
+  border-radius: 12px;
+  cursor: pointer;
+  transition: var(--transition);
+  text-align: center;
+}
+
+.report-btn:hover {
+  border-color: var(--primary-color);
+  transform: translateY(-3px);
+  box-shadow: 0 8px 25px rgba(0, 0, 0, 0.1);
+}
+
+.report-btn.selected {
+  border-color: var(--primary-color);
+  background-color: rgba(30, 86, 49, 0.05);
+}
+
+.report-btn i {
+  font-size: 2.5rem;
+  color: var(--primary-color);
+  margin-bottom: 10px;
+}
+
+.report-btn span {
+  font-weight: 600;
+  color: var(--text-color);
+  margin-bottom: 5px;
+  font-size: 1.05rem;
+}
+
+.report-btn small {
+  color: var(--text-muted);
+  font-size: 0.85rem;
+}
+
+.export-buttons {
+  display: flex;
+  gap: 15px;
+  flex-wrap: wrap;
+}
+
+.export-btn {
+  display: flex;
+  align-items: center;
+  gap: 8px;
+  padding: 12px 20px;
+  background-color: var(--primary-color);
+  color: white;
+  border: none;
+  border-radius: 8px;
+  font-weight: 500;
+  cursor: pointer;
+  transition: var(--transition);
+  font-size: 0.95rem;
+}
+
+.export-btn:hover {
+  background-color: var(--accent-color);
+  transform: translateY(-2px);
+}
+
+.export-btn:disabled {
+  background-color: var(--text-muted);
+  cursor: not-allowed;
+  transform: none;
+}
+
+.export-btn i {
+  font-size: 1.2rem;
+}
+
+/* Simple List Design */
+.list-item {
+  display: flex;
+  justify-content: space-between;
+  align-items: flex-start;
+  padding: 16px 0;
+  border-bottom: 1px solid #e9ecef;
+}
+
+.list-item:last-child {
+  border-bottom: none;
+}
+
+.item-main {
+  flex: 1;
+}
+
+.item-title {
+  font-size: 1rem;
+  font-weight: 600;
+  color: var(--text-color);
+  margin-bottom: 4px;
+}
+
+.item-subtitle {
+  font-size: 0.9rem;
+  color: var(--primary-color);
+  margin-bottom: 8px;
+}
+
+.item-details {
+  display: flex;
+  flex-direction: column;
+  gap: 4px;
+}
+
+.detail-item {
+  font-size: 0.85rem;
+  color: var(--text-muted);
+  display: flex;
+  align-items: center;
+}
+
+.detail-item i {
+  margin-right: 6px;
+  font-size: 0.9rem;
+  color: var(--primary-color);
+}
+
+.item-status {
+  margin-left: 20px;
+  display: flex;
+  align-items: center;
+}
+
+/* Simple Status Styles */
+.simple-status {
+  padding: 4px 8px;
+  border-radius: 4px;
+  font-size: 0.8rem;
+  font-weight: 500;
+  text-align: center;
+  min-width: 70px;
+}
+
+.simple-status.status-pending {
+  background-color: #fff3cd;
+  color: #856404;
+}
+
+.simple-status.status-in-progress {
+  background-color: #d1ecf1;
+  color: #0c5460;
+}
+
+.simple-status.status-resolved {
+  background-color: #d4edda;
+  color: #155724;
+}
+
+.simple-status.status-rejected {
+  background-color: #f8d7da;
+  color: #721c24;
+}
+
+.simple-status.status-upcoming {
+  background-color: #e3f2fd;
+  color: #1565c0;
+}
+
+.simple-status.status-active-now {
+  background-color: #e8f5e8;
+  color: #2e7d32;
+}
+
+.simple-status.status-completed {
+  background-color: #f3e5f5;
+  color: #7b1fa2;
+}
+
+/* Section Footer and Simple Link */
+.section-footer {
+  margin-top: 16px;
+  padding-top: 16px;
+  border-top: 1px solid #e9ecef;
+}
+
+.simple-link {
+  display: inline-flex;
+  align-items: center;
+  gap: 6px;
+  color: var(--primary-color);
+  text-decoration: none;
+  font-size: 0.9rem;
+  font-weight: 500;
+  transition: color 0.2s ease;
+}
+
+.simple-link:hover {
+  color: var(--accent-color);
+  text-decoration: none;
+}
+
+.simple-link i {
+  font-size: 1rem;
+}
+
+/* Empty State Styling */
+.empty-state {
+  text-align: center;
+  padding: 30px 20px;
+  color: var(--text-muted);
+}
+
+.empty-state p {
+  font-size: 0.95rem;
+  margin: 0;
+}
+
+/* Report Status Message */
+.report-status-message {
+  display: flex;
+  align-items: center;
+  gap: 8px;
+  padding: 12px 16px;
+  margin-bottom: 20px;
+  background-color: #e3f2fd;
+  border: 1px solid #bbdefb;
+  border-radius: 8px;
+  color: #1565c0;
+  font-size: 0.9rem;
+}
+
+.report-status-message.success {
+  background-color: #e8f5e8;
+  border-color: #c3e6cb;
+  color: #155724;
+}
+
+.report-status-message i {
+  font-size: 1.2rem;
+}
+
+/* Instruction Text */
+.instruction-text {
+  color: var(--text-muted);
+  font-size: 0.9rem;
+  margin-bottom: 15px;
+  font-style: italic;
+}
+
+/* Disabled Report Buttons */
+.report-btn:disabled {
+  opacity: 0.5;
+  cursor: not-allowed;
+  background-color: #f8f9fa;
+  color: var(--text-muted);
+  border-color: #e9ecef;
+  pointer-events: none;
+}
+
+.report-btn:disabled:hover {
+  transform: none;
+  box-shadow: none;
+  background-color: #f8f9fa;
+}
+
+.report-btn:disabled i {
+  color: var(--text-muted);
+}
+
+/* Disabled Export Buttons */
+.export-btn:disabled {
+  opacity: 0.5;
+  cursor: not-allowed;
+  background-color: var(--text-muted);
+}
+
+.export-btn:disabled:hover {
+  transform: none;
+  background-color: var(--text-muted);
+}
+
+/* Responsive adjustments for reports */
+@media (max-width: 768px) {
+  .date-inputs {
+    flex-direction: column;
+    align-items: stretch;
+  }
+  
+  .quick-filters {
+    justify-content: center;
+  }
+  
+  .report-buttons {
+    grid-template-columns: 1fr;
+  }
+  
+  .export-buttons {
+    flex-direction: column;
+  }
+  
+  /* Mobile responsive for list items */
+  .list-item {
+    flex-direction: column;
+    align-items: stretch;
+    padding: 12px 0;
+  }
+  
+  .item-status {
+    margin-left: 0;
+    margin-top: 8px;
+    justify-content: flex-start;
+  }
+  
+  .item-title {
+    font-size: 0.95rem;
+  }
+  
+  .item-details {
+    gap: 2px;
+  }
+  
+  .detail-item {
+    font-size: 0.8rem;
+  }
+  
+  .simple-status {
+    font-size: 0.75rem;
+    padding: 3px 6px;
+    min-width: 60px;
+  }
+}

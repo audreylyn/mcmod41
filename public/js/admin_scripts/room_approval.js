@@ -126,6 +126,12 @@ function filterRequests() {
     // Filter by priority
     if (priorityValue) {
       switch (priorityValue) {
+        case 'expired':
+          if (cardDaysUntil >= 0) {
+            // Only show expired (negative days)
+            show = false;
+          }
+          break;
         case 'teacher':
           if (cardRequesterType !== 'Teacher') {
             show = false;
@@ -133,7 +139,7 @@ function filterRequests() {
           break;
         case 'urgent':
           if (cardDaysUntil > 1) {
-            // Today or tomorrow
+            // Today, tomorrow, or expired
             show = false;
           }
           break;

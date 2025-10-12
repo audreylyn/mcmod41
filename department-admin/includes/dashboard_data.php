@@ -310,37 +310,59 @@ while ($row = $result->fetch_assoc()) {
     $recent_issues[] = $row;
 }
 
-// Get recent room usage data - approved requests only
+// Get recent room usage data - using activity logs structure
 $recent_room_usage = [];
 $stmt = $conn->prepare("
-    SELECT rr.RequestID, rr.StartTime, rr.EndTime, rr.ActivityName, r.room_name, b.building_name, 
+    SELECT rr.RequestID, rr.StartTime, rr.EndTime, rr.ActivityName, rr.RequestDate, rr.ReservationDate,
+        r.room_name, r.room_type, b.building_name, 
         CASE 
             WHEN rr.StudentID IS NOT NULL THEN CONCAT(s.FirstName, ' ', s.LastName)
             WHEN rr.TeacherID IS NOT NULL THEN CONCAT(t.FirstName, ' ', t.LastName)
         END as user_name,
         CASE 
+            WHEN rr.StudentID IS NOT NULL THEN s.Department
+            WHEN rr.TeacherID IS NOT NULL THEN t.Department
+        END as user_department,
+        CASE 
             WHEN rr.StudentID IS NOT NULL THEN 'Student'
             WHEN rr.TeacherID IS NOT NULL THEN 'Teacher'
         END as user_role,
         CASE 
-            WHEN NOW() BETWEEN rr.StartTime AND rr.EndTime THEN 'Active Now'
-            WHEN NOW() > rr.EndTime THEN 'Completed'
-            ELSE 'Upcoming'
+            WHEN rr.StudentID IS NOT NULL THEN s.StudentID
+            WHEN rr.TeacherID IS NOT NULL THEN t.TeacherID
+        END as user_id,
+        CASE 
+            WHEN rr.StudentID IS NOT NULL THEN s.Email
+            WHEN rr.TeacherID IS NOT NULL THEN t.Email
+        END as user_email,
+        da.FirstName as admin_first_name, 
+        da.LastName as admin_last_name,
+        CASE 
+            WHEN rr.ReservationDate > CURDATE() THEN 'Upcoming'
+            WHEN rr.ReservationDate = CURDATE() THEN 
+                CASE 
+                    WHEN CONVERT_TZ(NOW(), '+00:00', '+08:00') BETWEEN rr.StartTime AND rr.EndTime THEN 'Active Now'
+                    WHEN CONVERT_TZ(NOW(), '+00:00', '+08:00') > rr.EndTime THEN 'Completed'
+                    ELSE 'Upcoming'
+                END
+            ELSE 'Completed'
         END as usage_status
     FROM room_requests rr
     JOIN rooms r ON rr.RoomID = r.id
     JOIN buildings b ON r.building_id = b.id
     LEFT JOIN student s ON rr.StudentID = s.StudentID
     LEFT JOIN teacher t ON rr.TeacherID = t.TeacherID
+    LEFT JOIN dept_admin da ON rr.approvedBy = da.AdminID
     WHERE rr.Status = 'approved'
     AND (s.Department = ? OR t.Department = ?)
+    AND rr.RequestDate >= DATE_SUB(NOW(), INTERVAL 30 DAY)
     ORDER BY 
         CASE 
-            WHEN NOW() BETWEEN rr.StartTime AND rr.EndTime THEN 0
-            WHEN NOW() < rr.StartTime THEN 1
+            WHEN rr.ReservationDate = CURDATE() AND CONVERT_TZ(NOW(), '+00:00', '+08:00') BETWEEN rr.StartTime AND rr.EndTime THEN 0
+            WHEN rr.ReservationDate >= CURDATE() THEN 1
             ELSE 2
         END, 
-        rr.StartTime DESC
+        rr.ReservationDate DESC, rr.StartTime DESC
     LIMIT 5
 ");
 $stmt->bind_param("ss", $department, $department);
@@ -350,7 +372,7 @@ while ($row = $result->fetch_assoc()) {
     $recent_room_usage[] = $row;
 }
 
-// Get rooms with most equipment issues
+// Get rooms with most equipment issues (only unresolved issues)
 $rooms_with_most_issues = [];
 $stmt = $conn->prepare("
     SELECT 
@@ -363,7 +385,9 @@ $stmt = $conn->prepare("
     JOIN rooms r ON eu.room_id = r.id
     JOIN buildings b ON r.building_id = b.id
     WHERE b.department = ?
+    AND ei.status IN ('pending', 'in_progress')
     GROUP BY r.id, r.room_name, b.building_name
+    HAVING issue_count > 0
     ORDER BY issue_count DESC
     LIMIT 5
 ");

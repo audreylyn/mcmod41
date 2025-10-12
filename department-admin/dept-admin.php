@@ -83,19 +83,6 @@ include 'includes/dashboard_data.php'
                     </div>
                 </div>
 
-                <!-- Full Width Chart -->
-                <div class="chart-card chart-card-full">
-                    <div class="card-header">
-                        <h3 class="card-title">
-                            <span class="icon"><i class="mdi mdi-chart-line"></i></span>
-                            Monthly Room Request Trends
-                        </h3>
-                    </div>
-                    <div class="card-content">
-                        <canvas id="monthlyTrendsChart" height="100"></canvas>
-                    </div>
-                </div>
-
                 <!-- Recent Issues Section -->
                 <div class="chart-card issues-card">
                     <div class="card-header">
@@ -107,22 +94,48 @@ include 'includes/dashboard_data.php'
                     <div class="card-content">
                         <?php if (count($recent_issues) > 0): ?>
                             <?php foreach ($recent_issues as $issue): ?>
-                                <div class="issue-item">
-                                    <div class="issue-title"><?php echo htmlspecialchars($issue['equipment_name']); ?> - <?php echo htmlspecialchars($issue['issue_type']); ?></div>
-                                    <div class="issue-meta">
-                                        <span>Reported: <?php echo date('M j, Y g:i A', strtotime($issue['reported_at'])); ?></span>
-                                        <span class="badge badge-<?php echo strtolower($issue['status']); ?>"><?php echo $issue['status']; ?></span>
+                                <div class="list-item">
+                                    <div class="item-main">
+                                        <div class="item-title">
+                                            <?php echo htmlspecialchars($issue['equipment_name']); ?> (<?php echo htmlspecialchars($issue['issue_type']); ?>)
+                                        </div>
+                                        <div class="item-subtitle">
+                                            <strong>Issue ID:</strong> ISS-<?php echo $issue['id']; ?>
+                                        </div>
+                                        <div class="item-details">
+                                            <span class="detail-item">
+                                                <i class="mdi mdi-account"></i> Reporter: <?php echo htmlspecialchars($issue['first_name'] . ' ' . $issue['last_name']); ?> (<?php echo $issue['user_type']; ?>)
+                                            </span>
+                                            <span class="detail-item">
+                                                <i class="mdi mdi-calendar"></i> Reported: <?php 
+                                                    $reported_date = new DateTime($issue['reported_at']);
+                                                    echo $reported_date->format('M j, Y g:i A');
+                                                ?>
+                                            </span>
+                                        </div>
+                                    </div>
+                                    <div class="item-status">
+                                        <span class="simple-status status-<?php echo strtolower(str_replace('_', '-', $issue['status'])); ?>">
+                                            <?php echo ucfirst(str_replace('_', ' ', $issue['status'])); ?>
+                                        </span>
                                     </div>
                                 </div>
                             <?php endforeach; ?>
-                            <a href="dept_equipment_report.php" class="action-link">View All Issues</a>
+                            <div class="section-footer">
+                                <a href="dept_equipment_report.php" class="simple-link">
+                                    <i class="mdi mdi-arrow-right"></i> View All Equipment Issues
+                                </a>
+                            </div>
                         <?php else: ?>
-                            <p class="text-center py-4">No recent equipment issues reported.</p>
+                            <div class="empty-state">
+                                <p>No recent equipment issues reported.</p>
+                            </div>
                         <?php endif; ?>
                     </div>
                 </div>
             </div>
             
+            <div class="dashboard-container">
             <!-- Recent Room Usage -->
             <div class="chart-card issues-card">
                 <div class="card-header">
@@ -134,25 +147,68 @@ include 'includes/dashboard_data.php'
                 <div class="card-content">
                     <?php if (count($recent_room_usage) > 0): ?>
                         <?php foreach ($recent_room_usage as $usage): ?>
-                            <div class="issue-item">
-                                <div class="issue-title">
-                                    <?php echo htmlspecialchars($usage['room_name']); ?>, 
-                                    <?php echo htmlspecialchars($usage['building_name']); ?> - 
-                                    <?php echo htmlspecialchars($usage['ActivityName']); ?>
+                            <div class="list-item">
+                                <div class="item-main">
+                                    <div class="item-title">
+                                        <?php echo htmlspecialchars($usage['room_name']); ?> 
+                                        <?php if ($usage['room_type']): ?>
+                                            (<?php echo htmlspecialchars($usage['room_type']); ?>)
+                                        <?php endif; ?>
+                                        - <?php echo htmlspecialchars($usage['building_name']); ?>
+                                    </div>
+                                    <div class="item-subtitle">
+                                        <strong><?php echo htmlspecialchars($usage['ActivityName']); ?></strong>
+                                    </div>
+                                    <div class="item-details">
+                                        <span class="detail-item">
+                                            <i class="mdi mdi-account"></i> User: <?php echo htmlspecialchars($usage['user_name']); ?> (<?php echo $usage['user_role']; ?>)
+                                        </span>
+                                        <span class="detail-item">
+                                            <i class="mdi mdi-calendar"></i> Date: <?php 
+                                                $reservation_date = new DateTime($usage['ReservationDate']);
+                                                echo $reservation_date->format('M j, Y');
+                                                
+                                                if ($usage['StartTime'] && $usage['EndTime']) {
+                                                    $start_time = new DateTime($usage['StartTime']);
+                                                    $end_time = new DateTime($usage['EndTime']);
+                                                    echo ' (' . $start_time->format('g:i A') . ' - ' . $end_time->format('g:i A') . ')';
+                                                }
+                                            ?>
+                                        </span>
+                                        <span class="detail-item">
+                                            <i class="mdi mdi-clock"></i> Requested: <?php 
+                                                $request_date = new DateTime($usage['RequestDate']);
+                                                echo $request_date->format('M j, Y g:i A');
+                                            ?>
+                                        </span>
+                                        <?php if ($usage['admin_first_name']): ?>
+                                            <span class="detail-item">
+                                                <i class="mdi mdi-account-check"></i> Approved by: <?php echo htmlspecialchars($usage['admin_first_name'] . ' ' . $usage['admin_last_name']); ?>
+                                            </span>
+                                        <?php endif; ?>
+                                    </div>
                                 </div>
-                                <div class="issue-meta">
-                                    <span>User: <?php echo htmlspecialchars($usage['user_name']); ?> (<?php echo $usage['user_role']; ?>)</span>
-                                    <span>Time: <?php echo date('M j, Y g:i A', strtotime($usage['StartTime'])); ?></span>
-                                    <span class="badge badge-<?php echo strtolower(str_replace(' ', '-', $usage['usage_status'])); ?>"><?php echo $usage['usage_status']; ?></span>
+                                <div class="item-status">
+                                    <span class="simple-status status-<?php echo strtolower(str_replace(' ', '-', $usage['usage_status'])); ?>">
+                                        <?php echo $usage['usage_status']; ?>
+                                    </span>
                                 </div>
                             </div>
                         <?php endforeach; ?>
-                        <a href="dept_room_usage_logs.php" class="action-link">View All Usage</a>
+                        <div class="section-footer">
+                            <a href="dept_room_activity_logs.php" class="simple-link">
+                                <i class="mdi mdi-arrow-right"></i> View All Activity Logs
+                            </a>
+                        </div>
                     <?php else: ?>
-                        <p class="text-center py-4">No recent room usage data found.</p>
+                        <div class="empty-state">
+                            <p>No recent room usage data found.</p>
+                        </div>
                     <?php endif; ?>
                 </div>
             </div>
+            </div>
+
             
             <!-- Two column layout for Rooms with Most Issues and Most Requested Rooms -->
             <div class="dashboard-container">
@@ -235,6 +291,77 @@ include 'includes/dashboard_data.php'
                         </table>
                     </div>
                 </div>
+
+
+                <!-- Reports Section -->
+                <div class="chart-card chart-card-full" id="reports-section">
+                    <div class="card-header">
+                        <h3 class="card-title">
+                            <span class="icon"><i class="mdi mdi-file-chart"></i></span>
+                            Generate Reports
+                        </h3>
+                    </div>
+                    <div class="card-content">
+                        <div class="reports-container">
+                            <!-- Date Range Picker -->
+                            <div class="date-range-section">
+                                <h4>Step 1: Select Date Range</h4>
+                                <p class="instruction-text">Please select a date range first to enable report options.</p>
+                                <div class="date-inputs">
+                                    <div class="date-input-group">
+                                        <label for="startDate">Start Date:</label>
+                                        <input type="date" id="startDate" class="date-input">
+                                    </div>
+                                    <div class="date-input-group">
+                                        <label for="endDate">End Date:</label>
+                                        <input type="date" id="endDate" class="date-input">
+                                    </div>
+                                </div>
+                            </div>
+
+                            <!-- Report Options -->
+                            <div class="report-options">
+                                <h4>Step 2: Choose Report Type</h4>
+                                <div class="report-status-message" id="reportStatusMessage">
+                                    <i class="mdi mdi-information-outline"></i>
+                                    <span>Select a date range above to enable report options</span>
+                                </div>
+                                <div class="report-buttons">
+                                    <button class="report-btn" data-report="room-utilization" disabled>
+                                        <i class="mdi mdi-door"></i>
+                                        <span>Room Utilization Report</span>
+                                        <small>Usage efficiency and patterns</small>
+                                    </button>
+                                    <button class="report-btn" data-report="booking-requests" disabled>
+                                        <i class="mdi mdi-clipboard-check"></i>
+                                        <span>Room Reservation Requests</span>
+                                        <small>Detailed list of approved and rejected requests</small>
+                                    </button>
+                                    <button class="report-btn" data-report="equipment-status" disabled>
+                                        <i class="mdi mdi-tools"></i>
+                                        <span>Equipment Issues Report</span>
+                                        <small>Detailed equipment problems and maintenance issues</small>
+                                    </button>
+                                </div>
+                            </div>
+
+                            <!-- Export Options -->
+                            <div class="export-options">
+                                <h4>Step 3: Generate Report</h4>
+                                <div class="export-buttons">
+                                    <button class="export-btn" data-format="csv" disabled>
+                                        <i class="mdi mdi-file-excel"></i>
+                                        Export as CSV
+                                    </button>
+                                    <button class="export-btn" data-format="preview" disabled>
+                                        <i class="mdi mdi-eye"></i>
+                                        Preview Report
+                                    </button>
+                                </div>
+                            </div>
+                        </div>
+                    </div>
+                </div>
             </div>
         </section>
     </div>
@@ -255,8 +382,7 @@ include 'includes/dashboard_data.php'
             resolved: <?php echo isset($issue_stats['resolved']) ? $issue_stats['resolved'] : 0; ?>,
             rejected: <?php echo isset($issue_stats['rejected']) ? $issue_stats['rejected'] : 0; ?>
         };
-        window.monthlyLabels = <?php echo json_encode(array_keys($monthly_stats)); ?>;
-        window.monthlyData = <?php echo json_encode(array_values($monthly_stats)); ?>;
+        // Monthly chart data removed - chart no longer used
     </script>
 
     <script type="text/javascript" src="../public/js/admin_scripts/dept_admin_dashboard.js"></script>
