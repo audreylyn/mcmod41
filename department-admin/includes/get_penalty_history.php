@@ -4,6 +4,9 @@ checkAccess(['Department Admin']);
 
 require_once '../../auth/dbh.inc.php';
 
+// Set timezone to Philippines
+date_default_timezone_set('Asia/Manila');
+
 // Set proper headers
 header('Content-Type: application/json');
 
@@ -53,11 +56,24 @@ try {
     
     $penalties = [];
     while ($penalty = $historyResult->fetch_assoc()) {
-        $penalty['issued_at_formatted'] = date('M d, Y h:i A', strtotime($penalty['issued_at']));
-        $penalty['expires_at_formatted'] = $penalty['expires_at'] ? 
-            date('M d, Y h:i A', strtotime($penalty['expires_at'])) : null;
-        $penalty['revoked_at_formatted'] = $penalty['revoked_at'] ? 
-            date('M d, Y h:i A', strtotime($penalty['revoked_at'])) : null;
+        // Convert UTC timestamps to Philippines timezone
+        $issued_date = new DateTime($penalty['issued_at'], new DateTimeZone('UTC'));
+        $issued_date->setTimezone(new DateTimeZone('Asia/Manila'));
+        $penalty['issued_at_formatted'] = $issued_date->format('M d, Y h:i A');
+        
+        $penalty['expires_at_formatted'] = null;
+        if ($penalty['expires_at']) {
+            $expires_date = new DateTime($penalty['expires_at'], new DateTimeZone('UTC'));
+            $expires_date->setTimezone(new DateTimeZone('Asia/Manila'));
+            $penalty['expires_at_formatted'] = $expires_date->format('M d, Y h:i A');
+        }
+        
+        $penalty['revoked_at_formatted'] = null;
+        if ($penalty['revoked_at']) {
+            $revoked_date = new DateTime($penalty['revoked_at'], new DateTimeZone('UTC'));
+            $revoked_date->setTimezone(new DateTimeZone('Asia/Manila'));
+            $penalty['revoked_at_formatted'] = $revoked_date->format('M d, Y h:i A');
+        }
         
         $penalties[] = $penalty;
     }

@@ -4,6 +4,9 @@
             <div class="new-title-container">
                 <p class="new-title">MANAGE STUDENT PENALTIES</p>
             </div>
+            <button type="button" class="btn btn-info btn-sm" onclick="checkExpiredPenalties()" id="checkExpiredBtn">
+                <i class="mdi mdi-clock-check"></i> Check Expired Penalties
+            </button>
         </header>
         <div class="card-content">
             <table id="studentsTable" class="student-table display is-fullwidth">
@@ -44,9 +47,17 @@
                                         <div class="penalty-info">
                                             <strong>Reason:</strong> <?php echo htmlspecialchars($student['penalty_reason']); ?><br>
                                             <small class="text-muted">
-                                                Issued: <?php echo date('M d, Y h:i A', strtotime($student['penalty_issued'])); ?>
+                                                Issued: <?php 
+                                                    $issued_date = new DateTime($student['penalty_issued'], new DateTimeZone('UTC'));
+                                                    $issued_date->setTimezone(new DateTimeZone('Asia/Manila'));
+                                                    echo $issued_date->format('M d, Y h:i A'); 
+                                                ?>
                                                 <?php if ($student['penalty_expires']): ?>
-                                                    <br>Expires: <?php echo date('M d, Y h:i A', strtotime($student['penalty_expires'])); ?>
+                                                    <br>Expires: <?php 
+                                                        $expires_date = new DateTime($student['penalty_expires'], new DateTimeZone('UTC'));
+                                                        $expires_date->setTimezone(new DateTimeZone('Asia/Manila'));
+                                                        echo $expires_date->format('M d, Y h:i A'); 
+                                                    ?>
                                                 <?php else: ?>
                                                     <br><span class="text-danger">Permanent</span>
                                                 <?php endif; ?>

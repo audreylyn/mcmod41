@@ -9,6 +9,10 @@ $current_page = 'dept_room_maintenance';
 
 $conn = db();
 
+// Check and update expired maintenance before displaying
+require_once __DIR__ . '/../../auth/room_maintenance_expiry_handler.php';
+updateExpiredMaintenance(false);
+
 // Get admin ID and department
 $admin_id = $_SESSION['user_id'];
 $department = $_SESSION['department'] ?? '';
@@ -63,6 +67,21 @@ if ($_SERVER['REQUEST_METHOD'] === 'POST' && isset($_POST['action'])) {
         
         // Prevent setting maintenance if there are approved future reservations
         if ($new_status === 'maintenance') {
+            // Check if room is already in maintenance
+            $maintenanceCheckStmt = $conn->prepare("
+                SELECT COUNT(*) as count 
+                FROM rooms 
+                WHERE id = ? AND RoomStatus = 'maintenance'
+            ");
+            $maintenanceCheckStmt->bind_param("i", $room_id);
+            $maintenanceCheckStmt->execute();
+            $maintenanceResult = $maintenanceCheckStmt->get_result();
+            $existingMaintenance = $maintenanceResult->fetch_assoc();
+            
+            if ($existingMaintenance['count'] > 0) {
+                echo json_encode(['success' => false, 'message' => 'Room is already under maintenance']);
+                exit;
+            }
             // Setup date parameters for query
             $checkStart = !empty($start_date) ? $start_date : date('Y-m-d'); // Default to today
             $checkEnd = !empty($end_date) ? $end_date : '9999-12-31'; // Default to far future

@@ -1,4 +1,7 @@
 <?php
+// Set timezone to Philippines
+date_default_timezone_set('Asia/Manila');
+
 $conn = db();
 
 // Get current admin info
@@ -36,6 +39,21 @@ if ($_SERVER['REQUEST_METHOD'] === 'POST') {
         
         try {
             $conn->begin_transaction();
+            
+            // Check if student is already banned
+            $checkStmt = $conn->prepare("
+                SELECT COUNT(*) as count FROM penalty 
+                WHERE student_id = ? AND status = 'active' AND penalty_type = 'ban'
+            ");
+            $checkStmt->bind_param("i", $studentId);
+            $checkStmt->execute();
+            $checkResult = $checkStmt->get_result();
+            $existingBan = $checkResult->fetch_assoc();
+            
+            if ($existingBan['count'] > 0) {
+                echo json_encode(['success' => false, 'message' => 'Student is already banned']);
+                exit;
+            }
             
             // Insert penalty record
             $stmt = $conn->prepare("
@@ -127,6 +145,10 @@ if ($_SERVER['REQUEST_METHOD'] === 'POST') {
         exit;
     }
 }
+
+// Check and update expired penalties before displaying
+require_once __DIR__ . '/../../auth/penalty_expiry_handler.php';
+updateExpiredPenalties(false);
 
 // Get students in the same department
 $studentsStmt = $conn->prepare("

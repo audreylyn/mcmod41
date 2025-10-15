@@ -2,7 +2,7 @@
 require '../auth/middleware.php';
 checkAccess(['Department Admin']);
 
-include 'includes/dashboard_data.php'
+include 'includes/dashboard_data.php';
 // No need to close the connection, it's managed by the db() function.
 ?>
 

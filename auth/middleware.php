@@ -9,10 +9,13 @@ if (session_status() == PHP_SESSION_NONE) {
 require_once __DIR__ . '/dbh.inc.php';
 require_once __DIR__ . '/../middleware/session_manager.php';
 
-// Check for expired penalties periodically (every 10th request to avoid overhead)
+// Check for expired penalties and room maintenance periodically (every 10th request to avoid overhead)
 if (rand(1, 10) === 1) {
     require_once __DIR__ . '/penalty_expiry_handler.php';
     updateExpiredPenalties(false); // Don't close connection when called from middleware
+    
+    require_once __DIR__ . '/room_maintenance_expiry_handler.php';
+    updateExpiredMaintenance(false); // Don't close connection when called from middleware
 }
 
 $sessionManager = new SessionManager();

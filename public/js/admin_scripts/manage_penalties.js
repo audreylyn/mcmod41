@@ -214,8 +214,41 @@ function showAlert(type, message) {
   }, 5000);
 }
 
+function checkExpiredPenalties() {
+  const checkBtn = $('#checkExpiredBtn');
+  const originalText = checkBtn.html();
+  
+  // Disable button and show loading
+  checkBtn.prop('disabled', true).html('<i class="mdi mdi-loading mdi-spin"></i> Checking...');
+  
+  $.ajax({
+    url: 'includes/check_expired_penalties.php',
+    type: 'GET',
+    dataType: 'json',
+    success: function(response) {
+      if (response.success) {
+        showAlert('success', response.message);
+        if (response.expired_count > 0) {
+          // Reload page if any penalties were expired
+          setTimeout(() => location.reload(), 2000);
+        }
+      } else {
+        showAlert('danger', response.message);
+      }
+    },
+    error: function() {
+      showAlert('danger', 'Error checking expired penalties');
+    },
+    complete: function() {
+      // Re-enable button
+      checkBtn.prop('disabled', false).html(originalText);
+    }
+  });
+}
+
 function submitBan() {
   const form = $('#banForm');
+  const submitBtn = $('.btn-danger[onclick="submitBan()"]');
   const formData = new FormData(form[0]);
   formData.append('action', 'ban_student');
 
@@ -223,6 +256,9 @@ function submitBan() {
     form[0].reportValidity();
     return;
   }
+
+  // Disable submit button to prevent double-clicking
+  submitBtn.prop('disabled', true).html('<i class="mdi mdi-loading mdi-spin"></i> Processing...');
 
   $.ajax({
     url: 'manage_penalties.php',
@@ -241,10 +277,14 @@ function submitBan() {
         setTimeout(() => location.reload(), 1500);
       } else {
         showAlert('danger', response.message);
+        // Re-enable button on error
+        submitBtn.prop('disabled', false).html('<i class="mdi mdi-cancel"></i> Ban Student');
       }
     },
     error: function () {
       showAlert('danger', 'Error processing ban request');
+      // Re-enable button on error
+      submitBtn.prop('disabled', false).html('<i class="mdi mdi-cancel"></i> Ban Student');
     },
   });
 }

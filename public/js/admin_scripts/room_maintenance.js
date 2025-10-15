@@ -1,6 +1,64 @@
 let currentRoomId = null;
 let currentRoomName = null;
 
+function checkExpiredMaintenance() {
+  const checkBtn = document.getElementById('checkExpiredMaintenanceBtn');
+  const originalText = checkBtn.innerHTML;
+  
+  // Disable button and show loading
+  checkBtn.disabled = true;
+  checkBtn.innerHTML = '<i class="mdi mdi-loading mdi-spin"></i> Checking...';
+  
+  fetch('includes/check_expired_maintenance.php', {
+    method: 'GET',
+    headers: {
+      'Content-Type': 'application/json'
+    }
+  })
+  .then(response => response.json())
+  .then(data => {
+    if (data.success) {
+      showAlert('success', data.message);
+      if (data.expired_count > 0) {
+        // Reload page if any maintenance periods were expired
+        setTimeout(() => location.reload(), 2000);
+      }
+    } else {
+      showAlert('error', data.message);
+    }
+  })
+  .catch(error => {
+    console.error('Error:', error);
+    showAlert('error', 'Error checking expired maintenance periods');
+  })
+  .finally(() => {
+    // Re-enable button
+    checkBtn.disabled = false;
+    checkBtn.innerHTML = originalText;
+  });
+}
+
+function showAlert(type, message) {
+  // Create alert element
+  const alertDiv = document.createElement('div');
+  alertDiv.className = `alert alert-${type}`;
+  alertDiv.innerHTML = `
+    <span>${message}</span>
+    <button type="button" class="close" onclick="this.parentElement.remove()">×</button>
+  `;
+  
+  // Insert at top of page
+  const container = document.querySelector('.maintenance-container');
+  container.insertBefore(alertDiv, container.firstChild);
+  
+  // Auto-remove after 5 seconds
+  setTimeout(() => {
+    if (alertDiv.parentNode) {
+      alertDiv.remove();
+    }
+  }, 5000);
+}
+
 function updateRoomStatus(roomId, newStatus, roomName) {
   if (!newStatus) return;
 
@@ -84,6 +142,12 @@ function performStatusUpdate(
           location.reload();
         }, 1500);
       } else {
+        // Re-enable button on error
+        if (window.maintenanceSubmitBtn) {
+          window.maintenanceSubmitBtn.disabled = false;
+          window.maintenanceSubmitBtn.innerHTML = window.maintenanceOriginalText;
+        }
+        
         // If server returned conflicts array, show conflicts modal
         if (
           data.conflicts &&
@@ -97,6 +161,12 @@ function performStatusUpdate(
       }
     })
     .catch((error) => {
+      // Re-enable button on error
+      if (window.maintenanceSubmitBtn) {
+        window.maintenanceSubmitBtn.disabled = false;
+        window.maintenanceSubmitBtn.innerHTML = window.maintenanceOriginalText;
+      }
+      
       showAlert('error', 'An error occurred while updating room status');
       console.error('Error:', error);
     });
@@ -196,6 +266,16 @@ document
   .addEventListener('submit', function (e) {
     e.preventDefault();
 
+    const submitBtn = document.querySelector('#maintenanceForm button[type="submit"]');
+    const originalText = submitBtn.innerHTML;
+    
+    // Disable submit button to prevent double-clicking
+    if (submitBtn.disabled) {
+      return; // Already processing
+    }
+    submitBtn.disabled = true;
+    submitBtn.innerHTML = '<i class="mdi mdi-loading mdi-spin"></i> Processing...';
+
     const roomId = document.getElementById('modalRoomId').value;
     const reason = document.getElementById('maintenanceReason').value;
     const startDate = document.getElementById('modalStartDate').value;
@@ -203,16 +283,25 @@ document
 
     if (!reason.trim()) {
       showAlert('error', 'Please provide a reason for maintenance');
+      // Re-enable button on validation error
+      submitBtn.disabled = false;
+      submitBtn.innerHTML = originalText;
       return;
     }
 
     if (!startDate) {
       showAlert('error', 'Please select a start date for maintenance');
+      // Re-enable button on validation error
+      submitBtn.disabled = false;
+      submitBtn.innerHTML = originalText;
       return;
     }
 
     if (!endDate) {
       showAlert('error', 'Please select an end date for maintenance');
+      // Re-enable button on validation error
+      submitBtn.disabled = false;
+      submitBtn.innerHTML = originalText;
       return;
     }
 
@@ -226,14 +315,24 @@ document
 
     if (start < today) {
       showAlert('error', 'Start date cannot be in the past');
+      // Re-enable button on validation error
+      submitBtn.disabled = false;
+      submitBtn.innerHTML = originalText;
       return;
     }
 
     // Check if end date is before or same as start date
     if (end <= start) {
       showAlert('error', 'End date must be after start date');
+      // Re-enable button on validation error
+      submitBtn.disabled = false;
+      submitBtn.innerHTML = originalText;
       return;
     }
+
+    // Store button reference for re-enabling on error
+    window.maintenanceSubmitBtn = submitBtn;
+    window.maintenanceOriginalText = originalText;
 
     performStatusUpdate(roomId, 'maintenance', reason, startDate, endDate);
   });

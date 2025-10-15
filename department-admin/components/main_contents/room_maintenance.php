@@ -1,12 +1,17 @@
 <!-- Page Header -->
-<div class="page-header">
-    <h1 class="page-title">
-        <i class="mdi mdi-wrench"></i>
-        Room Maintenance Management
-    </h1>
-    <p class="page-subtitle">
-        Manage room status for <?php echo htmlspecialchars($department); ?> department and gymnasium
-    </p>
+<div class="page-header" style="display: flex; justify-content: space-between; align-items: center;">
+    <div>
+        <h1 class="page-title">
+            <i class="mdi mdi-wrench"></i>
+            Room Maintenance Management
+        </h1>
+        <p class="page-subtitle">
+            Manage room status for <?php echo htmlspecialchars($department); ?> department and gymnasium
+        </p>
+    </div>
+    <button type="button" class="btn btn-info btn-sm" onclick="checkExpiredMaintenance()" id="checkExpiredMaintenanceBtn">
+        <i class="mdi mdi-clock-check"></i> Check Expired Maintenance
+    </button>
 </div>
 
 <!-- Statistics Cards -->
