@@ -40,6 +40,15 @@ require_once __DIR__ . '/middleware/error_handler.php';
 </head>
 
 <body>
+    <!-- Install App Button -->
+    <div class="install-app-button">
+        <div class="button-wrapper">
+            <button class="shine-button button-forest" onclick="window.open('https://mcismartspace-appwebsite.vercel.app/#download', '_blank')">
+                Install APK
+            </button>
+        </div>
+    </div>
+    
     <div class="login-image">
         <div class="image-overlay-text"></div>
     </div>
@@ -133,6 +142,22 @@ require_once __DIR__ . '/middleware/error_handler.php';
                 </div>
                 <button type="submit" class="btn-login">Sign In</button>
             </form>
+            
+            <!-- Professional Footer -->
+            <div class="login-footer">
+                <div class="footer-content">
+                    <div class="footer-copyright">
+                        © <?php echo date('Y'); ?> MCISmartSpace
+                    </div>
+                    <div class="footer-links">
+                        <a href="#" class="footer-link">Privacy Policy</a>
+                        <span class="footer-separator">|</span>
+                        <a href="#" class="footer-link">Terms</a>
+                        <span class="footer-separator">|</span>
+                        <a href="#" class="footer-link">Support</a>
+                    </div>
+                </div>
+            </div>
             <script>
                         const passwordInput = document.getElementById('password');
                         const togglePassword = document.getElementById('togglePassword');
@@ -192,45 +217,8 @@ require_once __DIR__ . '/middleware/error_handler.php';
         });
 
         function showInstallPromotion() {
-            // Create install button if it doesn't exist
-            if (!document.getElementById('installButton')) {
-                const installButton = document.createElement('button');
-                installButton.id = 'installButton';
-                installButton.textContent = 'Install App';
-                installButton.style.cssText = `
-                    position: fixed;
-                    top: 20px;
-                    right: 20px;
-                    background: #007bff;
-                    color: white;
-                    border: none;
-                    padding: 10px 20px;
-                    border-radius: 5px;
-                    cursor: pointer;
-                    font-size: 14px;
-                    z-index: 1000;
-                    box-shadow: 0 2px 10px rgba(0,0,0,0.2);
-                `;
-                
-                installButton.addEventListener('click', async () => {
-                    if (deferredPrompt) {
-                        deferredPrompt.prompt();
-                        const { outcome } = await deferredPrompt.userChoice;
-                        console.log(`User response to the install prompt: ${outcome}`);
-                        deferredPrompt = null;
-                        installButton.remove();
-                    }
-                });
-                
-                document.body.appendChild(installButton);
-                
-                // Auto-hide after 10 seconds
-                setTimeout(() => {
-                    if (installButton && installButton.parentNode) {
-                        installButton.remove();
-                    }
-                }, 10000);
-            }
+            // Don't create the blue install button - we have our custom green one
+            return;
         }
 
         // Handle app installed event

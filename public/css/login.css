@@ -9,6 +9,7 @@ body {
     height: 100vh;
     display: flex;
     background-color: #f8f9fa;
+    position: relative;
 }
 
 .login-image {
@@ -121,6 +122,80 @@ body {
     transform: translateY(-1px);
 }
 
+/* Install App Button Styles */
+.install-app-button {
+    position: fixed;
+    top: 20px;
+    right: 20px;
+    z-index: 1000;
+}
+
+.button-wrapper {
+    display: flex;
+    flex-direction: column;
+    align-items: center;
+    gap: 1rem;
+}
+
+.shine-button {
+    position: relative;
+    padding: 10px 20px;
+    font-size: 14px;
+    font-weight: 600;
+    border: none;
+    border-radius: 5px;
+    cursor: pointer;
+    overflow: hidden;
+    transition: all 0.3s ease;
+    letter-spacing: 0.5px;
+    min-width: auto;
+    box-shadow: 0 2px 10px rgba(0,0,0,0.2);
+}
+
+.shine-button::before {
+    content: '';
+    position: absolute;
+    height: 250%;
+    width: 40px;
+    top: 0;
+    left: -60px;
+    background: linear-gradient(90deg, transparent, rgba(255, 255, 255, 0.4), transparent);
+    transform: rotate(45deg) translateY(-35%);
+    animation: shine 3s ease infinite;
+}
+
+@keyframes shine {
+    0% {
+        left: -80px;
+    }
+    40% {
+        left: calc(100% + 20px);
+    }
+    100% {
+        left: calc(100% + 20px);
+    }
+}
+
+.button-forest {
+    background: linear-gradient(135deg, #134e5e 0%, #71b280 100%);
+    color: #fff;
+    box-shadow: 
+        0 10px 30px rgba(19, 78, 94, 0.4),
+        inset 0 1px 0 rgba(255, 255, 255, 0.2);
+}
+
+.button-forest:hover {
+    transform: translateY(-3px);
+    box-shadow: 
+        0 15px 40px rgba(19, 78, 94, 0.6),
+        inset 0 1px 0 rgba(255, 255, 255, 0.3);
+}
+
+.shine-button:active {
+    transform: translateY(-1px);
+    transition: transform 0.1s ease;
+}
+
 @media (max-width: 1024px) {
     .login-image {
         flex: 1;
@@ -153,6 +228,79 @@ body {
     .brand-title {
         font-size: 1.8rem;
     }
+    
+    .install-app-button {
+        top: 15px;
+        right: 15px;
+    }
+    
+    .shine-button {
+        padding: 8px 16px;
+        font-size: 12px;
+        min-width: auto;
+    }
+    
+    /* Change button color to darker gold for mobile/tablet */
+    .button-forest {
+        background: linear-gradient(135deg, #b8860b 0%, #daa520 100%);
+        box-shadow: 
+            0 10px 30px rgba(184, 134, 11, 0.4),
+            inset 0 1px 0 rgba(255, 255, 255, 0.2);
+    }
+
+    .button-forest:hover {
+        transform: translateY(-3px);
+        box-shadow: 
+            0 15px 40px rgba(184, 134, 11, 0.6),
+            inset 0 1px 0 rgba(255, 255, 255, 0.3);
+    }
+}
+
+/* Login Footer Styles */
+.login-footer {
+    margin-top: 2rem;
+    padding-top: 1.5rem;
+    border-top: 1px solid #e9ecef;
+}
+
+.footer-content {
+    display: flex;
+    flex-direction: column;
+    align-items: center;
+    gap: 0.75rem;
+    text-align: center;
+}
+
+.footer-copyright {
+    color: #6c757d;
+    font-size: 0.875rem;
+    font-weight: 500;
+}
+
+.footer-links {
+    display: flex;
+    align-items: center;
+    gap: 0.75rem;
+    flex-wrap: wrap;
+    justify-content: center;
+}
+
+.footer-link {
+    color: #28a745;
+    text-decoration: none;
+    font-size: 0.875rem;
+    font-weight: 500;
+    transition: color 0.2s ease;
+}
+
+.footer-link:hover {
+    color: #218838;
+    text-decoration: underline;
+}
+
+.footer-separator {
+    color: #dee2e6;
+    font-size: 0.875rem;
 }
 
 @media (max-width: 480px) {
@@ -162,5 +310,34 @@ body {
 
     .form-container {
         max-width: 100%;
+    }
+    
+    .login-footer {
+        margin-top: 1.5rem;
+        padding-top: 1rem;
+    }
+    
+    .footer-links {
+        gap: 0.5rem;
+    }
+    
+    .footer-copyright,
+    .footer-link {
+        font-size: 0.8rem;
+    }
+    
+    /* Maintain darker gold color for smaller mobile devices */
+    .button-forest {
+        background: linear-gradient(135deg, #b8860b 0%, #daa520 100%);
+        box-shadow: 
+            0 10px 30px rgba(184, 134, 11, 0.4),
+            inset 0 1px 0 rgba(255, 255, 255, 0.2);
+    }
+
+    .button-forest:hover {
+        transform: translateY(-3px);
+        box-shadow: 
+            0 15px 40px rgba(184, 134, 11, 0.6),
+            inset 0 1px 0 rgba(255, 255, 255, 0.3);
     }
 }
