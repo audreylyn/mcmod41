@@ -45,7 +45,6 @@
                 <option value="pending">Pending</option>
                 <option value="approved">Approved</option>
                 <option value="rejected">Rejected</option>
-                <option value="auto_expired">Auto-Expired</option>
             </select>
         </div>
         <div class="filter-item">

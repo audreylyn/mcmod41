@@ -15,6 +15,7 @@
                         <button type="button" class="reason-option" onclick="selectReason('Insufficient information provided')">Insufficient info</button>
                         <button type="button" class="reason-option" onclick="selectReason('Exceeds room capacity')">Exceeds capacity</button>
                         <button type="button" class="reason-option" onclick="selectReason('Request does not meet department policy')">Policy violation</button>
+                        <button type="button" class="reason-option" onclick="selectReason('Request has expired - reservation date has passed')">Request expired</button>
                     </div>
                 </div>
                 <label for="rejection_reason">Reason for rejection:</label>

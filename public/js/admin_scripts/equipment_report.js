@@ -80,7 +80,7 @@ $(document).ready(function () {
   // Reset all filters
   $('#reset-filters').on('click', function () {
     $('#status-filter').val('');
-    $('#date-filter').val('7');
+    $('#date-filter').val('');
     $('#location-filter').val('');
     $('#entries-filter').val('10');
     $('#customSearch').val('');

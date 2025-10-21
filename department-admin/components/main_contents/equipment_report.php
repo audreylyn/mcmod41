@@ -49,8 +49,8 @@
                         <div>
                             <label style="font-size: 0.875rem; color: #64748b; margin-bottom: 0.375rem; display: block; font-weight: 500;">Date Range</label>
                             <select id="date-filter" class="form-select" style="width: 100%; padding: 0.5rem; border: 1px solid #e2e8f0; border-radius: 0.375rem;">
-                                <option value="">All Time</option>
-                                <option value="7" selected>Last 7 days</option>
+                                <option value="" selected>All Time</option>
+                                <option value="7">Last 7 days</option>
                                 <option value="30">Last 30 days</option>
                                 <option value="90">Last 90 days</option>
                             </select>
