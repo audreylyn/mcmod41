@@ -13,7 +13,7 @@ As a teacher user, you have access to all the same features as students, plus ad
 * **Profile Management** - Update your account information and preferences
 * **Priority Access** - Teachers may receive preference for room booking approvals
 
-## Getting Started
+
 
 ## Getting Started
 

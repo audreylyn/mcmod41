@@ -31,7 +31,7 @@ As a student user, you have access to:
 
 Account is active, reservation window and policies understood ( must book at least hours in advance).
 
-1. Log in and click **Browse Rooms** or **Room Booking**.
+1. Log in and click **Browse Rooms**.
 2. Review results and click **View Details** for the chosen room.
 3. Click **Reserve,** Set filters: Date, Start Time, End Time, Building, Room Type, Capacity.
 4. Complete reservation form: Activity Name, Purpose, Number of Participants, Special Requirements.
@@ -40,7 +40,7 @@ Account is active, reservation window and policies understood ( must book at lea
 
 ### Equipment Reporting&#x20;
 
-Report a malfunctioning or missing item
+**Report a malfunctioning or missing item**
 
 1. From dashboard choose **Equipment Report** or scan equipment QR&#x20;
 2. Select Building → Room → Equipment Item. If you came from QR scan, these are prefilled.&#x20;

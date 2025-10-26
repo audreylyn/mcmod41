@@ -16,23 +16,12 @@
 
 ## Department Administrators
 
-* [Admin Overview](department-admin-guide/README.md)
-* [Dashboard Navigation](department-administrators/dashboard-navigation.md)
-* [Room Management](department-administrators/room-management.md)
-* [Equipment Management](department-administrators/equipment-management.md)
-* [User Management](department-administrators/user-management.md)
+* [Admin Guide](department-admin-guide/README.md)
 * [Reports & Analytics](department-admin-guide/reports.md)
-* [QR Code Generation](department-administrators/qr-code-generation.md)
-* [Penalty Management](department-administrators/penalty-management.md)
 
 ## Registrars
 
-* [Registrar Overview](registrar-guide/README.md)
-* [System Administration](registrars/system-administration.md)
-* [Building Management](registrars/building-management.md)
-* [Equipment Assignment](registrars/equipment-assignment.md)
-* [Admin Account Creation](registrars/admin-account-creation.md)
-* [System Reports](registrars/system-reports.md)
+* [Registrar Guide](registrar-guide/README.md)
 
 ## Technical Documentation
 
