@@ -2,27 +2,17 @@
 
 ## Getting Started
 
-* [Introductionsss](README.md)
+* [Introduction](README.md)
 * [System Overview](technical/system-overview.md)
 * [Quick Start Guide](quick-start.md)
 
 ## Students
 
-* [Student Overview](student-guide/README.md)
-* [Account Setup](student-guide/account-setup.md)
-* [Room Reservations](student-guide/room-reservations.md)
-* [Equipment Reporting](student-guide/equipment-reporting.md)
-* [QR Code Scanning](students/qr-code-scanning.md)
-* [Reservation History](students/reservation-history.md)
+* [Student Guide](student-guide/README.md)
 
 ## Teachers
 
-* [Teacher Overview](teacher-guide/README.md)
-* [Account Management](teachers/account-management.md)
-* [Room Reservations](teachers/room-reservations.md)
-* [Equipment Reporting](teachers/equipment-reporting.md)
-* [Classroom Management](teachers/classroom-management.md)
-* [Student Supervision](teachers/student-supervision.md)
+* [Teacher Guide](teacher-guide/README.md)
 
 ## Department Administrators
 

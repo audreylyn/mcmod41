@@ -1,10 +1,10 @@
-# Introductionsss
+# Introduction
 
 Welcome to the comprehensive documentation for **MCiSmartSpace** - Meycauayan College's intelligent room management and equipment tracking system.
 
 ## Documentation Overviews
 
-This documentation provides complete guides for all user roles and system functionalities:
+A guide for the Room Management Information System implemented for Meycauayan College, Inc. (MCI). This manual provides detailed, role-based guidance to help all users from administrators to students navigate, operate, and maximize the system effectively.
 
 ### User Guides
 
@@ -13,12 +13,12 @@ This documentation provides complete guides for all user roles and system functi
 * [**Department Admin Guide**](department-admin-guide/) - Dashboard management, reports, and department oversight
 * [**Registrar Guide**](registrar-guide/) - System administration and building management
 
-### Technical Documentation
+### <mark style="color:$danger;">Technical Documentation</mark>
 
-* [**System Overview**](technical/system-overview.md) - Architecture and system components
-* [**API Documentation**](technical/api-documentation.md) - API endpoints and integration
-* [**Database Schema**](technical/database-schema.md) - Database structure and relationships
-* [**Installation Guide**](technical/installation.md) - Setup and deployment instructions
+* [<mark style="color:$danger;">**System Overview**</mark>](technical/system-overview.md) <mark style="color:$danger;">- Architecture and system components</mark>
+* [<mark style="color:$danger;">**API Documentation**</mark>](technical/api-documentation.md) <mark style="color:$danger;">- API endpoints and integration</mark>
+* [<mark style="color:$danger;">**Database Schema**</mark>](technical/database-schema.md) <mark style="color:$danger;">- Database structure and relationships</mark>
+* [<mark style="color:$danger;">**Installation Guide**</mark>](technical/installation.md) <mark style="color:$danger;">- Setup and deployment instructions</mark>
 
 ### Support
 
