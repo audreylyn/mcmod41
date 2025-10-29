@@ -16,12 +16,24 @@
 
 ## Department Administrators
 
-* [Admin Guide](department-admin-guide/README.md)
+* [Admin Guide](department-administrators/department-admin-guide/README.md)
+  * [Admin Navigation Menu](department-administrators/department-admin-guide/admin-navigation-menu.md)
+  * [Admin Dashboard](department-administrators/department-admin-guide/admin-dashboard.md)
+  * [Admin Room Approval](department-administrators/department-admin-guide/admin-room-approval.md)
+  * [Activity Logs](department-administrators/department-admin-guide/activity-logs.md)
+  * [Room Maintenance](department-administrators/department-admin-guide/room-maintenance.md)
+  * [User Management](department-administrators/department-admin-guide/user-management.md)
+  * [Equipment Reports](department-administrators/department-admin-guide/equipment-reports.md)
+  * [QR Generator](department-administrators/department-admin-guide/qr-generator.md)
+  * [Profile Management](department-administrators/department-admin-guide/profile-management.md)
 * [Reports & Analytics](department-admin-guide/reports.md)
 
 ## Registrars
 
-* [Registrar Guide](registrar-guide/README.md)
+* [Registrar Guide](registrars/registrar-guide/README.md)
+  * [Super Admin Navigation Guide](registrars/registrar-guide/super-admin-navigation-guide.md)
+  * [Super Admin Dashboard](registrars/registrar-guide/super-admin-dashboard.md)
+  * [Page 1](registrars/registrar-guide/page-1.md)
 
 ## Technical Documentation
 
