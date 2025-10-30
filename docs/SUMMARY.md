@@ -8,11 +8,17 @@
 
 ## Students
 
-* [Student Guide](student-guide/README.md)
+* [Student Guide](students/student-guide/README.md)
+  * [Browse Room](students/student-guide/browse-room.md)
+  * [Reservation](students/student-guide/reservation.md)
+  * [Equipment Reports](students/student-guide/equipment-reports.md)
 
 ## Teachers
 
-* [Teacher Guide](teacher-guide/README.md)
+* [Teacher Guide](teachers/teacher-guide/README.md)
+  * [Browse Room](teachers/teacher-guide/browse-room.md)
+  * [Reservation](teachers/teacher-guide/reservation.md)
+  * [Equipment Reports](teachers/teacher-guide/equipment-reports.md)
 
 ## Department Administrators
 
@@ -23,6 +29,7 @@
   * [Activity Logs](department-administrators/department-admin-guide/activity-logs.md)
   * [Room Maintenance](department-administrators/department-admin-guide/room-maintenance.md)
   * [User Management](department-administrators/department-admin-guide/user-management.md)
+  * [Penalties](department-administrators/department-admin-guide/penalties.md)
   * [Equipment Reports](department-administrators/department-admin-guide/equipment-reports.md)
   * [QR Generator](department-administrators/department-admin-guide/qr-generator.md)
   * [Profile Management](department-administrators/department-admin-guide/profile-management.md)
@@ -30,10 +37,12 @@
 
 ## Registrars
 
-* [Registrar Guide](registrars/registrar-guide/README.md)
+* [Super Admin (Registrar) Guide](registrars/registrar-guide/README.md)
   * [Super Admin Navigation Guide](registrars/registrar-guide/super-admin-navigation-guide.md)
-  * [Super Admin Dashboard](registrars/registrar-guide/super-admin-dashboard.md)
-  * [Page 1](registrars/registrar-guide/page-1.md)
+  * [Super Admin Dashboard Guide](registrars/registrar-guide/super-admin-dashboard-guide.md)
+  * [Add Admin Guide](registrars/registrar-guide/add-admin-guide.md)
+  * [Room Management Guide](registrars/registrar-guide/room-management-guide.md)
+  * [Manage Equipment Guide](registrars/registrar-guide/manage-equipment-guide.md)
 
 ## Technical Documentation
 

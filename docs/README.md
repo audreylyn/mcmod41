@@ -8,17 +8,17 @@ A guide for the Room Management Information System implemented for Meycauayan Co
 
 ### User Guides
 
-* [**Student Guide**](student-guide/) - Room reservations, equipment reporting, and QR scanning
-* [**Teacher Guide**](teacher-guide/) - Room reservations, equipment reporting, and classroom management
+* [**Student Guide**](students/student-guide/) - Room reservations, equipment reporting, and QR scanning
+* [**Teacher Guide**](teachers/teacher-guide/) - Room reservations, equipment reporting, and classroom management
 * [**Department Admin Guide**](department-administrators/department-admin-guide/) - Dashboard management, reports, and department oversight
 * [**Registrar Guide**](registrars/registrar-guide/) - System administration and building management
 
-### <mark style="color:$danger;">Technical Documentation</mark>
+### Technical Documentation
 
-* [<mark style="color:$danger;">**System Overview**</mark>](technical/system-overview.md) <mark style="color:$danger;">- Architecture and system components</mark>
-* [<mark style="color:$danger;">**API Documentation**</mark>](technical/api-documentation.md) <mark style="color:$danger;">- API endpoints and integration</mark>
-* [<mark style="color:$danger;">**Database Schema**</mark>](technical/database-schema.md) <mark style="color:$danger;">- Database structure and relationships</mark>
-* [<mark style="color:$danger;">**Installation Guide**</mark>](technical/installation.md) <mark style="color:$danger;">- Setup and deployment instructions</mark>
+* [**System Overview**](technical/system-overview.md) - Architecture and system components
+* [**API Documentation**](technical/api-documentation.md) - API endpoints and integration
+* [**Database Schema**](technical/database-schema.md) - Database structure and relationships
+* [**Installation Guide**](technical/installation.md) - Setup and deployment instructions
 
 ### Support
 

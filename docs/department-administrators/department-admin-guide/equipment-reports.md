@@ -15,6 +15,12 @@ Handle reported equipment issues and oversee maintenance tasks.
 * Select a report to review details or attached images.
 * Then Choose an action status (Mark as In progress, Resolved or Rejected)
 
+
+
 ### Equipment Report Visual Guide
 
 <figure><img src="../../.gitbook/assets/Equipment Report.jpg" alt=""><figcaption></figcaption></figure>
+
+**Actions View**
+
+<figure><img src="../../.gitbook/assets/equipment report .jpg" alt=""><figcaption></figcaption></figure>

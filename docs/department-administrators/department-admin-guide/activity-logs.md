@@ -1,14 +1,14 @@
 ---
 description: >-
   The Activity Logs record all actions in the system, such as reservations,
-  updates, and reports, helping maintain order and transparency.
+  updates, and reports, helping maintain logs and transparency.
 ---
 
 # Activity Logs
 
 ### Activity Logs
 
-Track all reservation and maintenance activities within your department.
+Track all reservation activities within your department.
 
 * Select **Activity Logs** from the menu.
 * View chronological records of:
