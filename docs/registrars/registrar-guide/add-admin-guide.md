@@ -1,8 +1,10 @@
+---
+description: Create and manage department administrator accounts
+---
+
 # Add Admin Guide
 
-
-
-### Add Admin Visual Guide
+### Steps on how to add admin
 
 Creating Admin Accounts
 
@@ -14,8 +16,14 @@ Creating Admin Accounts
   * Login Credentials - Secure Email and  Password requirements
 * Account Activation - Click Register to Add Admin
 
+
+
+### Add Admin Visual Guide
+
+**Add Admin View**
+
 <figure><img src="../../.gitbook/assets/add admin.jpg" alt=""><figcaption></figcaption></figure>
 
-Edit & Delete Admin Account
+**Edit & Delete Admin Account**
 
 <figure><img src="../../.gitbook/assets/editdel registrar.jpg" alt=""><figcaption></figcaption></figure>

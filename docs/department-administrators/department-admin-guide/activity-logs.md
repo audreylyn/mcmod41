@@ -10,7 +10,7 @@ description: >-
 
 Track all reservation activities within your department.
 
-* Select **Activity Logs** from the menu.
+* Select **Activity Logs** from the sidebar menu.
 * View chronological records of:
   * User, Room type, Activity, Date & time, Status
 * Use filters to search by user, date, or room.

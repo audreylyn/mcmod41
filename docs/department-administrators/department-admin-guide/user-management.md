@@ -37,7 +37,7 @@ Manage students and teachers under your department.
 
 <figure><img src="../../.gitbook/assets/add teacher.jpg" alt=""><figcaption></figcaption></figure>
 
-###
+
 
 ### Manage Students
 

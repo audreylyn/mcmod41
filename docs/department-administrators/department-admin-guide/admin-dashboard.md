@@ -10,7 +10,7 @@ description: >-
 
 When you log in, you'll see your comprehensive dashboard featuring:
 
-#### Quick Stats Cards
+#### Quick Stats&#x20;
 
 * Log in with your Department Admin account.
 * Open the Dashboard and review Quick Stats (Total Rooms request, Active Reservations, Equipment Issues, Pending Approvals and Generate Report).

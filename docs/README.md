@@ -1,6 +1,6 @@
 # Introduction
 
-Welcome to the comprehensive documentation for **MCiSmartSpace** - Meycauayan College's intelligent room management and equipment tracking system.
+Welcome to the comprehensive documentation for **MCiSmartSpace** - Meycauayan College's automated room management and equipment tracking system.
 
 ## Documentation Overviews
 

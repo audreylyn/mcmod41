@@ -9,16 +9,18 @@
 ## Students
 
 * [Student Guide](students/student-guide/README.md)
-  * [Browse Room](students/student-guide/browse-room.md)
-  * [Reservation](students/student-guide/reservation.md)
+  * [Navigation Menu](students/student-guide/navigation-menu.md)
+  * [Room Reservation](students/student-guide/room-reservation.md)
   * [Equipment Reports](students/student-guide/equipment-reports.md)
+  * [Profile Management](students/student-guide/profile-management.md)
 
 ## Teachers
 
 * [Teacher Guide](teachers/teacher-guide/README.md)
-  * [Browse Room](teachers/teacher-guide/browse-room.md)
-  * [Reservation](teachers/teacher-guide/reservation.md)
+  * [Teacher Navigation Menu](teachers/teacher-guide/teacher-navigation-menu.md)
+  * [Room Reservation](teachers/teacher-guide/room-reservation.md)
   * [Equipment Reports](teachers/teacher-guide/equipment-reports.md)
+  * [Profile Management](teachers/teacher-guide/profile-management.md)
 
 ## Department Administrators
 
@@ -33,13 +35,12 @@
   * [Equipment Reports](department-administrators/department-admin-guide/equipment-reports.md)
   * [QR Generator](department-administrators/department-admin-guide/qr-generator.md)
   * [Profile Management](department-administrators/department-admin-guide/profile-management.md)
-* [Reports & Analytics](department-admin-guide/reports.md)
 
 ## Registrars
 
-* [Super Admin (Registrar) Guide](registrars/registrar-guide/README.md)
-  * [Super Admin Navigation Guide](registrars/registrar-guide/super-admin-navigation-guide.md)
-  * [Super Admin Dashboard Guide](registrars/registrar-guide/super-admin-dashboard-guide.md)
+* [Registrar Guide](registrars/registrar-guide/README.md)
+  * [Registrar Navigation Guide](registrars/registrar-guide/registrar-navigation-guide.md)
+  * [Registrar Dashboard Guide](registrars/registrar-guide/registrar-dashboard-guide.md)
   * [Add Admin Guide](registrars/registrar-guide/add-admin-guide.md)
   * [Room Management Guide](registrars/registrar-guide/room-management-guide.md)
   * [Manage Equipment Guide](registrars/registrar-guide/manage-equipment-guide.md)

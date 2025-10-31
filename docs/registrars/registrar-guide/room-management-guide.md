@@ -6,11 +6,7 @@ description: >-
 
 # Room Management Guide
 
-
-
-### Room Visual Guide
-
-**Add Building List**
+### Add building list
 
 * Log in to your System Administrator Dashboard.
 * On the left navigation menu, Manage rooms and  click  Add Buildings.
@@ -19,11 +15,13 @@ description: >-
 * Review all the information for accuracy.
 * Click Add Building to create the new building record.
 
+
+
 <figure><img src="../../.gitbook/assets/add building.jpg" alt=""><figcaption></figcaption></figure>
 
 
 
-**Facility Management**
+### Facility Management
 
 **Editing Building Details**
 

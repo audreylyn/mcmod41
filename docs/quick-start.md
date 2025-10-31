@@ -1,15 +1,21 @@
+---
+description: >-
+  Get up and running with MCiSmartSpace in minutes! This guide covers the
+  essential steps for all user types.
+---
+
 # Quick Start Guide
 
-Get up and running with MCiSmartSpace in minutes! This guide covers the essential steps for all user types.
+This section covers the essential steps for all user roles Students, Teachers, Department Administrators, and Registrars  to help you quickly navigate and use the system effectively.
 
 ## First Time Login
 
 ### Step 1: Access the System&#x20;
 
-1. Open your web browser
-2. Navigate to your institution's SmartSpace URL Provide by IT.
+1. Open your web browser (Chrome or Edge)
+2. Navigate to your institution's SmartSpace URL Provide by MC IT Department.
 3. You'll see the MCiSmartSpace login page
-4. **Email**: Use your institutional email address and Your assigned password (contact IT if unknown)
+4. Use your institutional email address and Your assigned password (If you haven’t received your credentials, contact the **IT Department** for assistance.)
 
 ### Step 2: First Login
 
