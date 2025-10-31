@@ -21,4 +21,4 @@ After this process, you’ll receive your **institutional login credentials** (e
 
 ## Navigation Visual Guide
 
-<figure><img src="../../.gitbook/assets/Student Nav Menu.jpg" alt=""><figcaption></figcaption></figure>
+<figure><img src="../../.gitbook/assets/Student Nav Menu (1).jpg" alt=""><figcaption></figcaption></figure>

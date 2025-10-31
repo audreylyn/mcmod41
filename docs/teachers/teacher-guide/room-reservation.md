@@ -28,18 +28,16 @@ description: Search and select available rooms for classes or events.
 
 ## Room Reservation Visual Guide
 
-**STUDENT DASHBOARD VIEW**
+**Teacher Dashboard View**
 
-<figure><img src="../../.gitbook/assets/teachet dash.jpg" alt=""><figcaption></figcaption></figure>
-
-
-
-**DETAILS INFORMATION**
-
-<figure><img src="../../.gitbook/assets/teacher room details.jpg" alt=""><figcaption></figcaption></figure>
+<figure><img src="../../.gitbook/assets/teachet dash (1).jpg" alt=""><figcaption></figcaption></figure>
 
 
 
-**RESERVATION HISTORY -** you may click the details to view more information.
+**Details Information View**
 
-<figure><img src="../../.gitbook/assets/teacher reservation history.jpg" alt=""><figcaption></figcaption></figure>
+<figure><img src="../../.gitbook/assets/teacher room details (1).jpg" alt=""><figcaption></figcaption></figure>
+
+**Reservation History View -** you may click the details to view more information.
+
+<figure><img src="../../.gitbook/assets/teacher reservation history (1).jpg" alt=""><figcaption></figcaption></figure>

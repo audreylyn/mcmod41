@@ -19,17 +19,13 @@ description: >-
 
 ### Profile Management Visual Guide&#x20;
 
-**EDIT PROFILE**&#x20;
+**Profile View**&#x20;
 
-<figure><img src="../../.gitbook/assets/tecaher personal info.jpg" alt=""><figcaption></figcaption></figure>
+<figure><img src="../../.gitbook/assets/tecaher personal info (1).jpg" alt=""><figcaption></figcaption></figure>
 
+**Account Status View**
 
-
-**ACCOUNT STATUS**
-
-<figure><img src="../../.gitbook/assets/student pass view (2).jpg" alt=""><figcaption></figcaption></figure>
-
-
+<figure><img src="../../.gitbook/assets/student pass view (3).jpg" alt=""><figcaption></figcaption></figure>
 
 
 
@@ -41,4 +37,4 @@ description: >-
 * Type your question like "how to reserve a room".&#x20;
 * The chatbot will respond with clear guidance and answer to your questions immediately.
 
-<figure><img src="../../.gitbook/assets/navaivy7@gmail.com.jpg" alt=""><figcaption></figcaption></figure>
+<figure><img src="../../.gitbook/assets/18.jpg" alt=""><figcaption></figcaption></figure>

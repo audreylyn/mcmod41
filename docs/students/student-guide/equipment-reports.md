@@ -23,9 +23,7 @@ You can track the progress under **Equipment Reports**, where statuses will upda
 
 ## Equipment Visual Guide
 
-<figure><img src="../../.gitbook/assets/student eqip report.jpg" alt=""><figcaption></figcaption></figure>
-
-
+<figure><img src="../../.gitbook/assets/student eqip report (1).jpg" alt=""><figcaption></figcaption></figure>
 
 ### Troubleshooting Equipment Reporting
 

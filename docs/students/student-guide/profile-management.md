@@ -19,29 +19,21 @@ description: >-
 
 ### Profile Management Visual Guide&#x20;
 
-**EDIT PROFILE**&#x20;
+**Edit Profile View**
 
-<figure><img src="../../.gitbook/assets/student dash (1).jpg" alt=""><figcaption></figcaption></figure>
+<figure><img src="../../.gitbook/assets/student dash (2).jpg" alt=""><figcaption></figcaption></figure>
 
+**Account Status View**
 
+<figure><img src="../../.gitbook/assets/student acc status (1).jpg" alt=""><figcaption></figcaption></figure>
 
-**ACCOUNT STATUS**
+**Personal Information View**
 
-<figure><img src="../../.gitbook/assets/student acc status.jpg" alt=""><figcaption></figcaption></figure>
+<figure><img src="../../.gitbook/assets/student personal info (1).jpg" alt=""><figcaption></figcaption></figure>
 
+**Change Information (if needed)**
 
-
-**PERSONAL INFORMATION**
-
-<figure><img src="../../.gitbook/assets/student personal info.jpg" alt=""><figcaption></figcaption></figure>
-
-
-
-**CHANGE INFORMATION (if needed)**
-
-<figure><img src="../../.gitbook/assets/student pass view.jpg" alt=""><figcaption></figcaption></figure>
-
-
+<figure><img src="../../.gitbook/assets/student pass view (3).jpg" alt=""><figcaption></figcaption></figure>
 
 #### **MC CHATBOT**
 
@@ -51,4 +43,4 @@ description: >-
 * Type your question like "how to reserve a room".&#x20;
 * The chatbot will respond with clear guidance and answer to your questions immediately.
 
-<figure><img src="../../.gitbook/assets/navaivy7@gmail.com (1).jpg" alt=""><figcaption></figcaption></figure>
+<figure><img src="../../.gitbook/assets/18.jpg" alt=""><figcaption></figcaption></figure>

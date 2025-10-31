@@ -23,4 +23,4 @@ You can track the progress under **Equipment Reports**, where statuses will upda
 
 ## Equipment Visual Guide
 
-<figure><img src="../../.gitbook/assets/techaer equipment report.jpg" alt=""><figcaption></figcaption></figure>
+<figure><img src="../../.gitbook/assets/techaer equipment report (1).jpg" alt=""><figcaption></figcaption></figure>
