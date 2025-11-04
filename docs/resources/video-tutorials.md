@@ -2,19 +2,7 @@
 
 Learn MCiSmartSpace through comprehensive video guides covering all features and user roles.
 
-## Getting Started Videos
-
-### System Overview
-
-**Introduction to MCiSmartSpace**
-
-* Duration: 5 minutes
-* Covers: System overview, user roles, basic navigation
-* Video URL: `[Video URL to be replaced]`
-
-
-
-## Student Tutorial Videos
+## Student & Teacher Tutorial Videos
 
 ### Room Reservations
 
@@ -22,7 +10,7 @@ Learn MCiSmartSpace through comprehensive video guides covering all features and
 
 * Duration: 4 minutes
 * Covers: Browsing rooms, making reservations, managing bookings
-* Video URL: `[Video URL to be replaced]`
+* Video URL: [https://youtu.be/c477jALWFYA?si=dLrT3RnIP15x-VLz](https://youtu.be/c477jALWFYA?si=dLrT3RnIP15x-VLz)
 
 ### Equipment Reporting
 
@@ -30,25 +18,7 @@ Learn MCiSmartSpace through comprehensive video guides covering all features and
 
 * Duration: 3 minutes
 * Covers: QR scanning, manual reporting, tracking status
-* Video URL: `[Video URL to be replaced]`
-
-### Mobile App Usage
-
-**Using the Mobile App**
-
-* Duration: 6 minutes
-* Covers: Installation, QR scanning, mobile features
-* Video URL: `[Video URL to be replaced]`
-
-## Teacher Tutorial Videos
-
-### Classroom Management
-
-**Managing Your Classrooms**
-
-* Duration: 5 minutes
-* Covers: Room booking for classes, equipment monitoring
-* Video URL: `[Video URL to be replaced]`
+* Video URL: [https://youtu.be/c477jALWFYA?si=dLrT3RnIP15x-VLz](https://youtu.be/c477jALWFYA?si=dLrT3RnIP15x-VLz)
 
 ## Department Admin Tutorial Videos
 
@@ -58,7 +28,7 @@ Learn MCiSmartSpace through comprehensive video guides covering all features and
 
 * Duration: 8 minutes
 * Covers: Dashboard navigation, key metrics, quick actions
-* Video URL: `[Video URL to be replaced]`
+* Video URL: [https://youtu.be/9E6-8Cf1pgo?si=m\_rFayNbjqRr3V8F](https://youtu.be/9E6-8Cf1pgo?si=m_rFayNbjqRr3V8F)
 
 ### Room Management
 
@@ -66,7 +36,7 @@ Learn MCiSmartSpace through comprehensive video guides covering all features and
 
 * Duration: 6 minutes
 * Covers: Approving requests, handling conflicts, monitoring usage
-* Video URL: `[Video URL to be replaced]`
+* Video URL: [https://youtu.be/9E6-8Cf1pgo?si=m\_rFayNbjqRr3V8F](https://youtu.be/9E6-8Cf1pgo?si=m_rFayNbjqRr3V8F)
 
 ### Equipment Management
 
@@ -74,7 +44,7 @@ Learn MCiSmartSpace through comprehensive video guides covering all features and
 
 * Duration: 7 minutes
 * Covers: Issue tracking, QR generation, maintenance coordination
-* Video URL: `[Video URL to be replaced]`
+* Video URL: [https://youtu.be/IyvBkaKA34A?si=pIGYEvK4wqyksuCS](https://youtu.be/IyvBkaKA34A?si=pIGYEvK4wqyksuCS)
 
 ### Reports and Analytics
 
@@ -82,7 +52,7 @@ Learn MCiSmartSpace through comprehensive video guides covering all features and
 
 * Duration: 10 minutes
 * Covers: Report types, filtering, exporting, data analysis
-* Video URL: `[Video URL to be replaced]`
+* Video URL: [https://youtu.be/IyvBkaKA34A?si=pIGYEvK4wqyksuCS](https://youtu.be/IyvBkaKA34A?si=pIGYEvK4wqyksuCS)
 
 ### User Management
 
@@ -100,7 +70,7 @@ Learn MCiSmartSpace through comprehensive video guides covering all features and
 
 * Duration: 12 minutes
 * Covers: System overview, building management, admin creation
-* Video URL: `[Video URL to be replaced]`
+* Video URL: [https://youtu.be/rQMQFYDpP0o?si=nfslwPqY8YTcUcAx](https://youtu.be/rQMQFYDpP0o?si=nfslwPqY8YTcUcAx)
 
 ### Building and Room Setup
 
@@ -108,7 +78,7 @@ Learn MCiSmartSpace through comprehensive video guides covering all features and
 
 * Duration: 8 minutes
 * Covers: Adding buildings, configuring rooms, equipment assignment
-* Video URL: `[Video URL to be replaced]`
+* Video URL: [https://youtu.be/rQMQFYDpP0o?si=nfslwPqY8YTcUcAx](https://youtu.be/rQMQFYDpP0o?si=nfslwPqY8YTcUcAx)
 
 
 
