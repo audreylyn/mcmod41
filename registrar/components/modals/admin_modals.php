@@ -2,7 +2,7 @@
 
 <!-- Modal for editing admin -->
 <div id="editModal" class="modal">
-    <div class="modal-content" style="width: 500px; max-width: 90%;">
+    <div class="modal-content" style="width: 500px; max-width: 90%; max-height: none; overflow: visible;">
         <span class="close" id="closeEditModal">&times;</span>
         <h2>Edit Administrator</h2>
         <form id="editAdminForm">
@@ -26,14 +26,8 @@
             <div class="field">
                 <label class="label">Department</label>
                 <div class="control">
-                    <div class="select" style="width: 100%;">
-                        <select name="edit_department" id="edit_department" required style="width: 100%;">
-                            <option value="">Select Department</option>
-                            <?php foreach ($departments as $dept): ?>
-                                <option value="<?= htmlspecialchars($dept) ?>"><?= htmlspecialchars($dept) ?></option>
-                            <?php endforeach; ?>
-                        </select>
-                    </div>
+                    <input class="input" type="text" id="edit_department" readonly style="background-color: #f5f5f5; cursor: not-allowed;">
+                    <p class="help" style="color: #666; font-size: 0.85rem; margin-top: 5px;">Department cannot be changed after creation to maintain data integrity.</p>
                 </div>
             </div>
             

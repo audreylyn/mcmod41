@@ -303,6 +303,9 @@ function deleteAdmin(adminId) {
   const cancelBtn = document.getElementById('cancelDeleteButton');
   const closeBtn = document.getElementById('closeDeleteConfirmModal');
 
+  // Prevent body scrolling
+  document.body.style.overflow = 'hidden';
+
   // Show the modal
   modal.style.display = 'block';
   void modal.offsetWidth; // Trigger reflow for animation
@@ -313,6 +316,8 @@ function deleteAdmin(adminId) {
     modal.classList.remove('show');
     setTimeout(() => {
       modal.style.display = 'none';
+      // Re-enable body scrolling
+      document.body.style.overflow = '';
     }, 300);
     
     // Show loader
@@ -351,6 +356,8 @@ function deleteAdmin(adminId) {
     modal.classList.remove('show');
     setTimeout(() => {
       modal.style.display = 'none';
+      // Re-enable body scrolling
+      document.body.style.overflow = '';
     }, 300);
   };
 
@@ -524,6 +531,9 @@ function showModal(title, message, type = 'success') {
   // Add the type class for specific styling
   modal.classList.add(type);
 
+  // Prevent body scrolling
+  document.body.style.overflow = 'hidden';
+
   // Display the modal and add show class for animation
   modal.style.display = 'block';
 
@@ -556,6 +566,8 @@ function closeModal() {
   setTimeout(() => {
     modal.style.display = 'none';
     modal.classList.remove('success', 'error');
+    // Re-enable body scrolling
+    document.body.style.overflow = '';
   }, 300);
 }
 
@@ -567,6 +579,9 @@ function openEditModal(adminId, firstName, lastName, department, email) {
   document.getElementById('edit_last_name').value = lastName;
   document.getElementById('edit_department').value = department;
   document.getElementById('edit_email').value = email;
+
+  // Prevent body scrolling
+  document.body.style.overflow = 'hidden';
 
   // Show the modal
   const modal = document.getElementById('editModal');
@@ -585,6 +600,8 @@ function closeEditModal() {
   // Wait for animation to complete before hiding
   setTimeout(() => {
     modal.style.display = 'none';
+    // Re-enable body scrolling
+    document.body.style.overflow = '';
   }, 300);
 }
 

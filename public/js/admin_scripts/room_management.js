@@ -162,6 +162,8 @@ $(document).ready(function () {
     $('#roomForm').trigger('reset');
     $('#room_id').val('');
     $('#formSubmitBtn').text('Save Changes').attr('name', 'add_room');
+    // Prevent body scrolling
+    document.body.style.overflow = 'hidden';
     $('#roomModal').fadeIn(300);
     updateCapacityLimit();
     return false; // Prevent default action
@@ -193,7 +195,10 @@ $(document).ready(function () {
   });
 
   $('#modalClose, #modalCancel').click(function () {
-    $('#roomModal').fadeOut(300);
+    $('#roomModal').fadeOut(300, function() {
+      // Re-enable body scrolling after animation completes
+      document.body.style.overflow = '';
+    });
     return false; // Prevent default action
   });
 
@@ -201,7 +206,10 @@ $(document).ready(function () {
   $(document).mouseup(function (e) {
     var container = $('.modal-container');
     if (!container.is(e.target) && container.has(e.target).length === 0) {
-      $('#roomModal').fadeOut(300);
+      $('#roomModal').fadeOut(300, function() {
+        // Re-enable body scrolling after animation completes
+        document.body.style.overflow = '';
+      });
     }
   });
 });
@@ -214,6 +222,8 @@ function openEditModal(data) {
   $('#capacity').val(data.capacity);
   $('#building_id').val(data.building_id);
   $('#formSubmitBtn').attr('name', 'update_room');
+  // Prevent body scrolling
+  document.body.style.overflow = 'hidden';
   $('#roomModal').fadeIn(300);
   updateCapacityLimit(); // Update the capacity limit when editing
   return false; // Prevent any default action
@@ -224,6 +234,9 @@ function deleteRoom(roomId) {
   const confirmBtn = document.getElementById('confirmDeleteRoomButton');
   const cancelBtn = document.getElementById('cancelDeleteRoomButton');
   const closeBtn = document.getElementById('closeDeleteRoomConfirmModal');
+
+  // Prevent body scrolling
+  document.body.style.overflow = 'hidden';
 
   // Show the modal
   modal.style.display = 'block';
@@ -240,6 +253,8 @@ function deleteRoom(roomId) {
     modal.classList.remove('show');
     setTimeout(() => {
       modal.style.display = 'none';
+      // Re-enable body scrolling
+      document.body.style.overflow = '';
     }, 300);
   };
 

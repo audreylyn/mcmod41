@@ -12,18 +12,26 @@
     height: 100%;
     background-color: rgba(0, 0, 0, 0.5);
     z-index: 1000;
-    padding: 20px;
+    align-items: center;
+    justify-content: center;
+}
+
+#roomModal[style*="display: block"],
+#roomModal[style*="display: flex"] {
+    display: flex !important;
 }
 
 .modal-container {
     background-color: #fff;
     max-width: 600px;
-    margin: 50px auto;
+    width: 100%;
     padding: 20px;
     border-radius: 8px;
     box-shadow: 0 4px 8px rgba(0, 0, 0, 0.1);
     position: relative;
     overflow: hidden;
+    max-height: 90vh;
+    overflow-y: auto;
 }
 
 .modal-container::before {
@@ -77,7 +85,6 @@
 .input, .select select {
     width: 100%;
     padding: 10px;
-    border: 1px solid #ddd;
     border-radius: 4px;
     box-sizing: border-box;
     font-size: 16px;
