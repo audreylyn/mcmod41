@@ -12,6 +12,8 @@ Learn MCiSmartSpace through comprehensive video guides covering all features and
 * Covers: Browsing rooms, making reservations, managing bookings
 * Video URL: [https://youtu.be/c477jALWFYA?si=dLrT3RnIP15x-VLz](https://youtu.be/c477jALWFYA?si=dLrT3RnIP15x-VLz)
 
+{% embed url="https://www.youtube.com/watch?list=RDfo-00uMEs14&start_radio=1&v=fo-00uMEs14" %}
+
 ### Equipment Reporting
 
 **Reporting Equipment Issues**
