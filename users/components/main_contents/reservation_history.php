@@ -60,11 +60,13 @@
         $idField = ($userRole === 'Student') ? 'StudentID' : 'TeacherID';
 
         // Get counts for each type
+        // Combine ReservationDate and EndTime for proper datetime comparison
         $countSql = "SELECT 
                         COUNT(*) as TotalCount,
-                        SUM(CASE WHEN EndTime > NOW() AND Status = 'approved' THEN 1 ELSE 0 END) as UpcomingCount,
-                        SUM(CASE WHEN EndTime < NOW() AND Status = 'approved' THEN 1 ELSE 0 END) as CompletedCount,
-                        SUM(CASE WHEN Status = 'rejected' THEN 1 ELSE 0 END) as CancelledCount
+                        SUM(CASE WHEN TIMESTAMP(ReservationDate, EndTime) > NOW() AND Status = 'approved' THEN 1 ELSE 0 END) as UpcomingCount,
+                        SUM(CASE WHEN TIMESTAMP(ReservationDate, EndTime) < NOW() AND Status = 'approved' THEN 1 ELSE 0 END) as CompletedCount,
+                        SUM(CASE WHEN Status = 'approved' THEN 1 ELSE 0 END) as ApprovedCount,
+                        SUM(CASE WHEN Status = 'rejected' THEN 1 ELSE 0 END) as RejectedCount
                      FROM room_requests 
                      WHERE $idField = ?";
         $countStmt = $conn->prepare($countSql);
@@ -76,14 +78,16 @@
         $totalCount = 0;
         $upcomingCount = 0;
         $completedCount = 0;
-        $cancelledCount = 0;
+        $approvedCount = 0;
+        $rejectedCount = 0;
 
         // Set counts from result
         if ($row = $countResult->fetch_assoc()) {
             $totalCount = $row['TotalCount'];
             $upcomingCount = $row['UpcomingCount'];
             $completedCount = $row['CompletedCount'];
-            $cancelledCount = $row['CancelledCount'];
+            $approvedCount = $row['ApprovedCount'];
+            $rejectedCount = $row['RejectedCount'];
         }
         $countStmt->close();
         ?>
@@ -91,10 +95,11 @@
         <!-- Tab Container -->
         <div class="tab-container">
             <div class="history-tabs">
-                <div class="history-tab active" data-filter="all">All Reservations <span class="history-count"><?php echo $totalCount; ?></span></div>
-                <div class="history-tab" data-filter="upcoming">Ongoing <span class="history-count"><?php echo $upcomingCount; ?></span></div>
-                <div class="history-tab" data-filter="completed">Completed <span class="history-count"><?php echo $completedCount; ?></span></div>
-                <div class="history-tab" data-filter="cancelled">Cancelled <span class="history-count"><?php echo $cancelledCount; ?></span></div>
+                <div class="history-tab active" data-filter="all" title="View all your reservations regardless of status">All Reservations <span class="history-count"><?php echo $totalCount; ?></span></div>
+                <div class="history-tab" data-filter="approved" title="View all approved reservations (past and upcoming)">Approved <span class="history-count"><?php echo $approvedCount; ?></span></div>
+                <div class="history-tab" data-filter="upcoming" title="View approved reservations that haven't ended yet">Ongoing <span class="history-count"><?php echo $upcomingCount; ?></span></div>
+                <div class="history-tab" data-filter="completed" title="View approved reservations that have already ended">Completed <span class="history-count"><?php echo $completedCount; ?></span></div>
+                <div class="history-tab" data-filter="rejected" title="View reservations that were rejected by your Department Admin">Rejected <span class="history-count"><?php echo $rejectedCount; ?></span></div>
             </div>
         </div>
 
@@ -140,20 +145,25 @@
                     $endTime = date('g:i A', strtotime($row['EndTime']));
                     $status = $row['Status'];
                     $equipment = $row['equipment_list'] ?: 'None';
-                    $endTimeObj = new DateTime($row['EndTime']);
+                    // Combine ReservationDate and EndTime for proper datetime comparison
+                    $endTimeObj = new DateTime($row['ReservationDate'] . ' ' . $row['EndTime']);
                     $now = new DateTime();
 
-                    // Determine type for filtering
-                    $type = $status;
+                    // Determine type for filtering - cards can have multiple types
+                    $types = [$status]; // Always include the base status
+                    
                     if ($status == 'approved') {
                         if ($endTimeObj < $now) {
-                            $type = 'completed';
+                            $types[] = 'completed';
                         } else {
-                            $type = 'upcoming';
+                            $types[] = 'upcoming';
                         }
                     } else if ($status == 'rejected') {
-                        $type = 'cancelled';
+                        // Keep both 'rejected' and 'cancelled' for backward compatibility
+                        $types[] = 'rejected';
                     }
+                    
+                    $type = implode(' ', $types);
 
                     // Set badge class and label based on status
                     $badgeClass = 'badge-' . $status;
@@ -165,8 +175,8 @@
                             $statusLabel = 'Completed';
                         }
                     } else if ($status == 'rejected') {
-                        $badgeClass = 'badge-cancelled';
-                        $statusLabel = 'Cancelled';
+                        $badgeClass = 'badge-rejected';
+                        $statusLabel = 'Rejected';
                     }
             ?>
                     <div class="reservation-card" data-type="<?php echo $type; ?>" data-room="<?php echo strtolower($roomName); ?>" data-building="<?php echo strtolower($buildingName); ?>" data-status="<?php echo $status; ?>">

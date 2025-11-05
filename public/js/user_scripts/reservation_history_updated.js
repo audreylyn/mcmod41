@@ -34,7 +34,9 @@ document.addEventListener('DOMContentLoaded', function () {
         if (filterType === 'all') {
           card.style.display = '';
         } else {
-          if (card.getAttribute('data-type') === filterType) {
+          // Check if the card's data-type contains the filter type (space-separated list)
+          const cardTypes = card.getAttribute('data-type').split(' ');
+          if (cardTypes.includes(filterType)) {
             card.style.display = '';
           } else {
             card.style.display = 'none';
@@ -89,6 +91,11 @@ document.addEventListener('DOMContentLoaded', function () {
       document
         .getElementById('reservationDetailsModal')
         .classList.remove('show');
+      document
+        .getElementById('confirmCancelModal')
+        .classList.remove('show');
+      // Re-enable body scrolling
+      document.body.style.overflow = '';
     });
   });
 
@@ -127,6 +134,8 @@ document.addEventListener('DOMContentLoaded', function () {
           document
             .getElementById('confirmCancelModal')
             .classList.remove('show');
+          // Re-enable body scrolling
+          document.body.style.overflow = '';
           // Don't automatically show the details modal again
         });
       });
@@ -137,6 +146,8 @@ document.addEventListener('DOMContentLoaded', function () {
       .addEventListener('click', function (e) {
         if (e.target === this) {
           this.classList.remove('show');
+          // Re-enable body scrolling
+          document.body.style.overflow = '';
           // Don't automatically show the details modal again
         }
       });
@@ -253,7 +264,9 @@ function showReservationDetails(
   // Show/hide print button based on status
   var printButton = document.getElementById('printButton');
   if (printButton) {
-    if (type === 'completed' || type === 'upcoming') {
+    // Check if type contains 'completed', 'upcoming', or 'approved'
+    var types = type.split(' ');
+    if (types.includes('completed') || types.includes('upcoming') || types.includes('approved')) {
       printButton.style.display = 'inline-block';
       printButton.onclick = function () {
         printRequestDetails(
@@ -292,6 +305,8 @@ function showReservationDetails(
         document
           .getElementById('confirmCancelButton')
           .setAttribute('data-request-id', requestId);
+        // Prevent body scrolling (keep it disabled as we're switching modals)
+        document.body.style.overflow = 'hidden';
         // Show the confirmation modal
         document.getElementById('confirmCancelModal').classList.add('show');
       };
@@ -307,6 +322,9 @@ function showReservationDetails(
       actionButtons.appendChild(newRequestBtn);
     }
   }
+
+  // Prevent body scrolling
+  document.body.style.overflow = 'hidden';
 
   // Show the modal
   document.getElementById('reservationDetailsModal').classList.add('show');
