@@ -64,6 +64,7 @@ include 'includes/manage_students.php';
         function openDeleteModal(studentId) {
             document.getElementById('confirmDelete').href = '<?= htmlspecialchars($_SERVER['PHP_SELF']); ?>?delete_id=' + studentId;
             document.getElementById('deleteModal').classList.add('show');
+            document.body.style.overflow = 'hidden';
         }
     </script>
 

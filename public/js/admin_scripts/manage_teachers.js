@@ -157,10 +157,12 @@ function openEditModal(teacherId, firstName, lastName, email, department) {
   document.getElementById('edit_password').value = '';
 
   document.getElementById('editModal').classList.add('show');
+  document.body.style.overflow = 'hidden';
 }
 
 function closeModal(modalId) {
   document.getElementById(modalId).classList.remove('show');
+  document.body.style.overflow = '';
 }
 
 // File upload functions

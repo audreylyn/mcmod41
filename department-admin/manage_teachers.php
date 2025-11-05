@@ -62,7 +62,8 @@ include 'includes/manage_teachers.php'
     <script>
         function openDeleteModal(teacherId) {
             document.getElementById('confirmDelete').href = '<?= htmlspecialchars($_SERVER['PHP_SELF']); ?>?delete_id=' + teacherId;
-             document.getElementById('deleteModal').classList.add('show');
+            document.getElementById('deleteModal').classList.add('show');
+            document.body.style.overflow = 'hidden';
         }
     </script>
 

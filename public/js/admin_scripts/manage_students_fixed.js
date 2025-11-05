@@ -462,6 +462,7 @@ function openEditModal(
 
   // Show the modal
   document.getElementById('editModal').classList.add('show');
+  document.body.style.overflow = 'hidden';
 
   // Add change event to prefill program for edit form
   editProgramSelect.addEventListener('change', function () {
@@ -491,6 +492,7 @@ function openEditModal(
 // Function to close modals
 function closeModal(modalId) {
   document.getElementById(modalId).classList.remove('show');
+  document.body.style.overflow = '';
 }
 
 // Download student template function

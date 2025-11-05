@@ -16,7 +16,7 @@
 
 /* Enhanced Modal Styles */
 .modal-lg {
-  max-width: 800px;
+  max-width: 900px;
   width: 90%;
 }
 
@@ -49,8 +49,9 @@
   border-top: 1px solid #e0e0e0;
   padding: 15px 20px;
   display: flex;
-  justify-content: flex-end;
-  gap: 10px;
+  justify-content: center;
+  align-items: center;
+  gap: 20px;
   margin-top: 20px;
 }
 
@@ -164,4 +165,43 @@
   display: flex;
   justify-content: space-between;
   align-items: center;
+}
+
+/* Edit Modal Specific Styles */
+#editModal .modal-footer button,
+#editModal .modal-footer .submit-button,
+#editModal .modal-footer .reset-button {
+  min-height: 40px;
+  display: inline-flex;
+  align-items: center;
+  justify-content: center;
+  gap: 0.5rem;
+}
+
+#editModal .submit-button {
+  background-color: #d4af37;
+  color: white;
+  border: none;
+  padding: 0.625rem 1.5rem;
+  border-radius: 8px;
+  font-weight: 500;
+  cursor: pointer;
+}
+
+#editModal .submit-button:hover {
+  background-color: #b8941f;
+}
+
+#editModal .reset-button {
+  background-color: #e0e0e0;
+  color: #333;
+  border: none;
+  padding: 0.625rem 1.5rem;
+  border-radius: 8px;
+  font-weight: 500;
+  cursor: pointer;
+}
+
+#editModal .reset-button:hover {
+  background-color: #d0d0d0;
 }
