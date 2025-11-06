@@ -8,8 +8,7 @@ A guide for the Room Management Information System implemented for Meycauayan Co
 
 ### User Guides
 
-* [**Student Guide**](students/student-guide/) - Room reservations, equipment reporting, and QR scanning
-* [**Teacher Guide**](teachers/teacher-guide/) - Room reservations, equipment reporting, and classroom management
+* [**Student & Teacher Guide**](students/student-guide/) - Room reservations, equipment reporting, and QR scanning
 * [**Department Admin Guide**](department-administrators/department-admin-guide/) - Dashboard management, reports, and department oversight
 * [**Registrar Guide**](registrars/registrar-guide/) - System administration and building management
 

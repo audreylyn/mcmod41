@@ -8,23 +8,15 @@
 
 ## Students
 
-* [Student Guide](students/student-guide/README.md)
+* [Student & Teacher Guide](students/student-guide/README.md)
   * [Navigation Menu](students/student-guide/navigation-menu.md)
   * [Room Reservation](students/student-guide/room-reservation.md)
   * [Equipment Reports](students/student-guide/equipment-reports.md)
   * [Profile Management](students/student-guide/profile-management.md)
 
-## Teachers
-
-* [Teacher Guide](teachers/teacher-guide/README.md)
-  * [Teacher Navigation Menu](teachers/teacher-guide/teacher-navigation-menu.md)
-  * [Room Reservation](teachers/teacher-guide/room-reservation.md)
-  * [Equipment Reports](teachers/teacher-guide/equipment-reports.md)
-  * [Profile Management](teachers/teacher-guide/profile-management.md)
-
 ## Department Administrators
 
-* [Admin Guide](department-administrators/department-admin-guide/README.md)
+* [Administrator  Guide](department-administrators/department-admin-guide/README.md)
   * [Admin Navigation Menu](department-administrators/department-admin-guide/admin-navigation-menu.md)
   * [Admin Dashboard](department-administrators/department-admin-guide/admin-dashboard.md)
   * [Admin Room Approval](department-administrators/department-admin-guide/admin-room-approval.md)

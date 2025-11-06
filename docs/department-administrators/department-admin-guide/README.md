@@ -1,6 +1,15 @@
-# Admin Guide
+---
+description: >-
+  Welcome to the comprehensive Department Admin Guide for MCiSmartSpace! As a
+  department administrator, you have powerful tools to manage your department's
+  rooms, equipment, users, and generate reports.
+---
 
-Welcome to the comprehensive Department Admin Guide for MCiSmartSpace! As a department administrator, you have powerful tools to manage your department's rooms, equipment, users, and generate insightful reports.
+# Administrator  Guide
+
+## Administrative System Overview
+
+{% embed url="https://youtu.be/M9OsZDrk2sI" %}
 
 ## Your Administrative Role
 

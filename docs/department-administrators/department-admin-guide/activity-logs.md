@@ -15,6 +15,4 @@ Track all reservation activities within your department.
   * User, Room type, Activity, Date & time, Status
 * Use filters to search by user, date, or room.
 
-### Activity Logs Visual Guide
-
 <figure><img src="../../.gitbook/assets/Activity Logs.jpg" alt=""><figcaption></figcaption></figure>

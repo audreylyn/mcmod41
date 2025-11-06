@@ -10,14 +10,12 @@ description: >-
 
 When you log in, you'll see your comprehensive dashboard featuring:
 
-#### Quick Stats&#x20;
-
 * Log in with your Department Admin account.
 * Open the Dashboard and review Quick Stats (Total Rooms request, Active Reservations, Equipment Issues, Pending Approvals and Generate Report).
 * Check Recent Activity and Pending Approvals first thing each day.
 * Respond to urgent equipment reports and reservation conflicts within an hours during business hours.
 
-### Dashboard Visual Guide
+
 
 **Quick Stats -** Displays Total summary of important system data.
 

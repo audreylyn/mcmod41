@@ -1,6 +1,17 @@
+---
+description: >-
+  Welcome to the comprehensive Guide for MCiSmartSpace! As the system registrar,
+  you have the highest level of administrative access and are responsible for
+  system-wide management and configuration
+---
+
 # Registrar Guide
 
-Welcome to the comprehensive Registrar Guide for MCiSmartSpace! As the system registrar, you have the highest level of administrative access and are responsible for system-wide management and configuration.
+## Registrar System Overview
+
+{% embed url="https://youtu.be/P6GheCTHnpI" %}
+
+
 
 ## Your Administrative Authority
 

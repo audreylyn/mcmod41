@@ -1,21 +1,22 @@
-# Profile Management
+---
+description: >-
+  Keep your account up to date by editing your personal information and changing
+  your password anytime.
+---
 
-### Profile Management
+# Profile Management
 
 **Steps to Manage Profile:**
 
-1. Click **Profile** in the main menu (upper right).
-2. Review your current personal Information (Name, Email, Department).
-3. Click **Change Password** to make changes.
-4. Update information or change your password.
-5. Click **Update Password,** a success message confirms your update.
-
-
-
-### Profile Management Visual Guide
+Click **Profile** in the main menu (upper right).
 
 <figure><img src="../../.gitbook/assets/Profile management.jpg" alt=""><figcaption></figcaption></figure>
 
 
+
+* Review your current personal Information (Name, Email, Department).
+* Click **Change Password** to make changes.
+* Update information or change your password.
+* Click **Update Password,** a success message confirms your update.
 
 <figure><img src="../../.gitbook/assets/Profile management (2).jpg" alt=""><figcaption></figcaption></figure>

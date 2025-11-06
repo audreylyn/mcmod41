@@ -8,7 +8,7 @@ description: Create and manage department administrator accounts
 
 Creating Admin Accounts
 
-* Access Admin Management - Navigate to Admin Accounts section
+* View the Department Admin List&#x20;
 * Add New Admin - Click "Register"
 * Account Configuration:
   * Personal Information - First Name and Last Name
@@ -16,14 +16,12 @@ Creating Admin Accounts
   * Login Credentials - Secure Email and  Password requirements
 * Account Activation - Click Register to Add Admin
 
-
-
-### Add Admin Visual Guide
-
-**Add Admin View**
-
 <figure><img src="../../.gitbook/assets/add admin.jpg" alt=""><figcaption></figcaption></figure>
 
-**Edit & Delete Admin Account**
+**Edit & Delete Admin Accounts**
+
+Easily manage department administrator profiles within the system. You can update admin details such as name, department, and account status, or delete inactive accounts.
+
+
 
 <figure><img src="../../.gitbook/assets/editdel registrar.jpg" alt=""><figcaption></figcaption></figure>
