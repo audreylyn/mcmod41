@@ -8,7 +8,7 @@ description: >-
 
 **Steps to Manage Profile:**
 
-Click **Profile** in the main menu (upper right).
+* Click **Profile** in the main menu (upper right).
 
 <figure><img src="../../.gitbook/assets/Profile management.jpg" alt=""><figcaption></figcaption></figure>
 

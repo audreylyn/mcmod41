@@ -1,8 +1,16 @@
+---
+description: >-
+  A step-by-step guide that shows users how to easily download the application
+  on your device.
+---
+
 # Video Tutorials
 
-##
+## Download via add to home screen
 
+{% embed url="https://youtube.com/shorts/GpbAosq8iZQ?feature=share" %}
 
+## Download via MciSmartSpace Website
 
 
 

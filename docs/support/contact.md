@@ -32,7 +32,7 @@ Get help with MCiSmartSpace through multiple support channels. Choose the approp
 
 Your first point of contact for department-related issues:
 
-Accountancy Department
+**Accountancy Department**
 
 * Admin Name: \[Ms. Marianne saquez]
 * Email: \[mariannesaquez@mc.edu.ph]
@@ -40,7 +40,7 @@ Accountancy Department
 * Office: \[3rd floor AC Office]
 * Hours: \[Mon - Fri, 8:00 AM - 10:00 AM]
 
-Business Administration Department
+**Business Administration Department**
 
 * Admin Name: \[Ms. Ivy Nava]
 * Email: \[ivynava@mc.edu.ph]
@@ -48,7 +48,7 @@ Business Administration Department
 * Office: \[2nd floor, Business ad office]
 * Hours: \[Mon - Fri, 8:00 AM-3:00 PM ]
 
-Criminal Justice Department
+**Criminal Justice Department**
 
 * Admin Name: \[Mr. AJ Batac]
 * Email: \[batacaj@mc.edu.ph]
@@ -56,7 +56,7 @@ Criminal Justice Department
 * Office: \[ 4th Floor, CJ Faculty Office]
 * Hours: \[Monday – Friday, 8:00 AM – 4:00 PM]
 
-Education and Arts Department
+**Education and Arts Department**
 
 * Admin Name: \[Ms. Juliana Macaranas]
 * Email: \[macaranas@mc.edu.ph]
@@ -64,7 +64,7 @@ Education and Arts Department
 * Office: \[2nd Floor, Education Wing]
 * Hours: \[Monday – Friday, 8:00 AM – 5:00 PM]
 
-Hospitality Management Department
+**Hospitality Management Department**
 
 * Admin Name: \[Ms. Audreylyn Morana]
 * Email: \[audrey@mc.edu.ph]
@@ -164,6 +164,6 @@ Hospitality Management Department
 * Priority Level: Select appropriate urgency level
 * Updates: Check for responses and provide requested information
 
-###
+
 
 \

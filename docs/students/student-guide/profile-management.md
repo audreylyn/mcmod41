@@ -8,19 +8,19 @@ description: >-
 
 #### **Steps to Manage Your Profile**
 
-Click Profile in the upper-right corner of your dashboard.
+* Click Profile in the upper-right corner of your dashboard.
 
 <figure><img src="../../.gitbook/assets/navaivy7@gmail.com (9).jpg" alt=""><figcaption></figcaption></figure>
 
 
 
-you'll see your Account Status
+* you'll see your Account Status
 
 <figure><img src="../../.gitbook/assets/student acc status (1).jpg" alt=""><figcaption></figcaption></figure>
 
 
 
-Review your current personal details Including **Name**, **Email**, and **Department**.
+* Review your current personal details Including **Name**, **Email**, and **Department**.
 
 <figure><img src="../../.gitbook/assets/student personal info (1).jpg" alt=""><figcaption></figcaption></figure>
 

@@ -10,22 +10,14 @@ description: >-
 
 When you log in, you'll see your comprehensive dashboard featuring:
 
-* Log in with your Department Admin account.
-* Open the Dashboard and review Quick Stats (Total Rooms request, Active Reservations, Equipment Issues, Pending Approvals and Generate Report).
-* Check Recent Activity and Pending Approvals first thing each day.
-* Respond to urgent equipment reports and reservation conflicts within an hours during business hours.
-
-
-
-**Quick Stats -** Displays Total summary of important system data.
-
-&#x20;**Equipment Issues Activities** - Displays recent equipment issues.
+* **Quick Stats -** Displays Total summary of important system data.
+* &#x20;**Equipment Issues Activities** - Displays recent equipment issues.
 
 <figure><img src="../../.gitbook/assets/Dashboard.jpg" alt=""><figcaption></figcaption></figure>
 
 
 
-**Recent Room Usage** - Shows the latest room activities.\
+* **Recent Room Usage** - Shows the latest room activities.\
 
 
 <figure><img src="../../.gitbook/assets/Recent Room Usaage.png" alt=""><figcaption></figcaption></figure>
@@ -34,6 +26,6 @@ When you log in, you'll see your comprehensive dashboard featuring:
 
 
 
-**Generate Report**  - create detailed reports.
+* **Generate Report**  - create detailed reports.
 
 <figure><img src="../../.gitbook/assets/Generate Report.png" alt=""><figcaption></figcaption></figure>
