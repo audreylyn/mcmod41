@@ -46,3 +46,6 @@ description: Search and select available rooms for classes or events.
 
 <figure><img src="../../.gitbook/assets/navaivy7@gmail.com (7).jpg" alt=""><figcaption></figcaption></figure>
 
+
+
+* Once the department admin approves your request, you’ll receive an email notification containing a confirmation form. The email will indicate whether your request was accepted or rejected, along with the reservation details, the reason for rejection (if applicable), and other important information.
