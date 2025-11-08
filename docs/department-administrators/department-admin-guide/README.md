@@ -9,7 +9,7 @@ description: >-
 
 ## Administrative System Overview
 
-{% embed url="https://youtu.be/_2MEgBhlibQ" %}
+{% embed url="https://youtu.be/tedFz6mKIfk" %}
 
 ## Your Administrative Role
 
