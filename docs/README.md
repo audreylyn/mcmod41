@@ -25,6 +25,8 @@ A guide for the Room Management Information System implemented for Meycauayan Co
 * [**FAQ**](support/faq.md) - Frequently asked questions
 * [**Contact Support**](support/contact.md) - How to get help
 
+
+
 ## Quick Start
 
 ### For Students & Teachers
@@ -47,6 +49,8 @@ A guide for the Room Management Information System implemented for Meycauayan Co
 2. Manage buildings, rooms, and equipment
 3. Add new department administrators
 4. Monitor system-wide activities
+
+
 
 ## System Features
 
@@ -78,6 +82,8 @@ A guide for the Room Management Information System implemented for Meycauayan Co
 * **Profile Management** - User account controls
 * **Activity Logging** - Comprehensive audit trails
 
+
+
 ## System Requirements
 
 ### Minimum Requirements
@@ -87,12 +93,7 @@ A guide for the Room Management Information System implemented for Meycauayan Co
 * **Device**: Desktop, tablet, or mobile device
 * **Screen Resolution**: 1024x768 minimum (responsive design)
 
-### Recommended Setup
 
-* **Modern Browser**: Latest version of Chrome, Firefox, or Edge
-* **High-Speed Internet**: For optimal performance
-* **Desktop/Laptop**: For administrative functions
-* **Mobile Device**: For QR scanning and quick access
 
 ## Mobile Features
 
@@ -103,13 +104,7 @@ MCiSmartSpace is fully responsive and includes:
 * **Offline Capabilities** - Basic functionality without internet
 * **Push Notifications** - Real-time updates and alerts
 
-## Security Features
 
-* **Multi-Factor Authentication** - Enhanced login security
-* **Role-Based Permissions** - Granular access control
-* **Data Encryption** - Secure data transmission
-* **Audit Logging** - Complete activity tracking
-* **Session Management** - Automatic timeout and security
 
 ## Supported Departments
 
@@ -118,6 +113,8 @@ MCiSmartSpace is fully responsive and includes:
 * **Criminal Justice** - CJ Building operations
 * **Education and Arts** - EA Building coordination
 * **Hospitality Management** - HM Building administration
+
+
 
 ## Getting Help
 
