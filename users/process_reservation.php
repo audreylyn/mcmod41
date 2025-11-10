@@ -81,12 +81,13 @@ if ($_SERVER["REQUEST_METHOD"] == "POST") {
     }
 
     // Format date and times for database
-    $startTimeFormatted = $reservationDate . ' ' . $startTime . ':00';
-    $endTimeFormatted = $reservationDate . ' ' . $endTime . ':00';
+    // Note: Database stores StartTime and EndTime as TIME type, ReservationDate as DATE type
+    $startTimeFormatted = $startTime . ':00';
+    $endTimeFormatted = $endTime . ':00';
 
     // Check if start time is before end time
-    $startTimestamp = strtotime($startTimeFormatted);
-    $endTimestamp = strtotime($endTimeFormatted);
+    $startTimestamp = strtotime($reservationDate . ' ' . $startTimeFormatted);
+    $endTimestamp = strtotime($reservationDate . ' ' . $endTimeFormatted);
 
     if ($startTimestamp >= $endTimestamp) {
         $_SESSION['error_message'] = "End time must be after start time";
@@ -95,26 +96,24 @@ if ($_SERVER["REQUEST_METHOD"] == "POST") {
     }
 
     // Check if the room is available for the selected time
+    // Overlap occurs when:
+    // 1. Same room and same date
+    // 2. New booking starts before existing ends AND new booking ends after existing starts
     $checkSql = "SELECT COUNT(*) as count 
                 FROM room_requests 
                 WHERE RoomID = ? 
+                AND ReservationDate = ?
                 AND Status = 'approved' 
-                AND (
-                    (StartTime <= ? AND EndTime >= ?) OR 
-                    (StartTime <= ? AND EndTime >= ?) OR 
-                    (StartTime >= ? AND EndTime <= ?)
-                )";
+                AND StartTime < ? 
+                AND EndTime > ?";
 
     $checkStmt = $conn->prepare($checkSql);
     $checkStmt->bind_param(
-        "issssss",
+        "isss",
         $roomId,
-        $endTimeFormatted,
-        $startTimeFormatted,  // Case 1: New booking starts during existing booking
-        $startTimeFormatted,
-        $startTimeFormatted, // Case 2: New booking ends during existing booking
-        $startTimeFormatted,
-        $endTimeFormatted    // Case 3: New booking contains existing booking
+        $reservationDate,
+        $endTimeFormatted,    // New booking's end time
+        $startTimeFormatted   // New booking's start time
     );
     $checkStmt->execute();
     $checkResult = $checkStmt->get_result();
