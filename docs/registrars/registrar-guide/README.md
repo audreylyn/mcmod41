@@ -1,6 +1,17 @@
+---
+description: >-
+  Welcome to the comprehensive Guide for MCiSmartSpace! As the system registrar,
+  you have the highest level of administrative access and are responsible for
+  system-wide management and configuration
+---
+
 # Registrar Guide
 
-Welcome to the comprehensive Registrar Guide for MCiSmartSpace! As the system registrar, you have the highest level of administrative access and are responsible for system-wide management and configuration.
+## Registrar System Overview
+
+{% embed url="https://youtu.be/tedFz6mKIfk" %}
+
+
 
 ## Your Administrative Authority
 
@@ -36,10 +47,3 @@ Unlike department admins who are limited to their specific departments, you have
 
 ***
 
-## Ready to Manage the System?
-
-Begin with [**System Administration**](../../registrar-guide/system-admin.md) to understand overall system management, then explore [**Building Management**](../../registrar-guide/building-management.md) to set up your campus infrastructure.
-
-**Need immediate assistance?** Use the priority support channels available to registrars, or check the [FAQ](../../support/faq.md) for common administrative questions.
-
-**Planning system expansion?** Review the strategic planning guides and contact the development team for consultation on new features or capabilities.

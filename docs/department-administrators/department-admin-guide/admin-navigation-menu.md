@@ -18,8 +18,4 @@ description: >-
 * **Equipment Reports** - Handle maintenance issues
 * **QR Generator** - Create equipment QR codes
 
-
-
-## Admin Visual Guide
-
 <figure><img src="../../.gitbook/assets/Navigation menu.jpg" alt=""><figcaption></figcaption></figure>

@@ -16,10 +16,6 @@ description: >-
 * Add a short note describing the reason for maintenance.
 * Click **Set to Maintenance.** The System automatically Blocks the room from new reservations and Displays the “Under Maintenance” label in the booking interface.
 
-### Room Status Visual Guide
-
-**Room Maintenance View**
-
 <figure><img src="../../.gitbook/assets/Room Status.jpg" alt=""><figcaption></figcaption></figure>
 
 

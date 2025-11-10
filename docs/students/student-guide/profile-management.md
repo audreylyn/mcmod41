@@ -8,32 +8,30 @@ description: >-
 
 #### **Steps to Manage Your Profile**
 
-* Click **Profile** in the upper-right corner of your dashboard.
+* Click Profile in the upper-right corner of your dashboard.
+
+<figure><img src="../../.gitbook/assets/navaivy7@gmail.com (9).jpg" alt=""><figcaption></figcaption></figure>
+
+
+
 * you'll see your Account Status
-* Review your current personal details Including **Name**, **Email**, and **Department**.
-* Click **Edit Profile** to make any changes.
-* Update your information or change your password as needed.
-*   Click Update and A success message will confirm your update .
-
-
-
-### Profile Management Visual Guide&#x20;
-
-**Edit Profile View**
-
-<figure><img src="../../.gitbook/assets/student dash (2).jpg" alt=""><figcaption></figcaption></figure>
-
-**Account Status View**
 
 <figure><img src="../../.gitbook/assets/student acc status (1).jpg" alt=""><figcaption></figcaption></figure>
 
-**Personal Information View**
+
+
+* Review your current personal details Including **Name**, **Email**, and **Department**.
 
 <figure><img src="../../.gitbook/assets/student personal info (1).jpg" alt=""><figcaption></figcaption></figure>
 
-**Change Information (if needed)**
+
+
+* Update your information or change your password as needed.
+* Click Update and A success message will confirm your update .
 
 <figure><img src="../../.gitbook/assets/student pass view (3).jpg" alt=""><figcaption></figcaption></figure>
+
+####
 
 #### **MC CHATBOT**
 

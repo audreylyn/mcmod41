@@ -4,11 +4,9 @@ description: >-
   access extends across the entire institution.
 ---
 
-# Super Admin Navigation Guide
+# Registrar Navigation Guide
 
-
-
-As the System Registrar, you have complete administrative control over:
+**As the System Registrar, you have complete administrative control over:**
 
 * **System Administration** - Overall system configuration and management
 * **Building Management** - Create, modify, and manage all campus buildings
@@ -17,9 +15,5 @@ As the System Registrar, you have complete administrative control over:
 * **Department Admin Creation** - Create and manage department administrator accounts
 * **System-Wide Reporting** - Access comprehensive analytics across all departments
 * **User Oversight** - Monitor and manage all user accounts system-wide
-
-
-
-### Navigation Visual Guide
 
 <figure><img src="../../.gitbook/assets/registrar nav menu.jpg" alt=""><figcaption></figcaption></figure>

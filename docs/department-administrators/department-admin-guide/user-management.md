@@ -10,43 +10,27 @@ description: >-
 
 Manage students and teachers under your department.
 
-* View all registered users (students and teachers).
-* To manage an Account: Edit Information either Student or Teacher
-* Fill name, email, department. Assign initial password.&#x20;
-* Disable access for inactive or violators users.
-
-### User Management Visual Guide
-
 **User Management Navigation menu**
 
 <figure><img src="../../.gitbook/assets/User Management.jpg" alt=""><figcaption></figcaption></figure>
 
-### Manage Teacher&#x20;
+### Manage Teacher / Student
+
+View all registered users (students and teachers).
 
 <figure><img src="../../.gitbook/assets/manage teachers.jpg" alt=""><figcaption></figcaption></figure>
 
-**Edit & Delete Teachers View**
+**Edit & Delete Teachers /** **Student View**
+
+To manage an Account: Edit or Delete Information either Student or Teacher
 
 <figure><img src="../../.gitbook/assets/edit delete teacher (2).jpg" alt=""><figcaption></figcaption></figure>
 
 
 
-**Add Teacher**&#x20;
+**Add Teacher / Student**
 
-
+Fill name, email, department. Assign initial password.&#x20;
 
 <figure><img src="../../.gitbook/assets/add teacher.jpg" alt=""><figcaption></figcaption></figure>
 
-
-
-### Manage Students
-
-<figure><img src="../../.gitbook/assets/manage students (1).jpg" alt=""><figcaption></figcaption></figure>
-
-**Student Edit & Delete View**
-
-<figure><img src="../../.gitbook/assets/student edi and delete.jpg" alt=""><figcaption></figcaption></figure>
-
-**Add Student View**
-
-<figure><img src="../../.gitbook/assets/add student (2).jpg" alt=""><figcaption></figcaption></figure>

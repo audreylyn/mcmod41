@@ -5,11 +5,15 @@ description: >-
   system.
 ---
 
-# Student Guide
+# Student & Teacher Guide
 
-Welcome to the MCiSmartSpace Student Guide! Here, you’ll learn how to reserve rooms, report equipment issues, manage your profile, and make the most out of the system’s smart features.
+## Student & Teacher  System Overview
 
-## What You Can Do as a Student
+{% embed url="https://youtu.be/lz8cJIyKDdk" %}
+
+
+
+## What You Can Do as a Student & Teacher &#x20;
 
 As a student user, you have access to:
 
@@ -32,6 +36,4 @@ As a student user, you have access to:
 * **Study Rooms** - Small group study spaces
 * **Computer Labs** - Technology-equipped rooms
 * **Conference Rooms** - Meeting and presentation spaces
-
-
 
