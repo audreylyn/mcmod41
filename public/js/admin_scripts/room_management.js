@@ -268,3 +268,21 @@ function deleteRoom(roomId) {
     }
   }, { once: true }); // Use 'once' to avoid adding multiple listeners
 }
+
+// Download room template function
+function downloadRoomTemplate() {
+  const csvContent = 'Room Name,Room Type,Capacity,Building Name\nACC-112,Classroom,50,Accountancy Building';
+  const blob = new Blob([csvContent], { type: 'text/csv;charset=utf-8;' });
+  const link = document.createElement('a');
+
+  if (link.download !== undefined) {
+    const url = URL.createObjectURL(blob);
+    link.setAttribute('href', url);
+    link.setAttribute('download', 'room_template.csv');
+    link.style.visibility = 'hidden';
+    document.body.appendChild(link);
+    link.click();
+    document.body.removeChild(link);
+  }
+}
+

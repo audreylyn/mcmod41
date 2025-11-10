@@ -609,3 +609,20 @@ function closeEditModal() {
 document.getElementById('closeEditModal').onclick = function () {
   closeEditModal();
 };
+
+// Download admin template function
+function downloadAdminTemplate() {
+  const csvContent = 'FirstName,LastName,Department,Email,Password\nJohn,Doe,Business Administration,john.doe@example.com,password123\nJane,Smith,Accountancy,jane.smith@example.com,password456';
+  const blob = new Blob([csvContent], { type: 'text/csv;charset=utf-8;' });
+  const link = document.createElement('a');
+
+  if (link.download !== undefined) {
+    const url = URL.createObjectURL(blob);
+    link.setAttribute('href', url);
+    link.setAttribute('download', 'admin_template.csv');
+    link.style.visibility = 'hidden';
+    document.body.appendChild(link);
+    link.click();
+    document.body.removeChild(link);
+  }
+}

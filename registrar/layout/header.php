@@ -7,7 +7,12 @@
 <head>
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
+
     <title><?php echo $pageTitle ?? 'Registrar Dashboard'; ?></title>
+    <!-- Icons and Manifest -->
+    <link rel="icon" href="../public/assets/logo.webp" type="image/webp" />
+    <link rel="apple-touch-icon" href="../public/assets/logo.webp">
+
     <link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/@tabler/icons-webfont@latest/dist/tabler-icons.min.css" />
     <link rel="stylesheet" href="https://cdn.materialdesignicons.com/4.9.95/css/materialdesignicons.min.css">
     <link rel="stylesheet" href="../public/css/admin_styles/main.css">

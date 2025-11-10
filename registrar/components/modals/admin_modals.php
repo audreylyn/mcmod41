@@ -26,7 +26,7 @@
             <div class="field">
                 <label class="label">Department</label>
                 <div class="control">
-                    <input class="input" type="text" id="edit_department" readonly style="background-color: #f5f5f5; cursor: not-allowed;">
+                    <input class="input" type="text" name="edit_department" id="edit_department" readonly style="background-color: #f5f5f5; cursor: not-allowed;">
                     <p class="help" style="color: #666; font-size: 0.85rem; margin-top: 5px;">Department cannot be changed after creation to maintain data integrity.</p>
                 </div>
             </div>

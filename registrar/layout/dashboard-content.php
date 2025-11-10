@@ -98,19 +98,31 @@
             </div>
         </div>
 
-        <!-- Room Types Distribution Chart -->
+<!--        <div class="chart-card chart-card-full">-->
+<!--            <div class="card-header">-->
+<!--                <h3 class="card-title">-->
+<!--                    <span class="icon"><i class="mdi mdi-view-grid"></i></span>-->
+<!--                    Room Types Distribution-->
+<!--                </h3>-->
+<!--            </div>-->
+<!--            <div class="card-content">-->
+<!--                <canvas id="roomTypesChart" height="100"></canvas>-->
+<!--            </div>-->
+<!--        </div>-->
+
+        <!-- Department Room Distribution -->
         <div class="chart-card chart-card-full">
             <div class="card-header">
                 <h3 class="card-title">
-                    <span class="icon"><i class="mdi mdi-view-grid"></i></span>
-                    Room Types Distribution
+                    <span class="icon"><i class="mdi mdi-chart-bar"></i></span>
+                    Rooms by Department
                 </h3>
             </div>
             <div class="card-content">
-                <canvas id="roomTypesChart" height="100"></canvas>
+                <canvas id="roomsByDepartmentChart" height="100"></canvas>
             </div>
         </div>
-        
+
         <!-- Largest Buildings by Room Count -->
         <div class="chart-card">
             <div class="card-header">
@@ -227,17 +239,6 @@
             </div>
         </div>
 
-        <!-- Department Room Distribution -->
-        <div class="chart-card chart-card-full">
-            <div class="card-header">
-                <h3 class="card-title">
-                    <span class="icon"><i class="mdi mdi-chart-bar"></i></span>
-                    Rooms by Department
-                </h3>
-            </div>
-            <div class="card-content">
-                <canvas id="roomsByDepartmentChart" height="100"></canvas>
-            </div>
-        </div>
+
     </div>
 </section>

@@ -127,3 +127,22 @@
   align-items: center;
   gap: 5px;
 }
+
+/* Download template button */
+.download-template-btn {
+  border-radius: 0.3em;
+  background-color: #6c757d;
+  color: white;
+  border: none;
+  padding: 0.5rem 1rem;
+  cursor: pointer;
+  display: flex;
+  align-items: center;
+  gap: 5px;
+  margin-left: 8px;
+}
+
+.download-template-btn:hover {
+  background-color: #5a6268;
+}
+

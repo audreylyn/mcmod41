@@ -16,8 +16,10 @@ include "includes/message.php";
 <head>
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <title>Department Admin Registration</title>
-    
+    <title>Add Admin</title>
+    <!-- Icons and Manifest -->
+    <link rel="icon" href="../public/assets/logo.webp" type="image/webp" />
+    <link rel="apple-touch-icon" href="../public/assets/logo.webp">
     <!-- CSS Dependencies -->
     <link rel="stylesheet" href="https://cdn.materialdesignicons.com/4.9.95/css/materialdesignicons.min.css">
     <link rel="stylesheet" href="../public/css/admin_styles/main.css">

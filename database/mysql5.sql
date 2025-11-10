@@ -111,8 +111,6 @@ CREATE TABLE rooms (
     FOREIGN KEY (building_id) REFERENCES buildings(id)
 );
 
-
-
 CREATE TABLE room_maintenance (
   id INT AUTO_INCREMENT PRIMARY KEY,
   room_id INT NOT NULL,
@@ -123,16 +121,6 @@ CREATE TABLE room_maintenance (
   FOREIGN KEY (room_id) REFERENCES rooms(id),
   FOREIGN KEY (admin_id) REFERENCES dept_admin(AdminID) ON DELETE CASCADE
 );
-
--- Delete this, may ON DELETE CASCADE NA
-ALTER TABLE room_maintenance 
-DROP FOREIGN KEY room_maintenance_ibfk_2;
-
--- Add the new foreign key with CASCADE delete
-ALTER TABLE room_maintenance 
-ADD CONSTRAINT room_maintenance_ibfk_2 
-FOREIGN KEY (admin_id) REFERENCES dept_admin(AdminID) ON DELETE CASCADE;
-
 
 -- =========================
 -- Room Requests
@@ -170,7 +158,7 @@ CREATE TABLE equipment (
     id INT AUTO_INCREMENT PRIMARY KEY,
     name VARCHAR(255) NOT NULL,
     description TEXT,
-    category VARCHAR(100),
+    category VARCHAR(255),
     created_at TIMESTAMP DEFAULT CURRENT_TIMESTAMP
 );
 
@@ -194,7 +182,7 @@ CREATE TABLE equipment_issues (
   unit_id INT NOT NULL,
   student_id INT DEFAULT NULL,
   teacher_id INT DEFAULT NULL,
-  issue_type VARCHAR(100) NOT NULL,
+  issue_type VARCHAR(255) NOT NULL,
   description TEXT NOT NULL,
   status ENUM('pending','in_progress','resolved','rejected') DEFAULT 'pending',
   statusCondition ENUM('working', 'needs_repair', 'maintenance', 'missing') DEFAULT 'working',
@@ -215,7 +203,7 @@ CREATE TABLE equipment_issues (
 CREATE TABLE equipment_audit (
     id INT AUTO_INCREMENT PRIMARY KEY,
     equipment_id INT NOT NULL,
-    action VARCHAR(50) NOT NULL,
+    action VARCHAR(255) NOT NULL,
     action_date TIMESTAMP DEFAULT CURRENT_TIMESTAMP,
     notes TEXT,
     FOREIGN KEY (equipment_id) REFERENCES equipment(id) 
