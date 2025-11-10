@@ -1,6 +1,13 @@
+<style>
+    .space-between {
+        display: flex;
+        justify-content: space-between;
+        padding-inline: 20px;
+    }
+</style>
 <div class="table-container">
     <div class="card">
-        <header class="card-header">
+        <header class="card-header space-between">
             <div class="new-title-container">
                 <p class="new-title">MANAGE STUDENT PENALTIES</p>
             </div>

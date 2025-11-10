@@ -239,7 +239,7 @@
                     </div>
                 </div>
                 
-                <div class="divider">
+                <!-- <div class="divider">
                     <span>OR</span>
                 </div>
                 
@@ -256,7 +256,7 @@
                             All students will be added to the <strong><?php echo htmlspecialchars($adminDepartment); ?></strong> department.
                         </p>
                     </div>
-                </div>
+                </div> -->
             </form>
         </div>
     </div>

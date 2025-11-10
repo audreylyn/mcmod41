@@ -178,41 +178,41 @@
                     </div>
                 </div>
                 
-<div class="divider">
-    <span>Security</span>
-</div>
+            <div class="divider">
+                <span>Security</span>
+            </div>
 
-<div class="password-field-container">
-    <div class="field">
-        <label class="label">Password</label>
-        <div class="control has-icons-left has-icons-right">
-            <input class="input is-rounded" type="password" name="password" id="add_password" placeholder="Minimum 8 characters" minlength="8" required>
-            <span class="icon is-small is-left">
-                <i class="mdi mdi-lock"></i>
-            </span>
-            <span class="icon is-small is-right toggle-password" onclick="togglePasswordVisibility('add_password')">
-                <i class="mdi mdi-eye"></i>
-            </span>
-        </div>
-        <p class="help">Password must be at least 8 characters long</p>
-    </div>
-</div>
+            <div class="password-field-container">
+                <div class="field">
+                    <label class="label">Password</label>
+                    <div class="control has-icons-left has-icons-right">
+                        <input class="input is-rounded" type="password" name="password" id="add_password" placeholder="Minimum 8 characters" minlength="8" required>
+                        <span class="icon is-small is-left">
+                            <i class="mdi mdi-lock"></i>
+                        </span>
+                        <span class="icon is-small is-right toggle-password" onclick="togglePasswordVisibility('add_password')">
+                            <i class="mdi mdi-eye"></i>
+                        </span>
+                    </div>
+                    <p class="help">Password must be at least 8 characters long</p>
+                </div>
+            </div>
 
-<div class="form-actions-container">
-    <div class="form-actions">
-        <button type="submit" class="submit-button">
-            <i class="mdi mdi-account-plus"></i>
-            <span>Add Teacher</span>
-        </button>
-        <button type="reset" class="reset-button">
-            <i class="mdi mdi-refresh"></i>
-            <span>Reset</span>
-        </button>
-    </div>
-</div>          
-<div class="divider">
-        <span>OR</span>
-</div>
+            <div class="form-actions-container">
+                <div class="form-actions">
+                    <button type="submit" class="submit-button">
+                        <i class="mdi mdi-account-plus"></i>
+                        <span>Add Teacher</span>
+                    </button>
+                    <button type="reset" class="reset-button">
+                        <i class="mdi mdi-refresh"></i>
+                        <span>Reset</span>
+                    </button>
+                </div>
+            </div>          
+            <!-- <div class="divider">
+                    <span>OR</span>
+            </div>
                 
             <div class="batch-upload-info">
                     <div class="info-card">
@@ -227,7 +227,7 @@
                             All teachers will be added to the <strong><?php echo htmlspecialchars($adminDepartment); ?></strong> department.
                         </p>
                     </div>
-                </div>
+            </div> -->
             </form>
         </div>
     </div>

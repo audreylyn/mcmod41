@@ -15,7 +15,10 @@ header('Access-Control-Allow-Headers: *');
 <head>
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <title>QR Code Generator | MCiSmartSpace</title>
+    <title>QR Code Generator</title>
+    <!-- Icons and Manifest -->
+    <link rel="icon" href="../public/assets/logo.webp" type="image/webp" />
+    <link rel="apple-touch-icon" href="../public/assets/logo.webp">
     <!-- No external QR code library needed as we're using GoQR API -->
     <link rel="stylesheet" href="https://cdn.materialdesignicons.com/4.9.95/css/materialdesignicons.min.css">
     <link rel="stylesheet" href="../public/css/admin_styles/main.css">

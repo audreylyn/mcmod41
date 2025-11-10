@@ -98,17 +98,17 @@
             </div>
         </div>
 
-<!--        <div class="chart-card chart-card-full">-->
-<!--            <div class="card-header">-->
-<!--                <h3 class="card-title">-->
-<!--                    <span class="icon"><i class="mdi mdi-view-grid"></i></span>-->
-<!--                    Room Types Distribution-->
-<!--                </h3>-->
-<!--            </div>-->
-<!--            <div class="card-content">-->
-<!--                <canvas id="roomTypesChart" height="100"></canvas>-->
-<!--            </div>-->
-<!--        </div>-->
+        <div class="chart-card chart-card-full">
+            <div class="card-header">
+                <h3 class="card-title">
+                    <span class="icon"><i class="mdi mdi-view-grid"></i></span>
+                    Room Types Distribution
+                </h3>
+            </div>
+            <div class="card-content">
+                <canvas id="roomTypesChart" height="100"></canvas>
+            </div>
+        </div>
 
         <!-- Department Room Distribution -->
         <div class="chart-card chart-card-full">
