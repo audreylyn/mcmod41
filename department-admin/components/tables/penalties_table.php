@@ -16,7 +16,7 @@
             </button>
         </header>
         <div class="card-content">
-            <table id="studentsTable" class="student-table display is-fullwidth">
+            <table id="studentsTable" class="adminTable student-table display is-fullwidth">
                 <thead>
                     <tr>
                         <th>Student Name</th>

@@ -30,10 +30,12 @@ $(document).ready(function () {
     });
   }
 
-  // Set minimum date to current date for ban expiry
+  // Set minimum date to tomorrow (disable past and today) for ban expiry
   const banExpiryInput = document.getElementById('banExpiry');
   if (banExpiryInput) {
-    banExpiryInput.min = new Date().toISOString().slice(0, 16);
+    const tomorrow = new Date();
+    tomorrow.setDate(tomorrow.getDate() + 1);
+    banExpiryInput.min = tomorrow.toISOString().split('T')[0];
   }
 });
 

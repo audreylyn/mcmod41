@@ -96,19 +96,18 @@
                         <span style="margin-left: 0.5rem; font-weight: 500;">entries</span>
                     </div>
 
-                    <div>
-                        <label style="font-size: 0.875rem; color: #64748b; margin-bottom: 0.375rem; display: block; font-weight: 500;">Status</label>
-                        <select id="status-filter" class="form-select" style="width: 100%; padding: 0.5rem; border: 1px solid #e2e8f0; border-radius: 0.375rem;">
-                            <option value="">All Status</option>
-                            <option value="pending">Pending</option>
-                            <option value="in_progress">In Progress</option>
-                            <option value="resolved">Resolved</option>
-                            <option value="rejected">Rejected</option>
-                        </select>
-                    </div>
+                    <div style="display: flex; gap: 1rem; align-items: flex-end;">
+                        <div>
+                            <label style="font-size: 0.875rem; color: #64748b; margin-bottom: 0.375rem; display: block; font-weight: 500;">Status</label>
+                            <select id="status-filter" class="form-select" style="width: 100%; padding: 0.5rem; border: 1px solid #e2e8f0; border-radius: 0.375rem;">
+                                <option value="">All Status</option>
+                                <option value="pending">Pending</option>
+                                <option value="in_progress">In Progress</option>
+                                <option value="resolved">Resolved</option>
+                                <option value="rejected">Rejected</option>
+                            </select>
+                        </div>
 
-                    <!-- Standalone search bar -->
-                    <div style="display: grid; grid-template-columns: 3fr 1fr; gap: 1rem;">
                         <div>
                             <label style="font-size: 0.875rem; color: #64748b; margin-bottom: 0.375rem; display: block; font-weight: 500;">Search</label>
                             <input type="text" id="customSearch" class="form-select" style="width: 100%; padding: 0.5rem; border: 1px solid #e2e8f0; border-radius: 0.375rem;" placeholder="Search by equipment, room, student...">
@@ -116,7 +115,7 @@
                     </div>
                 </div>
 
-                <table id="equipmentReportTable" class="table is-fullwidth is-striped">
+                <table id="equipmentReportTable" class="adminTable table is-fullwidth is-striped">
                     <thead>
                         <tr class="titles">
                             <th>Reference Number</th>

@@ -8,7 +8,8 @@ $(document).ready(function () {
       lengthMenu: '_MENU_',
       info: 'Showing _START_ to _END_ of _TOTAL_ entries',
     },
-    dom: '<"top d-flex align-items-center justify-content-between mb-3"<"d-flex align-items-center"l>f>rt<"bottom"ip><"clear">',
+    dom: '<"top d-flex align-items-center justify-content-between mb-3"<"d-flex align-items-center"l>>rt<"bottom"ip><"clear">',
+    searching: true,
     pageLength: 10,
     lengthMenu: [
       [10, 25, 50, -1],
