@@ -1,7 +1,7 @@
 <?php
 // Include email configuration and service
 require_once __DIR__ . '/../config/email_config.php';
-require_once __DIR__ . '/sendgrid_email_service.php';
+require_once __DIR__ . '/brevo_email_service.php';
 
 // Process approve/reject actions
 if ($_SERVER["REQUEST_METHOD"] == "POST") {
@@ -84,7 +84,7 @@ if ($_SERVER["REQUEST_METHOD"] == "POST") {
             $_SESSION['success_message'] = "Request approved successfully";
             
             // Send email notification if enabled
-            if (defined('ENABLE_EMAIL_NOTIFICATIONS') && ENABLE_EMAIL_NOTIFICATIONS && defined('SENDGRID_API_KEY') && SENDGRID_API_KEY !== 'YOUR_SENDGRID_API_KEY') {
+            if (defined('ENABLE_EMAIL_NOTIFICATIONS') && ENABLE_EMAIL_NOTIFICATIONS && defined('BREVO_API_KEY') && BREVO_API_KEY !== 'YOUR_BREVO_API_KEY_HERE') {
                 // Get full request details for email
                 $sql = "SELECT rr.*, r.room_name, b.building_name,
                         CASE 
@@ -111,7 +111,7 @@ if ($_SERVER["REQUEST_METHOD"] == "POST") {
                 
                 if ($requestDetails && $requestDetails['RequesterEmail']) {
                     try {
-                        $emailService = new SendGridEmailService(SENDGRID_API_KEY, FROM_EMAIL, FROM_NAME);
+                        $emailService = new BrevoEmailService(BREVO_API_KEY, FROM_EMAIL, FROM_NAME);
                         
                         $reservationDetails = [
                             'activity_name' => $requestDetails['ActivityName'],
@@ -157,7 +157,7 @@ if ($_SERVER["REQUEST_METHOD"] == "POST") {
             $_SESSION['success_message'] = "Request rejected successfully";
             
             // Send email notification if enabled
-            if (defined('ENABLE_EMAIL_NOTIFICATIONS') && ENABLE_EMAIL_NOTIFICATIONS && defined('SENDGRID_API_KEY') && SENDGRID_API_KEY !== 'YOUR_SENDGRID_API_KEY') {
+            if (defined('ENABLE_EMAIL_NOTIFICATIONS') && ENABLE_EMAIL_NOTIFICATIONS && defined('BREVO_API_KEY') && BREVO_API_KEY !== 'YOUR_BREVO_API_KEY_HERE') {
                 // Get full request details for email
                 $sql = "SELECT rr.*, r.room_name, b.building_name,
                         CASE 
@@ -184,7 +184,7 @@ if ($_SERVER["REQUEST_METHOD"] == "POST") {
                 
                 if ($requestDetails && $requestDetails['RequesterEmail']) {
                     try {
-                        $emailService = new SendGridEmailService(SENDGRID_API_KEY, FROM_EMAIL, FROM_NAME);
+                        $emailService = new BrevoEmailService(BREVO_API_KEY, FROM_EMAIL, FROM_NAME);
                         
                         $reservationDetails = [
                             'activity_name' => $requestDetails['ActivityName'],

@@ -1,0 +1,53 @@
+<?php
+/**
+ * Email Configuration Template for Brevo (Sendinblue)
+ * 
+ * INSTRUCTIONS:
+ * 1. Copy this file to 'email_config.php'
+ * 2. Replace 'YOUR_BREVO_API_KEY_HERE' with your actual Brevo API key
+ * 3. Update the email settings as needed
+ * 4. Make sure 'email_config.php' is in .gitignore
+ */
+
+// Try to load from environment variables first, then fallback to manual configuration
+$brevo_api_key = getenv('BREVO_API_KEY') ?: null;
+$from_email = getenv('BREVO_FROM_EMAIL') ?: 'mcismartspace@gmail.com';
+$from_name = getenv('BREVO_FROM_NAME') ?: 'MCiSmartSpace';
+
+// If no environment variable is set, you can manually set it here for local development
+// IMPORTANT: DO NOT COMMIT THE ACTUAL API KEY TO VERSION CONTROL
+if (!$brevo_api_key) {
+    // For local development only - replace with your actual key
+    $brevo_api_key = 'YOUR_BREVO_API_KEY_HERE';
+}
+
+// Brevo Configuration
+define('BREVO_API_KEY', $brevo_api_key);
+define('FROM_EMAIL', $from_email);
+define('FROM_NAME', $from_name);
+
+// Email Settings
+define('ENABLE_EMAIL_NOTIFICATIONS', true); // Set to false to disable email notifications
+
+/**
+ * Instructions for setting up Brevo:
+ * 
+ * RECOMMENDED APPROACH (Environment Variables):
+ * 1. Set environment variables on your server:
+ *    - BREVO_API_KEY=your_actual_api_key_here
+ *    - BREVO_FROM_EMAIL=your_verified_email@domain.com
+ *    - BREVO_FROM_NAME=Your App Name
+ * 
+ * ALTERNATIVE APPROACH (Local Development):
+ * 1. Replace 'YOUR_BREVO_API_KEY_HERE' above with your actual API key
+ * 2. Make sure this file is in .gitignore
+ * 3. Never commit the actual API key to version control
+ * 
+ * Brevo Setup:
+ * 1. Sign up for a Brevo account at https://brevo.com/
+ * 2. Go to SMTP & API > API Keys in your Brevo dashboard
+ * 3. Create a new API key with appropriate permissions
+ * 4. Use the API key in environment variables or local config
+ * 5. Verify your sender email address in Brevo settings
+ */
+?>

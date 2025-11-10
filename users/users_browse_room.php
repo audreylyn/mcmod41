@@ -213,6 +213,10 @@ include 'includes/browse_room.php';
                 font-size: 13px;
             }
         }
+
+        .#reservationModal .date-input, #reservationModal .time-input {
+            height: 45px;
+        }
     </style>
 
 </head>

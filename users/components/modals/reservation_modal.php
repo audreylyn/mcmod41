@@ -181,7 +181,7 @@
     #reservationModal .date-input,
     #reservationModal .time-input {
         padding-left: 35px !important;
-        height: 40px;
+        height: 45px;
     }
     
     /* Fix for date input specific appearance */
