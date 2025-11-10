@@ -49,7 +49,7 @@ if ($_SERVER["REQUEST_METHOD"] == "POST") {
 
                 if ($updateStmt->execute()) {
                     $_SESSION['success_message'] = "Password changed successfully!";
-                    header("Location: ../test.php");
+                    header("Location: ../edit_profile_admin.php");
                     exit();
                 } else {
                     $errorMsg = "Error updating password: " . $conn->error;
@@ -70,12 +70,12 @@ if ($_SERVER["REQUEST_METHOD"] == "POST") {
     if (!empty($errorMsg)) {
         $_SESSION['error_message'] = $errorMsg;
         // Add error_type and error_msg parameters to the URL
-        header("Location: ../test.php?error_type=password_change&error_msg=" . urlencode($errorMsg));
+        header("Location: ../edit_profile_admin.php?error_type=password_change&error_msg=" . urlencode($errorMsg));
         exit();
     }
 }
 
 // If we get here without redirecting, something went wrong
 $_SESSION['error_message'] = "An unexpected error occurred.";
-header("Location: ../test.php");
+header("Location: ../edit_profile_admin.php");
 exit();

@@ -1325,7 +1325,7 @@ textarea:focus {
   border-top: 1px solid #e9ecef;
   display: flex;
   gap: 12px;
-  justify-content: space-between;
+  justify-content: center;
   background-color: #f8f9fa;
   border-radius: 0 0 12px 12px;
 }

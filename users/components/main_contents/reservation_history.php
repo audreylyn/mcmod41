@@ -97,7 +97,7 @@
             <div class="history-tabs">
                 <div class="history-tab active" data-filter="all" title="View all your reservations regardless of status">All Reservations <span class="history-count"><?php echo $totalCount; ?></span></div>
                 <div class="history-tab" data-filter="approved" title="View all approved reservations (past and upcoming)">Approved <span class="history-count"><?php echo $approvedCount; ?></span></div>
-                <div class="history-tab" data-filter="upcoming" title="View approved reservations that haven't ended yet">Ongoing <span class="history-count"><?php echo $upcomingCount; ?></span></div>
+                <div class="history-tab" data-filter="upcoming" title="View approved reservations that haven't ended yet">Scheduled <span class="history-count"><?php echo $upcomingCount; ?></span></div>
                 <div class="history-tab" data-filter="completed" title="View approved reservations that have already ended">Completed <span class="history-count"><?php echo $completedCount; ?></span></div>
                 <div class="history-tab" data-filter="rejected" title="View reservations that were rejected by your Department Admin">Rejected <span class="history-count"><?php echo $rejectedCount; ?></span></div>
             </div>

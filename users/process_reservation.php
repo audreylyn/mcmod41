@@ -122,19 +122,29 @@ if ($_SERVER["REQUEST_METHOD"] == "POST") {
 
     if ($conflictCount > 0) {
         $_SESSION['error_message'] = "This room is already booked for the selected time. Please choose another time or room.";
-        header("Location: users_browse_room.php");
+        header("Location: users_reservation_history.php");
         exit();
     }
 
     // Check room capacity
-    $capacitySql = "SELECT capacity FROM rooms WHERE id = ?";
+    $capacitySql = "SELECT capacity, RoomStatus FROM rooms WHERE id = ?";
     $capacityStmt = $conn->prepare($capacitySql);
     $capacityStmt->bind_param("i", $roomId);
     $capacityStmt->execute();
     $capacityResult = $capacityStmt->get_result();
 
     if ($capacityResult->num_rows > 0) {
-        $roomCapacity = $capacityResult->fetch_assoc()['capacity'];
+        $roomData = $capacityResult->fetch_assoc();
+        $roomCapacity = $roomData['capacity'];
+        $roomStatus = $roomData['RoomStatus'];
+        
+        // Check if room is under maintenance
+        if ($roomStatus === 'maintenance') {
+            $_SESSION['error_message'] = "This room is currently under maintenance and cannot be reserved. Please choose another room.";
+            header("Location: users_browse_room.php");
+            exit();
+        }
+        
         if ($participants > $roomCapacity) {
             $_SESSION['error_message'] = "The number of participants exceeds the room capacity of $roomCapacity";
             header("Location: users_browse_room.php");

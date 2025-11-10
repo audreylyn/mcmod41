@@ -25,6 +25,24 @@ if ($_SERVER["REQUEST_METHOD"] == "POST") {
             $startTime = $request['StartTime'];
             $endTime = $request['EndTime'];
 
+            // Check if room is under maintenance
+            $maintenanceCheckSql = "SELECT RoomStatus FROM rooms WHERE id = ?";
+            $maintenanceStmt = $conn->prepare($maintenanceCheckSql);
+            $maintenanceStmt->bind_param("i", $roomId);
+            $maintenanceStmt->execute();
+            $maintenanceResult = $maintenanceStmt->get_result();
+            
+            if ($maintenanceResult->num_rows > 0) {
+                $roomData = $maintenanceResult->fetch_assoc();
+                if ($roomData['RoomStatus'] === 'maintenance') {
+                    $_SESSION['error_message'] = "Cannot approve: Room is currently under maintenance. Please remove maintenance status first.";
+                    $maintenanceStmt->close();
+                    header("Location: dept_room_approval.php");
+                    exit();
+                }
+            }
+            $maintenanceStmt->close();
+
             // Check for overlapping approved requests
             $sql = "SELECT rr.*, CASE 
                         WHEN rr.StudentID IS NOT NULL THEN CONCAT(s.FirstName, ' ', s.LastName)
@@ -48,7 +66,7 @@ if ($_SERVER["REQUEST_METHOD"] == "POST") {
 
             if ($conflictResult->num_rows > 0) {
                 $conflict = $conflictResult->fetch_assoc();
-                $conflictMessage = "Cannot approve: Room is already occupied by " . htmlspecialchars($conflict['RequesterName']) . " (" . $conflict['RequesterType'] . ").";
+                $conflictMessage = "Cannot approve: Room is already reserved for " . htmlspecialchars($conflict['RequesterName']) . " (" . $conflict['RequesterType'] . ").";
                 $_SESSION['error_message'] = $conflictMessage;
                 $stmt->close();
                 header("Location: dept_room_approval.php");

@@ -54,25 +54,25 @@
                     </select>
                 </div>
 
-                <div class="divider">Or enter custom details</div>
-
                 <div class="custom-fields">
                     <div class="form-group">
-                        <input type="text" class="form-input" id="custom-id" placeholder="Equipment ID">
+                        <input type="text" class="form-input" id="custom-id" placeholder="Equipment ID" disabled style="background-color: #f5f5f5; cursor: not-allowed;">
                     </div>
                     <div class="form-group">
-                        <input type="text" class="form-input" id="custom-name" placeholder="Equipment Name">
+                        <input type="text" class="form-input" id="custom-name" placeholder="Equipment Name" disabled style="background-color: #f5f5f5; cursor: not-allowed;">
                     </div>
                     <div class="form-group">
-                        <input type="text" class="form-input" id="custom-room" placeholder="Room">
+                        <input type="text" class="form-input" id="custom-room" placeholder="Room" disabled style="background-color: #f5f5f5; cursor: not-allowed;">
                     </div>
                     <div class="form-group">
-                        <input type="text" class="form-input" id="custom-building" placeholder="Building">
+                        <input type="text" class="form-input" id="custom-building" placeholder="Building" disabled style="background-color: #f5f5f5; cursor: not-allowed;">
                     </div>
                 </div>
 
                 <div class="field">
-                    <p class="help">This QR code will work for both students and teachers.</p>
+                    <p class="help" style="color: #64748b; font-size: 0.875rem; text-align:left;">
+                        <i class="mdi mdi-information"></i> Please select from the equipment list above.
+                    </p>
                 </div>
 
                 <button type="submit" class="genQrbtn">Generate QR Code</button>
