@@ -32,7 +32,7 @@ $stmt->close();
 require_once '../auth/room_status_handler.php';
 ?>
 
-<?php include "../partials/header.php"; ?>
+<?php include "../partials/edit-profile_header.php"; ?>
 <style>
 .profile-card {
   margin-block: 30px;

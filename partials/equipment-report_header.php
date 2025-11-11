@@ -7,7 +7,7 @@
     <meta http-equiv="X-UA-Compatible" content="IE=edge">
     <meta name="viewport" content="width=device-width, initial-scale=1">
 
-    <title>Reservation History</title>
+    <title>Equipment Report</title>
     <!-- Icons and Manifest -->
     <link rel="icon" href="../public/assets/logo.webp" type="image/webp" />
     <link rel="apple-touch-icon" href="../public/assets/logo.webp">
@@ -25,6 +25,8 @@
     <link href="../public/css/user_styles/custom2.css" rel="stylesheet">
 
     <!-- Include our custom CSS -->
+    <link href="../public/css/user_styles/room-browser.css" rel="stylesheet">
+    <link href="../public/css/user_styles/room-browser-styles.css" rel="stylesheet">
     <link href="../public/css/user_styles/room-reservation.css" rel="stylesheet">
     <link href="../public/css/user_styles/reservation_history.css" rel="stylesheet">
 
@@ -42,9 +44,39 @@
             font-size: 1rem;
             margin-bottom: 1.5rem;
         }
+
+        @media (max-width: 768px) {
+            .view-toggle.btn-group {
+                display: none;
+            }
+        }
+
+        .status-tabs {
+            display: flex;
+            border-bottom: none;
+            margin-bottom: 2rem;
+            overflow-x: auto;
+            gap: 0.75rem;
+            padding-bottom: 0.5rem;
+            scroll-behavior: smooth;
+            -webkit-overflow-scrolling: touch;
+            scrollbar-width: none;
+            /* Hide scrollbar for Firefox */
+            -ms-overflow-style: none;
+            /* Hide scrollbar for IE and Edge */
+            position: relative;
+            padding-left: 0.25rem;
+            padding-right: 0.25rem;
+        }
+
+        /* Hide scrollbar for Webkit browsers */
+        .status-tabs::-webkit-scrollbar {
+            display: none;
+        }
     </style>
 </head>
 
 <body class="nav-md">
+    <?php include 'session_timer.php'; ?>
     <div class="container body">
         <div class="main_container">

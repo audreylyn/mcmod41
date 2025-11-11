@@ -84,7 +84,7 @@ function showRoomDetailsModal(roomCard) {
             const occupationBlock = `
               <div class="occupation-block" style="margin: 10px 0 4px; padding: 10px 12px; border-radius: 8px; border: 1px solid #ffe7b8; background: #fff3cd;">
                 <div style="display:flex; gap:8px; align-items:flex-start;">
-                  <span class="label label-warning" style="display:inline-flex; align-items:center; gap:6px; padding:4px 8px; border-radius:4px; font-weight:600; background-color: #ffc107; color: white;"><i class="fa fa-clock-o"></i> Occupied</span>
+                  <span class="label label-warning" style="display:inline-flex; align-items:center; gap:6px; padding:4px 8px; border-radius:4px; font-weight:600; background-color: #c19719; color: white;"><i class="fa fa-clock-o"></i> Occupied</span>
                   <div style="width:100%;">
                     <div style="font-weight:600; color:#111827;">Activity</div>
                     <div style="color:#1f2937;">${

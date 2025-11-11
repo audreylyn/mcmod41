@@ -8,7 +8,7 @@ include 'includes/equipment_report_status.php';
 require_once '../auth/room_status_handler.php';
 ?>
 
-<?php include "../partials/header.php"; ?>
+<?php include "../partials/equipment-report_header.php"; ?>
 <link href="../public/css/user_styles/equipment_report_status.css" rel="stylesheet">
 <link href="../public/css/user_styles/report_status.css" rel="stylesheet">
 
