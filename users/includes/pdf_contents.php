@@ -45,7 +45,7 @@ db();
 if ($userRole == 'Student') {
     $sql = "SELECT FirstName, LastName, Department, Program, YearSection FROM student WHERE StudentID = ?";
 } else if ($userRole == 'Teacher') {
-    $sql = "SELECT FirstName, LastName, Department, Position, Specialization FROM teacher WHERE TeacherID = ?";
+    $sql = "SELECT FirstName, LastName, Department FROM teacher WHERE TeacherID = ?";
 }
 
 $stmt = $conn->prepare($sql);
