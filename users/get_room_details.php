@@ -52,22 +52,49 @@ try {
         $equipment[] = $equipmentRow;
     }
 
-    // Check if room is currently occupied but will be available later
-    $availableTime = null;
+    // Get occupation information if room is currently occupied
+    $occupationInfo = null;
     if ($room['RoomStatus'] === 'occupied') {
-        $availabilityStmt = $conn->prepare("
-            SELECT MIN(EndTime) as next_available 
-            FROM room_requests 
-            WHERE RoomID = ? AND Status = 'approved' AND EndTime > NOW()
+        // Get the current/next approved reservation
+        $occupationStmt = $conn->prepare("
+            SELECT 
+                rr.ActivityName,
+                rr.ReservationDate,
+                rr.StartTime,
+                rr.EndTime,
+                CASE 
+                    WHEN rr.StudentID IS NOT NULL THEN CONCAT(s.FirstName, ' ', s.LastName)
+                    WHEN rr.TeacherID IS NOT NULL THEN CONCAT(t.FirstName, ' ', t.LastName)
+                END as RequesterName,
+                CASE 
+                    WHEN rr.StudentID IS NOT NULL THEN 'Student'
+                    WHEN rr.TeacherID IS NOT NULL THEN 'Teacher'
+                END as RequesterType
+            FROM room_requests rr
+            LEFT JOIN student s ON rr.StudentID = s.StudentID
+            LEFT JOIN teacher t ON rr.TeacherID = t.TeacherID
+            WHERE rr.RoomID = ? 
+            AND rr.Status = 'approved'
+            AND rr.ReservationDate >= CURDATE()
+            ORDER BY rr.ReservationDate ASC, rr.StartTime ASC
+            LIMIT 1
         ");
-        $availabilityStmt->bind_param("i", $roomId);
-        $availabilityStmt->execute();
-        $availabilityResult = $availabilityStmt->get_result();
+        $occupationStmt->bind_param("i", $roomId);
+        $occupationStmt->execute();
+        $occupationResult = $occupationStmt->get_result();
 
-        if ($availabilityRow = $availabilityResult->fetch_assoc()) {
-            if ($availabilityRow['next_available']) {
-                $availableTime = "Available after " . date('M d, Y h:i A', strtotime($availabilityRow['next_available']));
-            }
+        if ($occupationRow = $occupationResult->fetch_assoc()) {
+            $occupationInfo = [
+                'activity_name' => $occupationRow['ActivityName'],
+                'requester_name' => $occupationRow['RequesterName'],
+                'requester_type' => $occupationRow['RequesterType'],
+                'reservation_date' => $occupationRow['ReservationDate'],
+                'start_time' => $occupationRow['StartTime'],
+                'end_time' => $occupationRow['EndTime'],
+                'formatted_date' => date('M d, Y', strtotime($occupationRow['ReservationDate'])),
+                'formatted_start_time' => date('g:i A', strtotime($occupationRow['StartTime'])),
+                'formatted_end_time' => date('g:i A', strtotime($occupationRow['EndTime']))
+            ];
         }
     }
 
@@ -107,7 +134,7 @@ try {
         'success' => true,
         'room' => $room,
         'equipment' => $equipment,
-        'availableTime' => $availableTime,
+        'occupationInfo' => $occupationInfo,
         'maintenanceInfo' => $maintenanceInfo
     ]);
 } catch (Exception $e) {

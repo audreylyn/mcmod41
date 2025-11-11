@@ -58,6 +58,7 @@
                 </div>
             </div>
             {maintenanceBlock}
+            {occupationBlock}
         </div>
 
         <div class="equipment-section">

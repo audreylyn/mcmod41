@@ -27,51 +27,89 @@ function showRoomDetailsModal(roomCard) {
   let template = $('#roomDetailsTemplate').html();
 
   // Fetch detailed room information including maintenance details
-  if (status === 'maintenance') {
+  if (status === 'maintenance' || status === 'occupied') {
     $.ajax({
       url: 'get_room_details.php',
       type: 'GET',
       data: { room_id: roomId },
       dataType: 'json',
       success: function (response) {
-        if (response.success && response.maintenanceInfo) {
-          const maintenanceInfo = response.maintenanceInfo;
-          const statusTooltip = ` title="Reason: ${maintenanceInfo.reason} | Period: ${maintenanceInfo.formatted_start_date} to ${maintenanceInfo.formatted_end_date} | By: ${maintenanceInfo.admin_name}"`;
+        if (response.success) {
+          // Handle maintenance info
+          if (response.maintenanceInfo) {
+            const maintenanceInfo = response.maintenanceInfo;
+            const statusTooltip = ` title="Reason: ${maintenanceInfo.reason} | Period: ${maintenanceInfo.formatted_start_date} to ${maintenanceInfo.formatted_end_date} | By: ${maintenanceInfo.admin_name}"`;
 
-          // Update template with maintenance tooltip
-          template = template.replace('{statusTooltip}', statusTooltip);
+            // Update template with maintenance tooltip
+            template = template.replace('{statusTooltip}', statusTooltip);
 
-          // Build a visible maintenance block
-          const maintenanceBlock = `
-            <div class="maintenance-block" style="margin: 10px 0 4px; padding: 10px 12px; border-radius: 8px; border: 1px solid #b8daff; background: #d1ecf1;">
-              <div style="display:flex; gap:8px; align-items:flex-start;">
-                <span class="label label-lightblue" style="display:inline-flex; align-items:center; gap:6px; padding:4px 8px; border-radius:4px; font-weight:600;"><i class="fa fa-wrench"></i> Maintenance</span>
-                <div style="width:100%;">
-                  <div style="font-weight:600; color:#111827;">Reason</div>
-                  <div style="color:#1f2937;">${
-                    maintenanceInfo.reason || 'N/A'
-                  }</div>
-                  <div style="margin-top:10px; display:flex; justify-content:space-between; color:#374151; font-size: 0.95em;">
-                    <div>
-                      <div style="font-weight:600; margin-bottom:2px;">Maintenance Period</div>
-                      <span>${
-                        maintenanceInfo.formatted_start_date || 'N/A'
-                      }</span>
-                      <span style="margin:0 5px;">to</span>
-                      <span>${
-                        maintenanceInfo.formatted_end_date || 'Ongoing'
-                      }</span>
-                    </div>
-                    <div style="text-align:right;">
-                      <div style="font-weight:600; margin-bottom:2px;">Maintenance By</div>
-                      <span>${maintenanceInfo.admin_name || 'Admin'}</span>
+            // Build a visible maintenance block
+            const maintenanceBlock = `
+              <div class="maintenance-block" style="margin: 10px 0 4px; padding: 10px 12px; border-radius: 8px; border: 1px solid #b8daff; background: #d1ecf1;">
+                <div style="display:flex; gap:8px; align-items:flex-start;">
+                  <span class="label label-lightblue" style="display:inline-flex; align-items:center; gap:6px; padding:4px 8px; border-radius:4px; font-weight:600;"><i class="fa fa-wrench"></i> Maintenance</span>
+                  <div style="width:100%;">
+                    <div style="font-weight:600; color:#111827;">Reason</div>
+                    <div style="color:#1f2937;">${
+                      maintenanceInfo.reason || 'N/A'
+                    }</div>
+                    <div style="margin-top:10px; display:flex; justify-content:space-between; color:#374151; font-size: 0.95em;">
+                      <div>
+                        <div style="font-weight:600; margin-bottom:2px;">Maintenance Period</div>
+                        <span>${
+                          maintenanceInfo.formatted_start_date || 'N/A'
+                        }</span>
+                        <span style="margin:0 5px;">to</span>
+                        <span>${
+                          maintenanceInfo.formatted_end_date || 'Ongoing'
+                        }</span>
+                      </div>
+                      <div style="text-align:right;">
+                        <div style="font-weight:600; margin-bottom:2px;">Maintenance By</div>
+                        <span>${maintenanceInfo.admin_name || 'Admin'}</span>
+                      </div>
                     </div>
                   </div>
                 </div>
-              </div>
-            </div>`;
+              </div>`;
 
-          template = template.replace('{maintenanceBlock}', maintenanceBlock);
+            template = template.replace('{maintenanceBlock}', maintenanceBlock);
+          } else {
+            template = template.replace('{maintenanceBlock}', '');
+          }
+
+          // Handle occupation info
+          if (response.occupationInfo) {
+            const occupationInfo = response.occupationInfo;
+            const occupationBlock = `
+              <div class="occupation-block" style="margin: 10px 0 4px; padding: 10px 12px; border-radius: 8px; border: 1px solid #ffe7b8; background: #fff3cd;">
+                <div style="display:flex; gap:8px; align-items:flex-start;">
+                  <span class="label label-warning" style="display:inline-flex; align-items:center; gap:6px; padding:4px 8px; border-radius:4px; font-weight:600; background-color: #ffc107; color: white;"><i class="fa fa-clock-o"></i> Occupied</span>
+                  <div style="width:100%;">
+                    <div style="font-weight:600; color:#111827;">Activity</div>
+                    <div style="color:#1f2937;">${
+                      occupationInfo.activity_name || 'N/A'
+                    }</div>
+                    <div style="margin-top:10px; display:flex; justify-content:space-between; color:#374151; font-size: 0.95em;">
+                      <div>
+                        <div style="font-weight:600; margin-bottom:2px;">Occupied Period</div>
+                        <div>${occupationInfo.formatted_date}</div>
+                        <div>${occupationInfo.formatted_start_time} - ${occupationInfo.formatted_end_time}</div>
+                      </div>
+                      <div style="text-align:right;">
+                        <div style="font-weight:600; margin-bottom:2px;">By</div>
+                        <div>${occupationInfo.requester_name}</div>
+                        <div style="font-size: 0.9em; color: #6b7280;">${occupationInfo.requester_type}</div>
+                      </div>
+                    </div>
+                  </div>
+                </div>
+              </div>`;
+
+            template = template.replace('{occupationBlock}', occupationBlock);
+          } else {
+            template = template.replace('{occupationBlock}', '');
+          }
 
           // Continue with the rest of the modal setup
           setupModalContent(
@@ -87,8 +125,10 @@ function showRoomDetailsModal(roomCard) {
             roomId
           );
         } else {
-          // Fallback if maintenance info not available
+          // Fallback if info not available
           template = template.replace('{maintenanceBlock}', '');
+          template = template.replace('{occupationBlock}', '');
+          template = template.replace('{statusTooltip}', '');
           setupModalContent(
             template,
             roomName,
@@ -106,6 +146,8 @@ function showRoomDetailsModal(roomCard) {
       error: function () {
         // Fallback on error
         template = template.replace('{maintenanceBlock}', '');
+        template = template.replace('{occupationBlock}', '');
+        template = template.replace('{statusTooltip}', '');
         setupModalContent(
           template,
           roomName,
@@ -121,8 +163,9 @@ function showRoomDetailsModal(roomCard) {
       },
     });
   } else {
-    // For non-maintenance rooms, proceed normally
+    // For non-maintenance and non-occupied rooms, proceed normally
     template = template.replace('{maintenanceBlock}', '');
+    template = template.replace('{occupationBlock}', '');
     template = template.replace('{statusTooltip}', '');
     setupModalContent(
       template,
