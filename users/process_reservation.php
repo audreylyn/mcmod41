@@ -61,6 +61,14 @@ if ($_SERVER["REQUEST_METHOD"] == "POST") {
     $roomId = intval($_POST['roomId']);
     // User ID is already set in the header
 
+    // Prevent booking past dates
+    $currentDate = date('Y-m-d');
+    if ($reservationDate < $currentDate) {
+        $_SESSION['error_message'] = "Cannot book reservations for past dates. Please select a future date.";
+        header("Location: users_browse_room.php");
+        exit();
+    }
+
     // Validate data
     if (strlen($activityName) < 3) {
         $_SESSION['error_message'] = "Activity name must be at least 3 characters";

@@ -81,7 +81,85 @@ if ($_SERVER["REQUEST_METHOD"] == "POST") {
         $stmt->bind_param("issi", $adminId, $adminFirstName, $adminLastName, $requestId);
 
         if ($stmt->execute()) {
-            $_SESSION['success_message'] = "Request approved successfully";
+            // Auto-reject all other pending requests that conflict with this approved reservation
+            $autoRejectSql = "SELECT rr.RequestID, rr.StudentID, rr.TeacherID,
+                             CASE 
+                                WHEN rr.StudentID IS NOT NULL THEN s.Email
+                                WHEN rr.TeacherID IS NOT NULL THEN t.Email
+                             END as RequesterEmail,
+                             CASE 
+                                WHEN rr.StudentID IS NOT NULL THEN CONCAT(s.FirstName, ' ', s.LastName)
+                                WHEN rr.TeacherID IS NOT NULL THEN CONCAT(t.FirstName, ' ', t.LastName)
+                             END as RequesterName,
+                             rr.ActivityName, rr.ReservationDate, rr.StartTime, rr.EndTime,
+                             r.room_name, b.building_name
+                             FROM room_requests rr
+                             LEFT JOIN student s ON rr.StudentID = s.StudentID
+                             LEFT JOIN teacher t ON rr.TeacherID = t.TeacherID
+                             LEFT JOIN rooms r ON rr.RoomID = r.id
+                             LEFT JOIN buildings b ON r.building_id = b.id
+                             WHERE rr.RoomID = ?
+                             AND rr.ReservationDate = (SELECT ReservationDate FROM room_requests WHERE RequestID = ?)
+                             AND rr.Status = 'pending'
+                             AND rr.StartTime < ?
+                             AND rr.EndTime > ?
+                             AND rr.RequestID != ?";
+            
+            $autoRejectStmt = $conn->prepare($autoRejectSql);
+            $autoRejectStmt->bind_param("iissi", $roomId, $requestId, $endTime, $startTime, $requestId);
+            $autoRejectStmt->execute();
+            $conflictingRequests = $autoRejectStmt->get_result();
+            
+            $conflictCount = 0;
+            while ($conflictReq = $conflictingRequests->fetch_assoc()) {
+                // Reject each conflicting request
+                $updateConflictSql = "UPDATE room_requests 
+                                     SET Status = 'rejected', 
+                                         RejectionReason = 'This room was approved for another reservation at the same time. Please select a different time slot or room.',
+                                         RejectedBy = ?,
+                                         RejecterFirstName = ?,
+                                         RejecterLastName = ?
+                                     WHERE RequestID = ?";
+                $updateConflictStmt = $conn->prepare($updateConflictSql);
+                $updateConflictStmt->bind_param("issi", $adminId, $adminFirstName, $adminLastName, $conflictReq['RequestID']);
+                $updateConflictStmt->execute();
+                $updateConflictStmt->close();
+                
+                // Send rejection email for conflicting request
+                if (defined('ENABLE_EMAIL_NOTIFICATIONS') && ENABLE_EMAIL_NOTIFICATIONS && $conflictReq['RequesterEmail']) {
+                    try {
+                        $emailService = new BrevoEmailService(BREVO_API_KEY, FROM_EMAIL, FROM_NAME);
+                        
+                        $reservationDetails = [
+                            'activity_name' => $conflictReq['ActivityName'],
+                            'room_name' => $conflictReq['room_name'],
+                            'building_name' => $conflictReq['building_name'],
+                            'reservation_date' => date('M j, Y', strtotime($conflictReq['ReservationDate'])),
+                            'start_time' => date('g:i A', strtotime($conflictReq['StartTime'])),
+                            'end_time' => date('g:i A', strtotime($conflictReq['EndTime'])),
+                            'participants' => '',
+                            'reviewer_name' => $adminFirstName . ' ' . $adminLastName,
+                            'rejection_reason' => 'This room was approved for another reservation at the same time. Please select a different time slot or room.'
+                        ];
+                        
+                        $emailService->sendRejectionEmail(
+                            $conflictReq['RequesterEmail'],
+                            $conflictReq['RequesterName'],
+                            $reservationDetails
+                        );
+                    } catch (Exception $e) {
+                        error_log("Email notification error for conflicting request: " . $e->getMessage());
+                    }
+                }
+                $conflictCount++;
+            }
+            $autoRejectStmt->close();
+            
+            $successMsg = "Request approved successfully";
+            if ($conflictCount > 0) {
+                $successMsg .= " and {$conflictCount} conflicting request(s) automatically rejected";
+            }
+            $_SESSION['success_message'] = $successMsg;
             
             // Send email notification if enabled
             if (defined('ENABLE_EMAIL_NOTIFICATIONS') && ENABLE_EMAIL_NOTIFICATIONS && defined('BREVO_API_KEY') && BREVO_API_KEY !== 'YOUR_BREVO_API_KEY_HERE') {
