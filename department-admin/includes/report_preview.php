@@ -230,9 +230,10 @@ function generateRoomUtilizationReport($conn, $department, $start_date, $end_dat
         .summary-card { background: #f8f9fa; padding: 15px; border-radius: 8px; text-align: center; }
         .summary-value { font-size: 1.5rem; font-weight: bold; color: #1e5631; }
         .summary-label { font-size: 0.9rem; color: #6c757d; margin-top: 5px; }
-        .report-table { margin-top: 30px; }
-        .table { border-collapse: collapse; width: 100%; }
+        .report-table { margin-top: 30px; overflow-x: auto; }
+        .table { border-collapse: collapse; width: 100%; position: relative; }
         .table th, .table td { padding: 12px; text-align: left; border-bottom: 1px solid #ddd; }
+        .table thead { position: sticky; top: 0; z-index: 10; }
         .table th { background-color: #1e5631; color: white; }
         .table tr:nth-child(even) { background-color: #f2f2f2; }
     </style>";
@@ -402,10 +403,11 @@ function generateBookingRequestsReport($conn, $department, $start_date, $end_dat
         .summary-card.rejected { border-left-color: #dc3545; }
         .summary-value { font-size: 1.5rem; font-weight: bold; color: #1e5631; }
         .summary-label { font-size: 0.9rem; color: #6c757d; margin-top: 5px; }
-        .report-table { margin-top: 30px; }
-        .table { border-collapse: collapse; width: 100%; font-size: 0.9rem; }
+        .report-table { margin-top: 30px; overflow-x: auto; }
+        .table { border-collapse: collapse; width: 100%; font-size: 0.9rem; position: relative; }
         .table th, .table td { padding: 10px 8px; text-align: left; border-bottom: 1px solid #ddd; vertical-align: top; }
-        .table th { background-color: #1e5631; color: white; font-weight: bold; position: sticky; top: 0; }
+        .table thead { position: sticky; top: 0; z-index: 10; }
+        .table th { background-color: #1e5631; color: white; font-weight: bold; }
         .table tr:nth-child(even) { background-color: #f8f9fa; }
         .table tr:hover { background-color: #e8f5e8; }
         .status-badge { padding: 4px 8px; border-radius: 12px; font-size: 0.8rem; font-weight: bold; }
@@ -649,10 +651,11 @@ function generateEquipmentStatusReport($conn, $department, $start_date, $end_dat
         .summary-card.resolved { border-left-color: #28a745; }
         .summary-value { font-size: 1.5rem; font-weight: bold; color: #1e5631; }
         .summary-label { font-size: 0.9rem; color: #6c757d; margin-top: 5px; }
-        .report-table { margin-top: 30px; }
-        .table { border-collapse: collapse; width: 100%; font-size: 0.9rem; }
+        .report-table { margin-top: 30px; overflow-x: auto; }
+        .table { border-collapse: collapse; width: 100%; font-size: 0.9rem; position: relative; }
         .table th, .table td { padding: 10px 8px; text-align: left; border-bottom: 1px solid #ddd; vertical-align: top; }
-        .table th { background-color: #1e5631; color: white; font-weight: bold; position: sticky; top: 0; }
+        .table thead { position: sticky; top: 0; z-index: 10; }
+        .table th { background-color: #1e5631; color: white; font-weight: bold; }
         .table tr:nth-child(even) { background-color: #f8f9fa; }
         .table tr:hover { background-color: #e8f5e8; }
         .status-badge { padding: 4px 8px; border-radius: 12px; font-size: 0.8rem; font-weight: bold; }

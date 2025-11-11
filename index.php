@@ -29,7 +29,7 @@ require_once __DIR__ . '/middleware/error_handler.php';
     <!-- Fonts and Styles -->
     <link href="https://fonts.googleapis.com/css2?family=Plus+Jakarta+Sans:wght@400;500;600;700&display=swap" rel="stylesheet">
     <link rel="stylesheet" href="public/css/login.css">
-    <title>SmartSpace | Room Management System</title>
+    <title>MCiSmartSpace</title>
     <style>
         .alert {
             transition: opacity 1s ease-in-out;

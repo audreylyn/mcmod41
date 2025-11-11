@@ -133,7 +133,20 @@
                     $roomType = htmlspecialchars($row['room_type']);
                     $capacity = $row['capacity'];
                     $participants = $row['NumberOfParticipants'];
-                    $rejectionReason = $row['RejectionReason'] ?? ''; // <-- Fetch rejection reason
+                    $rejectionReason = htmlspecialchars($row['RejectionReason'] ?? '');
+                    
+                    // DEBUG: Uncomment to see rejection reason in HTML comment
+                    // echo "<!-- RequestID: {$requestId}, Status: {$row['Status']}, RejectionReason: '{$rejectionReason}' -->";
+                    
+                    $reviewerName = '';
+                    
+                    // Get reviewer name (either Approver or Rejecter)
+                    if (!empty($row['ApproverFirstName']) && !empty($row['ApproverLastName'])) {
+                        $reviewerName = htmlspecialchars($row['ApproverFirstName'] . ' ' . $row['ApproverLastName']);
+                    } else if (!empty($row['RejecterFirstName']) && !empty($row['RejecterLastName'])) {
+                        $reviewerName = htmlspecialchars($row['RejecterFirstName'] . ' ' . $row['RejecterLastName']);
+                    }
+                    
                     // RequestDate is a TIMESTAMP (when the request was made)
                     // ReservationDate is a DATE (the actual day of the reservation)
                     $requestDate = date('M j, Y', strtotime($row['RequestDate']));
@@ -232,7 +245,8 @@
                                 '<?php echo htmlspecialchars($equipment, ENT_QUOTES); ?>',
                                 '<?php echo $capacity; ?>',
                                 '<?php echo $roomType; ?>',
-                                '<?php echo htmlspecialchars($rejectionReason, ENT_QUOTES); ?>' 
+                                '<?php echo htmlspecialchars($rejectionReason, ENT_QUOTES); ?>',
+                                '<?php echo htmlspecialchars($reviewerName, ENT_QUOTES); ?>' 
                             )">
                                 Details <i class="fa fa-chevron-right"></i>
                             </button>

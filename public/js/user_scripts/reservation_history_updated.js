@@ -170,10 +170,9 @@ function showReservationDetails(
   equipment,
   capacity,
   roomType,
-  rejectionReason
+  rejectionReason,
+  reviewerName
 ) {
-  // Remove rejectionReasonHtml variable, use only inline rendering in modalContent
-
   var modalContent = `
         <div class="modern-details-container">
             <div class="details-main-info">
@@ -235,19 +234,30 @@ function showReservationDetails(
                         </div>
                     </div>
                     ${
-                      (type === 'rejected' || type === 'cancelled') &&
-                      rejectionReason &&
-                      rejectionReason.trim() !== ''
+                      reviewerName && reviewerName.trim() !== ''
                         ? `<div class="detail-item">
-                              <div class="detail-label">Rejection Reason</div>
+                              <div class="detail-label">Reviewed by</div>
                               <div class="detail-value">
-                                  <i class="fa fa-ban"></i> ${rejectionReason}
+                                  <i class="fa fa-user-circle"></i> ${reviewerName}
                               </div>
                            </div>`
                         : ''
                     }
                 </div>
             </div>
+            
+            ${
+              (type.includes('rejected') || type.includes('cancelled')) &&
+              rejectionReason &&
+              rejectionReason.trim() !== ''
+                ? `<div class="rejection-reason-box">
+                      <h5 class="rejection-title">
+                          <i class="fa fa-exclamation-triangle"></i> Reason for Rejection
+                      </h5>
+                      <div class="rejection-content">${rejectionReason}</div>
+                   </div>`
+                : ''
+            }
             
             <div class="details-purpose">
                 <h5 class="purpose-title">

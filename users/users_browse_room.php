@@ -17,8 +17,10 @@ include 'includes/browse_room.php';
     <meta http-equiv="X-UA-Compatible" content="IE=edge">
     <meta name="viewport" content="width=device-width, initial-scale=1">
 
-    <title>MCiSmartSpace</title>
-
+    <title>Browse Rooms</title>
+    <!-- Icons and Manifest -->
+    <link rel="icon" href="../public/assets/logo.webp" type="image/webp" />
+    <link rel="apple-touch-icon" href="../public/assets/logo.webp">
     <link rel="stylesheet" href="https://cdn.materialdesignicons.com/4.9.95/css/materialdesignicons.min.css">
 
     <!-- Bootstrap -->
