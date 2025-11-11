@@ -1,0 +1,244 @@
+
+/* Terms of Service Modal Styles */
+.terms-modal {
+    display: none;
+    position: fixed;
+    z-index: 10000;
+    left: 0;
+    top: 0;
+    width: 100%;
+    height: 100%;
+    overflow: auto;
+    background-color: rgba(0, 0, 0, 0.6);
+    animation: fadeIn 0.3s ease;
+}
+
+@keyframes fadeIn {
+    from { opacity: 0; }
+    to { opacity: 1; }
+}
+
+.terms-modal-content {
+    background-color: #ffffff;
+    margin: 3% auto;
+    padding: 0;
+    border-radius: 12px;
+    width: 90%;
+    max-width: 800px;
+    box-shadow: 0 10px 40px rgba(0, 0, 0, 0.3);
+    animation: slideDown 0.3s ease;
+    max-height: 90vh;
+    display: flex;
+    flex-direction: column;
+}
+
+@keyframes slideDown {
+    from {
+        transform: translateY(-50px);
+        opacity: 0;
+    }
+    to {
+        transform: translateY(0);
+        opacity: 1;
+    }
+}
+
+.terms-modal-header {
+    padding: 20px 30px;
+    background: linear-gradient(135deg, #2c5f2d 0%, #97bc62 100%);
+    color: white;
+    border-radius: 12px 12px 0 0;
+    display: flex;
+    justify-content: space-between;
+    align-items: center;
+}
+
+.terms-modal-header h2 {
+    margin: 0;
+    font-size: 24px;
+    font-weight: 600;
+}
+
+.terms-close {
+    color: white;
+    font-size: 32px;
+    font-weight: 300;
+    cursor: pointer;
+    line-height: 1;
+    transition: all 0.2s ease;
+}
+
+.terms-close:hover,
+.terms-close:focus {
+    color: #f0f0f0;
+    transform: scale(1.1);
+}
+
+.terms-modal-body {
+    padding: 30px;
+    overflow-y: auto;
+    max-height: calc(90vh - 160px);
+    line-height: 1.7;
+    color: #333;
+}
+
+.terms-modal-body h3 {
+    color: #2c5f2d;
+    font-size: 20px;
+    font-weight: 600;
+    margin-top: 25px;
+    margin-bottom: 15px;
+    border-bottom: 2px solid #97bc62;
+    padding-bottom: 8px;
+}
+
+.terms-modal-body h4 {
+    color: #2c5f2d;
+    font-size: 16px;
+    font-weight: 600;
+    margin-top: 20px;
+    margin-bottom: 10px;
+}
+
+.terms-modal-body p {
+    margin-bottom: 15px;
+    text-align: justify;
+}
+
+.terms-modal-body ul {
+    margin-bottom: 20px;
+    padding-left: 25px;
+}
+
+.terms-modal-body li {
+    margin-bottom: 8px;
+}
+
+.terms-modal-body a {
+    color: #2c5f2d;
+    text-decoration: none;
+    font-weight: 600;
+    transition: color 0.2s ease;
+}
+
+.terms-modal-body a:hover {
+    color: #97bc62;
+    text-decoration: underline;
+}
+
+.terms-footer {
+    background-color: #f8f9fa;
+    padding: 20px;
+    border-radius: 8px;
+    margin-top: 30px;
+    border-left: 4px solid #2c5f2d;
+}
+
+.terms-footer p {
+    margin: 8px 0;
+}
+
+.terms-modal-footer {
+    padding: 20px 30px;
+    background-color: #f8f9fa;
+    border-radius: 0 0 12px 12px;
+    display: flex;
+    justify-content: flex-end;
+    border-top: 1px solid #e0e0e0;
+}
+
+.terms-btn-close {
+    background: linear-gradient(135deg, #2c5f2d 0%, #97bc62 100%);
+    color: white;
+    border: none;
+    padding: 12px 30px;
+    border-radius: 6px;
+    cursor: pointer;
+    font-size: 16px;
+    font-weight: 600;
+    transition: all 0.3s ease;
+    box-shadow: 0 4px 8px rgba(44, 95, 45, 0.2);
+}
+
+.terms-btn-close:hover {
+    transform: translateY(-2px);
+    box-shadow: 0 6px 12px rgba(44, 95, 45, 0.3);
+}
+
+.terms-btn-close:active {
+    transform: translateY(0);
+}
+
+/* Scrollbar styling for modal body */
+.terms-modal-body::-webkit-scrollbar {
+    width: 8px;
+}
+
+.terms-modal-body::-webkit-scrollbar-track {
+    background: #f1f1f1;
+    border-radius: 10px;
+}
+
+.terms-modal-body::-webkit-scrollbar-thumb {
+    background: #2c5f2d;
+    border-radius: 10px;
+}
+
+.terms-modal-body::-webkit-scrollbar-thumb:hover {
+    background: #97bc62;
+}
+
+/* Responsive Design */
+@media (max-width: 768px) {
+    .terms-modal-content {
+        width: 95%;
+        margin: 5% auto;
+        max-height: 85vh;
+    }
+
+    .terms-modal-header {
+        padding: 15px 20px;
+    }
+
+    .terms-modal-header h2 {
+        font-size: 20px;
+    }
+
+    .terms-modal-body {
+        padding: 20px;
+        max-height: calc(85vh - 140px);
+    }
+
+    .terms-modal-body h3 {
+        font-size: 18px;
+    }
+
+    .terms-modal-body h4 {
+        font-size: 15px;
+    }
+
+    .terms-modal-footer {
+        padding: 15px 20px;
+    }
+
+    .terms-btn-close {
+        padding: 10px 24px;
+        font-size: 15px;
+    }
+}
+
+@media (max-width: 480px) {
+    .terms-modal-content {
+        width: 98%;
+        margin: 2% auto;
+    }
+
+    .terms-modal-body {
+        padding: 15px;
+        font-size: 14px;
+    }
+
+    .terms-modal-body h3 {
+        font-size: 16px;
+    }
+}

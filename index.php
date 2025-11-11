@@ -24,6 +24,7 @@ require_once __DIR__ . '/middleware/error_handler.php';
     <link rel="icon" href="public/assets/logo.webp" type="image/webp" />
     <link rel="apple-touch-icon" href="public/assets/logo.webp">
     <link rel="manifest" href="manifest.json">
+    <link rel="stylesheet" href="partials/terms.css">
     
     <!-- Fonts and Styles -->
     <link href="https://fonts.googleapis.com/css2?family=Plus+Jakarta+Sans:wght@400;500;600;700&display=swap" rel="stylesheet">
@@ -150,11 +151,11 @@ require_once __DIR__ . '/middleware/error_handler.php';
                         © <?php echo date('Y'); ?> MCISmartSpace
                     </div>
                     <div class="footer-links">
-                        <a href="#" class="footer-link">Privacy Policy</a>
+                        <a href="https://lins-documentation.gitbook.io/mcismartspacedocs/legal/privacy-policy" class="footer-link" target="_blank">Privacy Policy</a>
                         <span class="footer-separator">|</span>
-                        <a href="#" class="footer-link">Terms</a>
+                        <a href="#" class="footer-link" id="openTermsModal">Terms of Service</a>
                         <span class="footer-separator">|</span>
-                        <a href="#" class="footer-link">Support</a>
+                        <a href="https://lins-documentation.gitbook.io/mcismartspacedocs/support/contact" class="footer-link" target="_blank">Support</a>
                     </div>
                 </div>
             </div>
@@ -174,6 +175,11 @@ require_once __DIR__ . '/middleware/error_handler.php';
             </script>
         </div>
     </div>
+    
+    <!-- Terms of Service Modal -->
+    <?php include 'partials/terms.php'; ?>
+
+
     
     <script src="./public/js/alert.js"></script>
     
@@ -229,6 +235,57 @@ require_once __DIR__ . '/middleware/error_handler.php';
             if (installButton) {
                 installButton.remove();
             }
+        });
+    </script>
+    
+    <script>
+        // Terms of Service Modal JavaScript
+        document.addEventListener('DOMContentLoaded', function() {
+            var modal = document.getElementById('termsModal');
+            var openBtn = document.getElementById('openTermsModal');
+            var closeBtn = document.querySelector('.terms-close');
+            var closeBtnFooter = document.querySelector('.terms-btn-close');
+            
+            // Open modal when Terms of Service link is clicked
+            if (openBtn) {
+                openBtn.addEventListener('click', function(e) {
+                    e.preventDefault();
+                    modal.style.display = 'block';
+                    document.body.style.overflow = 'hidden'; // Prevent background scrolling
+                });
+            }
+            
+            // Close modal when X button is clicked
+            if (closeBtn) {
+                closeBtn.addEventListener('click', function() {
+                    modal.style.display = 'none';
+                    document.body.style.overflow = 'auto';
+                });
+            }
+            
+            // Close modal when Close button in footer is clicked
+            if (closeBtnFooter) {
+                closeBtnFooter.addEventListener('click', function() {
+                    modal.style.display = 'none';
+                    document.body.style.overflow = 'auto';
+                });
+            }
+            
+            // Close modal when clicking outside of it (backdrop)
+            window.addEventListener('click', function(event) {
+                if (event.target === modal) {
+                    modal.style.display = 'none';
+                    document.body.style.overflow = 'auto';
+                }
+            });
+            
+            // Close modal with Escape key
+            document.addEventListener('keydown', function(event) {
+                if (event.key === 'Escape' && modal.style.display === 'block') {
+                    modal.style.display = 'none';
+                    document.body.style.overflow = 'auto';
+                }
+            });
         });
     </script>
 </body>
