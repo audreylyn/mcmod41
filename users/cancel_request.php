@@ -19,18 +19,18 @@ if ($_SERVER["REQUEST_METHOD"] == "POST" && isset($_POST['request_id']) && isset
     $checkResult = $checkStmt->get_result();
 
     if ($checkResult->num_rows > 0) {
-        // The request exists and belongs to the current student, proceed with deletion
-        $deleteSql = "DELETE FROM room_requests WHERE RequestID = ?";
-        $deleteStmt = $conn->prepare($deleteSql);
-        $deleteStmt->bind_param("i", $requestId);
+        // The request exists and belongs to the current user, update status to 'cancelled'
+        $updateSql = "UPDATE room_requests SET Status = 'cancelled' WHERE RequestID = ?";
+        $updateStmt = $conn->prepare($updateSql);
+        $updateStmt->bind_param("i", $requestId);
 
-        if ($deleteStmt->execute()) {
+        if ($updateStmt->execute()) {
             $_SESSION['success_message'] = "Your room reservation request has been successfully cancelled.";
         } else {
-            $_SESSION['error_message'] = "Error cancelling request: " . $deleteStmt->error;
+            $_SESSION['error_message'] = "Error cancelling request: " . $updateStmt->error;
         }
 
-        $deleteStmt->close();
+        $updateStmt->close();
     } else {
         $_SESSION['error_message'] = "Invalid request or you don't have permission to cancel this request.";
     }

@@ -34,9 +34,9 @@ document.addEventListener('DOMContentLoaded', function () {
         if (filterType === 'all') {
           card.style.display = '';
         } else {
-          // Check if the card's data-type contains the filter type (space-separated list)
-          const cardTypes = card.getAttribute('data-type').split(' ');
-          if (cardTypes.includes(filterType)) {
+          // Check if the card's data-type matches the filter type exactly
+          const cardType = card.getAttribute('data-type');
+          if (cardType === filterType) {
             card.style.display = '';
           } else {
             card.style.display = 'none';

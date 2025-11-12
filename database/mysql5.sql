@@ -137,7 +137,7 @@ CREATE TABLE room_requests (
     StartTime TIME NOT NULL,
     EndTime TIME NOT NULL,
     NumberOfParticipants INT NOT NULL,
-    Status ENUM('pending', 'approved', 'rejected') DEFAULT 'pending',
+    Status ENUM('pending', 'approved', 'rejected', 'cancelled') DEFAULT 'pending',
     RejectionReason TEXT,
     ApprovedBy INT DEFAULT NULL,
     ApproverFirstName VARCHAR(128) DEFAULT NULL,
