@@ -13,6 +13,7 @@ document.addEventListener('DOMContentLoaded', function() {
     const roomStatusData = {
         pending: window.roomStats?.pending || 0,
         approved: window.roomStats?.approved || 0,
+        completed: window.roomStats?.completed || 0,
         rejected: window.roomStats?.rejected || 0
     };
 
@@ -20,10 +21,10 @@ document.addEventListener('DOMContentLoaded', function() {
         document.getElementById('roomStatusChart'), {
             type: 'pie',
             data: {
-                labels: ['Pending', 'Approved', 'Rejected'],
+                labels: ['Pending', 'Approved', 'Completed', 'Rejected'],
                 datasets: [{
-                    data: [roomStatusData.pending, roomStatusData.approved, roomStatusData.rejected],
-                    backgroundColor: ['#d4af37', '#1e5631', '#c62828'], // Gold, Dark Green, Deep Red
+                    data: [roomStatusData.pending, roomStatusData.approved, roomStatusData.completed, roomStatusData.rejected],
+                    backgroundColor: ['#d4af37', '#1e5631', '#0d652d', '#c62828'], // Gold, Dark Green, Completed Green, Deep Red
                     borderWidth: 0
                 }]
             },

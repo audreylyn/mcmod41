@@ -330,11 +330,6 @@ include 'includes/dashboard_data.php';
                                     <span>Select a date range above to enable report options</span>
                                 </div>
                                 <div class="report-buttons">
-                                    <button class="report-btn" data-report="room-utilization" disabled>
-                                        <i class="mdi mdi-door"></i>
-                                        <span>Room Utilization Report</span>
-                                        <small>Usage efficiency and patterns</small>
-                                    </button>
                                     <button class="report-btn" data-report="booking-requests" disabled>
                                         <i class="mdi mdi-clipboard-check"></i>
                                         <span>Room Reservation Requests</span>
@@ -377,6 +372,7 @@ include 'includes/dashboard_data.php';
         window.roomStats = {
             pending: <?php echo isset($room_stats['pending']) ? $room_stats['pending'] : 0; ?>,
             approved: <?php echo isset($room_stats['approved']) ? $room_stats['approved'] : 0; ?>,
+            completed: <?php echo isset($room_stats['completed']) ? $room_stats['completed'] : 0; ?>,
             rejected: <?php echo isset($room_stats['rejected']) ? $room_stats['rejected'] : 0; ?>
         };
         window.issueStats = {

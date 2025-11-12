@@ -41,9 +41,6 @@ if ($_SERVER['REQUEST_METHOD'] === 'POST') {
     
     // Generate report based on type
     switch ($report_type) {
-        case 'room-utilization':
-            echo generateRoomUtilizationReport($conn, $admin_department, $start_date, $end_date);
-            break;
         case 'booking-requests':
             echo generateBookingRequestsReport($conn, $admin_department, $start_date, $end_date);
             break;
@@ -60,186 +57,6 @@ if ($_SERVER['REQUEST_METHOD'] === 'POST') {
     echo "Method not allowed";
 }
 
-function generateRoomUtilizationReport($conn, $department, $start_date, $end_date) {
-    // Get ALL rooms for the department, including those without reservations
-    $query = "
-        SELECT 
-            r.room_name,
-            r.room_type,
-            b.building_name,
-            b.department,
-            r.capacity,
-            COALESCE(COUNT(rr.RequestID), 0) as total_requests,
-            COALESCE(SUM(CASE WHEN rr.Status = 'approved' THEN 1 ELSE 0 END), 0) as approved_requests,
-            COALESCE(SUM(CASE WHEN rr.Status = 'approved' THEN rr.NumberOfParticipants ELSE 0 END), 0) as total_participants,
-            ROUND(
-                (COALESCE(SUM(CASE WHEN rr.Status = 'approved' THEN 1 ELSE 0 END), 0) * 100.0 / 
-                NULLIF(COALESCE(COUNT(rr.RequestID), 0), 0)), 2
-            ) as approval_rate,
-            CASE 
-                WHEN COALESCE(COUNT(rr.RequestID), 0) = 0 THEN 'Unused'
-                WHEN COALESCE(SUM(CASE WHEN rr.Status = 'approved' THEN 1 ELSE 0 END), 0) = 0 THEN 'No Approvals'
-                ELSE 'Active'
-            END as usage_status
-        FROM rooms r
-        JOIN buildings b ON r.building_id = b.id
-        LEFT JOIN room_requests rr ON r.id = rr.RoomID 
-            AND rr.ReservationDate BETWEEN ? AND ?
-            AND (
-                (rr.StudentID IS NOT NULL AND EXISTS (
-                    SELECT 1 FROM student s WHERE s.StudentID = rr.StudentID AND s.Department = ?
-                ))
-                OR 
-                (rr.TeacherID IS NOT NULL AND EXISTS (
-                    SELECT 1 FROM teacher t WHERE t.TeacherID = rr.TeacherID AND t.Department = ?
-                ))
-            )
-        WHERE b.department = ?
-        GROUP BY r.id, r.room_name, r.room_type, b.building_name, b.department, r.capacity
-        ORDER BY total_requests DESC, r.room_name
-    ";
-    
-    // Map department names to match building department names
-    $dept_map = [
-        'education and arts' => 'Education and Arts',
-        'criminal justice' => 'Criminal Justice',
-        'accountancy' => 'Accountancy',
-        'business administration' => 'Business Administration',
-        'hospitality management' => 'Hospitality Management'
-    ];
-    
-    $building_dept = $dept_map[strtolower($department)] ?? $department;
-    
-    $stmt = $conn->prepare($query);
-    $stmt->bind_param('sssss', $start_date, $end_date, $department, $department, $building_dept);
-    $stmt->execute();
-    $result = $stmt->get_result();
-    $rooms = $result->fetch_all(MYSQLI_ASSOC);
-    
-    // Get summary statistics for ALL rooms in department
-    $summary_query = "
-        SELECT 
-            COUNT(DISTINCT r.id) as total_rooms,
-            COALESCE(COUNT(rr.RequestID), 0) as total_requests,
-            COALESCE(SUM(CASE WHEN rr.Status = 'approved' THEN 1 ELSE 0 END), 0) as approved_requests,
-            AVG(CASE WHEN rr.Status = 'approved' THEN rr.NumberOfParticipants ELSE NULL END) as avg_participants,
-            COUNT(DISTINCT CASE WHEN rr.RequestID IS NULL THEN r.id END) as unused_rooms
-        FROM rooms r
-        JOIN buildings b ON r.building_id = b.id
-        LEFT JOIN room_requests rr ON r.id = rr.RoomID
-            AND rr.ReservationDate BETWEEN ? AND ?
-            AND (
-                (rr.StudentID IS NOT NULL AND EXISTS (
-                    SELECT 1 FROM student s WHERE s.StudentID = rr.StudentID AND s.Department = ?
-                ))
-                OR 
-                (rr.TeacherID IS NOT NULL AND EXISTS (
-                    SELECT 1 FROM teacher t WHERE t.TeacherID = rr.TeacherID AND t.Department = ?
-                ))
-            )
-        WHERE b.department = ?
-    ";
-    
-    $summary_stmt = $conn->prepare($summary_query);
-    $summary_stmt->bind_param('sssss', $start_date, $end_date, $department, $department, $building_dept);
-    $summary_stmt->execute();
-    $summary_result = $summary_stmt->get_result();
-    $summary = $summary_result->fetch_assoc();
-    
-    $html = "
-    <div class='report-container'>
-        <div class='report-header'>
-            <h2>Room Utilization Report</h2>
-            <p><strong>Department:</strong> {$department}</p>
-            <p><strong>Period:</strong> " . date('M j, Y', strtotime($start_date)) . " to " . date('M j, Y', strtotime($end_date)) . "</p>
-            <p><strong>Generated:</strong> " . date('M j, Y g:i A') . "</p>
-        </div>
-        
-        <div class='report-summary'>
-            <h3>Summary</h3>
-            <div class='summary-cards'>
-                <div class='summary-card'>
-                    <div class='summary-value'>{$summary['total_rooms']}</div>
-                    <div class='summary-label'>Total Rooms</div>
-                </div>
-                <div class='summary-card'>
-                    <div class='summary-value'>{$summary['total_requests']}</div>
-                    <div class='summary-label'>Total Requests</div>
-                </div>
-                <div class='summary-card'>
-                    <div class='summary-value'>{$summary['approved_requests']}</div>
-                    <div class='summary-label'>Approved Requests</div>
-                </div>
-                <div class='summary-card'>
-                    <div class='summary-value'>" . round($summary['avg_participants'] ?? 0, 1) . "</div>
-                    <div class='summary-label'>Avg. Participants</div>
-                </div>
-                <div class='summary-card'>
-                    <div class='summary-value'>{$summary['unused_rooms']}</div>
-                    <div class='summary-label'>Unused Rooms</div>
-                </div>
-            </div>
-        </div>
-        
-        <div class='report-table'>
-            <h3>Room Details</h3>
-            <table class='table is-fullwidth is-striped'>
-                <thead>
-                    <tr>
-                        <th>Department</th>
-                        <th>Room</th>
-                        <th>Type</th>
-                        <th>Building</th>
-                        <th>Capacity</th>
-                        <th>Status</th>
-                        <th>Total Requests</th>
-                        <th>Approved</th>
-                        <th>Approval Rate</th>
-                    </tr>
-                </thead>
-                <tbody>";
-    
-    foreach ($rooms as $room) {
-        $approval_rate = $room['approval_rate'] ?? 0;
-        
-        $html .= "
-                    <tr>
-                        <td>{$room['department']}</td>
-                        <td>{$room['room_name']}</td>
-                        <td>{$room['room_type']}</td>
-                        <td>{$room['building_name']}</td>
-                        <td>{$room['capacity']}</td>
-                        <td>{$room['usage_status']}</td>
-                        <td>{$room['total_requests']}</td>
-                        <td>{$room['approved_requests']}</td>
-                        <td>{$approval_rate}%</td>
-                    </tr>";
-    }
-    
-    $html .= "
-                </tbody>
-            </table>
-        </div>
-    </div>
-    
-    <style>
-        .report-container { font-family: Arial, sans-serif; }
-        .report-header { margin-bottom: 30px; border-bottom: 2px solid #1e5631; padding-bottom: 15px; }
-        .report-header h2 { color: #1e5631; margin-bottom: 10px; }
-        .summary-cards { display: grid; grid-template-columns: repeat(4, 1fr); gap: 15px; margin: 15px 0; }
-        .summary-card { background: #f8f9fa; padding: 15px; border-radius: 8px; text-align: center; }
-        .summary-value { font-size: 1.5rem; font-weight: bold; color: #1e5631; }
-        .summary-label { font-size: 0.9rem; color: #6c757d; margin-top: 5px; }
-        .report-table { margin-top: 30px; overflow-x: auto; }
-        .table { border-collapse: collapse; width: 100%; position: relative; }
-        .table th, .table td { padding: 12px; text-align: left; border-bottom: 1px solid #ddd; }
-        .table thead { position: sticky; top: 0; z-index: 10; }
-        .table th { background-color: #1e5631; color: white; }
-        .table tr:nth-child(even) { background-color: #f2f2f2; }
-    </style>";
-    
-    return $html;
-}
 
 function generateBookingRequestsReport($conn, $department, $start_date, $end_date) {
     // Get detailed room reservation requests (approved and rejected only)
@@ -276,7 +93,7 @@ function generateBookingRequestsReport($conn, $department, $start_date, $end_dat
         LEFT JOIN student s ON rr.StudentID = s.StudentID
         LEFT JOIN teacher t ON rr.TeacherID = t.TeacherID
         WHERE rr.ReservationDate BETWEEN ? AND ?
-        AND rr.Status IN ('approved', 'rejected')
+        AND rr.Status IN ('approved', 'rejected', 'completed')
         AND (s.Department = ? OR t.Department = ?)
         ORDER BY rr.ReservationDate DESC, rr.StartTime ASC
     ";
@@ -292,13 +109,14 @@ function generateBookingRequestsReport($conn, $department, $start_date, $end_dat
         SELECT 
             COUNT(*) as total_requests,
             SUM(CASE WHEN rr.Status = 'approved' THEN 1 ELSE 0 END) as approved,
+            SUM(CASE WHEN rr.Status = 'completed' THEN 1 ELSE 0 END) as completed,
             SUM(CASE WHEN rr.Status = 'rejected' THEN 1 ELSE 0 END) as rejected,
-            ROUND(SUM(CASE WHEN rr.Status = 'approved' THEN 1 ELSE 0 END) * 100.0 / COUNT(*), 2) as approval_rate
+            ROUND((SUM(CASE WHEN rr.Status IN ('approved', 'completed') THEN 1 ELSE 0 END) * 100.0 / COUNT(*)), 2) as approval_rate
         FROM room_requests rr
         LEFT JOIN student s ON rr.StudentID = s.StudentID
         LEFT JOIN teacher t ON rr.TeacherID = t.TeacherID
         WHERE rr.ReservationDate BETWEEN ? AND ?
-        AND rr.Status IN ('approved', 'rejected')
+        AND rr.Status IN ('approved', 'rejected', 'completed')
         AND (s.Department = ? OR t.Department = ?)
     ";
     
@@ -315,7 +133,7 @@ function generateBookingRequestsReport($conn, $department, $start_date, $end_dat
             <p><strong>Department:</strong> {$department}</p>
             <p><strong>Period:</strong> " . date('M j, Y', strtotime($start_date)) . " to " . date('M j, Y', strtotime($end_date)) . "</p>
             <p><strong>Generated:</strong> " . date('M j, Y g:i A') . "</p>
-            <p><strong>Status Filter:</strong> Approved and Rejected requests only</p>
+            <p><strong>Status Filter:</strong> Approved, Completed and Rejected requests only</p>
         </div>
         
         <div class='report-summary'>
@@ -328,6 +146,10 @@ function generateBookingRequestsReport($conn, $department, $start_date, $end_dat
                 <div class='summary-card approved'>
                     <div class='summary-value'>{$summary['approved']}</div>
                     <div class='summary-label'>Approved</div>
+                </div>
+                <div class='summary-card completed'>
+                    <div class='summary-value'>{$summary['completed']}</div>
+                    <div class='summary-label'>Completed</div>
                 </div>
                 <div class='summary-card rejected'>
                     <div class='summary-value'>{$summary['rejected']}</div>
@@ -361,9 +183,14 @@ function generateBookingRequestsReport($conn, $department, $start_date, $end_dat
     
     foreach ($requests as $request) {
         $status_class = strtolower($request['Status']);
-        $status_badge = $request['Status'] === 'approved' ? 
-            "<span class='status-badge approved'>Approved</span>" : 
-            "<span class='status-badge rejected'>Rejected</span>";
+        
+        if ($request['Status'] === 'approved') {
+            $status_badge = "<span class='status-badge approved'>Approved</span>";
+        } elseif ($request['Status'] === 'completed') {
+            $status_badge = "<span class='status-badge completed'>Completed</span>";
+        } else {
+            $status_badge = "<span class='status-badge rejected'>Rejected</span>";
+        }
         
         $html .= "
                     <tr>

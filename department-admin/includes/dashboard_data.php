@@ -353,7 +353,7 @@ $stmt = $conn->prepare("
     LEFT JOIN student s ON rr.StudentID = s.StudentID
     LEFT JOIN teacher t ON rr.TeacherID = t.TeacherID
     LEFT JOIN dept_admin da ON rr.approvedBy = da.AdminID
-    WHERE rr.Status = 'approved'
+    WHERE rr.Status IN ('approved', 'completed')
     AND (s.Department = ? OR t.Department = ?)
     AND rr.RequestDate >= DATE_SUB(NOW(), INTERVAL 30 DAY)
     ORDER BY 

@@ -83,9 +83,6 @@ function generateCSVExport($conn, $department, $report_type, $start_date, $end_d
     
     // Generate report data based on type
     switch ($report_type) {
-        case 'room-utilization':
-            generateRoomUtilizationCSV($conn, $department, $start_date, $end_date, $file);
-            break;
         case 'booking-requests':
             generateBookingRequestsCSV($conn, $department, $start_date, $end_date, $file);
             break;
@@ -109,82 +106,6 @@ function generateCSVExport($conn, $department, $report_type, $start_date, $end_d
     ];
 }
 
-function generateRoomUtilizationCSV($conn, $department, $start_date, $end_date, $file) {
-    // Department mapping
-    $dept_map = [
-        'education and arts' => 'Education and Arts',
-        'criminal justice' => 'Criminal Justice',
-        'accountancy' => 'Accountancy',
-        'business administration' => 'Business Administration',
-        'hospitality management' => 'Hospitality Management'
-    ];
-    
-    $building_dept = $dept_map[strtolower($department)] ?? $department;
-    
-    // Write CSV headers
-    $headers = [
-        'Department', 'Room Name', 'Room Type', 'Building', 'Capacity', 
-        'Status', 'Total Requests', 'Approved Requests', 'Approval Rate'
-    ];
-    fputcsv($file, $headers);
-    
-    // Get room utilization data
-    $query = "
-        SELECT 
-            r.room_name,
-            r.room_type,
-            b.building_name,
-            b.department,
-            r.capacity,
-            COALESCE(COUNT(rr.RequestID), 0) as total_requests,
-            COALESCE(SUM(CASE WHEN rr.Status = 'approved' THEN 1 ELSE 0 END), 0) as approved_requests,
-            ROUND(
-                (COALESCE(SUM(CASE WHEN rr.Status = 'approved' THEN 1 ELSE 0 END), 0) * 100.0 / 
-                NULLIF(COALESCE(COUNT(rr.RequestID), 0), 0)), 2
-            ) as approval_rate,
-            CASE 
-                WHEN COALESCE(COUNT(rr.RequestID), 0) = 0 THEN 'Unused'
-                WHEN COALESCE(SUM(CASE WHEN rr.Status = 'approved' THEN 1 ELSE 0 END), 0) = 0 THEN 'No Approvals'
-                ELSE 'Active'
-            END as usage_status
-        FROM rooms r
-        JOIN buildings b ON r.building_id = b.id
-        LEFT JOIN room_requests rr ON r.id = rr.RoomID 
-            AND rr.ReservationDate BETWEEN ? AND ?
-            AND (
-                (rr.StudentID IS NOT NULL AND EXISTS (
-                    SELECT 1 FROM student s WHERE s.StudentID = rr.StudentID AND s.Department = ?
-                ))
-                OR 
-                (rr.TeacherID IS NOT NULL AND EXISTS (
-                    SELECT 1 FROM teacher t WHERE t.TeacherID = rr.TeacherID AND t.Department = ?
-                ))
-            )
-        WHERE b.department = ?
-        GROUP BY r.id, r.room_name, r.room_type, b.building_name, b.department, r.capacity
-        ORDER BY total_requests DESC, r.room_name
-    ";
-    
-    $stmt = $conn->prepare($query);
-    $stmt->bind_param('sssss', $start_date, $end_date, $department, $department, $building_dept);
-    $stmt->execute();
-    $result = $stmt->get_result();
-    
-    while ($row = $result->fetch_assoc()) {
-        $csv_row = [
-            $row['department'],
-            $row['room_name'],
-            $row['room_type'],
-            $row['building_name'],
-            $row['capacity'],
-            $row['usage_status'],
-            $row['total_requests'],
-            $row['approved_requests'],
-            ($row['approval_rate'] ?? 0) . '%'
-        ];
-        fputcsv($file, $csv_row);
-    }
-}
 
 function generateBookingRequestsCSV($conn, $department, $start_date, $end_date, $file) {
     // Write CSV headers
@@ -218,7 +139,7 @@ function generateBookingRequestsCSV($conn, $department, $start_date, $end_date, 
         LEFT JOIN student s ON rr.StudentID = s.StudentID
         LEFT JOIN teacher t ON rr.TeacherID = t.TeacherID
         WHERE rr.ReservationDate BETWEEN ? AND ?
-        AND rr.Status IN ('approved', 'rejected')
+        AND rr.Status IN ('approved', 'rejected', 'completed')
         AND (s.Department = ? OR t.Department = ?)
         ORDER BY rr.ReservationDate DESC, rr.StartTime ASC
     ";
