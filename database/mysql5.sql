@@ -151,6 +151,9 @@ CREATE TABLE room_requests (
     FOREIGN KEY (RoomID) REFERENCES rooms(id)
 );
 
+ALTER TABLE room_requests 
+MODIFY COLUMN Status ENUM('pending', 'approved', 'rejected', 'cancelled') DEFAULT 'pending';
+
 -- =========================
 -- Equipment
 -- =========================

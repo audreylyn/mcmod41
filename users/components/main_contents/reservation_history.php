@@ -64,7 +64,8 @@
                         COUNT(*) as TotalCount,
                         SUM(CASE WHEN Status = 'approved' THEN 1 ELSE 0 END) as ApprovedCount,
                         SUM(CASE WHEN Status = 'rejected' THEN 1 ELSE 0 END) as RejectedCount,
-                        SUM(CASE WHEN Status = 'cancelled' THEN 1 ELSE 0 END) as CancelledCount
+                        SUM(CASE WHEN Status = 'cancelled' THEN 1 ELSE 0 END) as CancelledCount,
+                        SUM(CASE WHEN Status = 'completed' THEN 1 ELSE 0 END) as CompletedCount
                      FROM room_requests 
                      WHERE $idField = ?";
         $countStmt = $conn->prepare($countSql);
@@ -77,6 +78,7 @@
         $approvedCount = 0;
         $rejectedCount = 0;
         $cancelledCount = 0;
+        $completedCount = 0;
 
         // Set counts from result
         if ($row = $countResult->fetch_assoc()) {
@@ -84,6 +86,7 @@
             $approvedCount = $row['ApprovedCount'];
             $rejectedCount = $row['RejectedCount'];
             $cancelledCount = $row['CancelledCount'];
+            $completedCount = $row['CompletedCount'];
         }
         $countStmt->close();
         ?>
@@ -93,6 +96,7 @@
             <div class="history-tabs">
                 <div class="history-tab active" data-filter="all" title="View all your reservations regardless of status">All Reservations <span class="history-count"><?php echo $totalCount; ?></span></div>
                 <div class="history-tab" data-filter="approved" title="View all approved reservations">Approved <span class="history-count"><?php echo $approvedCount; ?></span></div>
+                <div class="history-tab" data-filter="completed" title="View completed reservations">Completed <span class="history-count"><?php echo $completedCount; ?></span></div>
                 <div class="history-tab" data-filter="rejected" title="View reservations that were rejected by your Department Admin">Rejected <span class="history-count"><?php echo $rejectedCount; ?></span></div>
                 <div class="history-tab" data-filter="cancelled" title="View reservations that you cancelled">Cancelled <span class="history-count"><?php echo $cancelledCount; ?></span></div>
             </div>

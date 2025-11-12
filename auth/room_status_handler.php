@@ -61,9 +61,10 @@ function connectToDatabase()
  * Update room statuses based on current time
  * 
  * This function:
- * 1. Sets rooms to 'occupied' if there's an active, approved reservation now
- * 2. Sets rooms back to 'available' when all approved reservations are finished
- * 3. Preserves rooms with 'maintenance' status
+ * 1. Marks approved reservations as 'completed' when their end time has passed
+ * 2. Sets rooms to 'occupied' if there's an active, approved reservation now
+ * 3. Sets rooms back to 'available' when all approved reservations are finished
+ * 4. Preserves rooms with 'maintenance' status
  * 
  * @return bool Success or failure
  */
@@ -91,8 +92,22 @@ function updateRoomStatuses()
         // Start transaction to ensure all updates are atomic
         $conn->begin_transaction();
 
+        // Set timezone in MySQL to match PHP timezone
+        $conn->query("SET time_zone = '+08:00'");
+
         // Debug logging
         error_log("Running room status update at: " . $currentDateTime);
+
+        // Step 1: Mark approved reservations as completed if their end time has passed
+        $completeReservationsSql = "
+            UPDATE room_requests
+            SET Status = 'completed'
+            WHERE Status = 'approved'
+            AND TIMESTAMP(ReservationDate, EndTime) <= NOW()";
+        
+        $conn->query($completeReservationsSql);
+        $completedCount = $conn->affected_rows;
+        if ($directRun) echo "Reservations marked as completed: " . $completedCount . "\n";
 
         // Check what bookings are active right now
         $activeBookingsQuery = "
@@ -108,14 +123,18 @@ function updateRoomStatuses()
 
         if ($directRun) {
             echo "Current active bookings:\n";
-            while ($row = $bookingsResult->fetch_assoc()) {
-                echo "Room {$row['room_name']} (ID: {$row['id']}) is booked on {$row['ReservationDate']} from {$row['StartTime']} to {$row['EndTime']}\n";
+            if ($bookingsResult->num_rows > 0) {
+                while ($row = $bookingsResult->fetch_assoc()) {
+                    echo "Room {$row['room_name']} (ID: {$row['id']}) is booked on {$row['ReservationDate']} from {$row['StartTime']} to {$row['EndTime']}\n";
+                }
+                // Reset result pointer
+                $bookingsResult->data_seek(0);
+            } else {
+                echo "No active bookings found.\n";
             }
-            // Reset result pointer
-            $bookingsResult->data_seek(0);
         }
 
-        // 1. Find rooms that should be marked as occupied
+        // 2. Find rooms that should be marked as occupied
         // (approved reservations where current DATE matches ReservationDate AND current TIME is between start and end time)
         $occupiedRoomsSql = "
             UPDATE rooms r
@@ -136,7 +155,7 @@ function updateRoomStatuses()
         $occupiedCount = $conn->affected_rows;
         if ($directRun) echo "Rooms marked as occupied: " . $occupiedCount . "\n";
 
-        // 2. Find rooms that should be marked as available again
+        // 3. Find rooms that should be marked as available again
         // (no current approved reservations for TODAY)
         $availableRoomsSql = "
             UPDATE rooms r
