@@ -1,6 +1,9 @@
 <?php
 require_once 'dbh.inc.php';
 
+// Set timezone to Philippines for consistent date/time handling
+date_default_timezone_set('Asia/Manila');
+
 /**
  * Automatic room maintenance expiry handler
  * This script should be run periodically to check for expired maintenance periods
@@ -21,7 +24,7 @@ function updateExpiredMaintenance($closeConnection = true) {
             JOIN room_maintenance rm ON r.id = rm.room_id
             WHERE r.RoomStatus = 'maintenance' 
             AND rm.end_date IS NOT NULL 
-            AND rm.end_date < CURDATE()
+            AND rm.end_date < NOW()
             AND rm.id IN (
                 SELECT MAX(id) 
                 FROM room_maintenance 
@@ -49,23 +52,8 @@ function updateExpiredMaintenance($closeConnection = true) {
             $updateRoomsStmt->bind_param(str_repeat('i', count($roomIds)), ...$roomIds);
             $updateRoomsStmt->execute();
             
-            // Log audit trail for each expired maintenance
+            // Log the automatic status changes
             foreach ($expiredRooms as $room) {
-                // Insert maintenance completion record
-                $auditStmt = $conn->prepare("
-                    INSERT INTO room_maintenance (room_id, admin_id, reason, start_date, end_date) 
-                    VALUES (?, NULL, ?, ?, ?)
-                ");
-                $auditReason = "Maintenance period automatically completed - " . $room['reason'];
-                $auditStmt->bind_param("isss", 
-                    $room['room_id'], 
-                    $auditReason, 
-                    $room['end_date'], 
-                    $room['end_date']
-                );
-                $auditStmt->execute();
-                
-                // Log the automatic status change
                 error_log("Room maintenance auto-expired: {$room['room_name']} ({$room['building_name']}) - Status changed to available");
             }
         }

@@ -125,11 +125,46 @@ if ($_SERVER['REQUEST_METHOD'] === 'POST' && isset($_POST['action'])) {
             }
         }
 
-        // Update room status
-        $stmt = $conn->prepare("UPDATE rooms SET RoomStatus = ? WHERE id = ?");
-        $stmt->bind_param("si", $new_status, $room_id);
+        // Server-side date validation for maintenance
+        if ($new_status === 'maintenance' && !empty($start_date) && !empty($end_date)) {
+            $start_datetime = new DateTime($start_date);
+            $end_datetime = new DateTime($end_date);
+            $today = new DateTime();
+            $today->setTime(0, 0, 0); // Set to beginning of today
+            
+            // Validate start date is not in the past
+            if ($start_datetime < $today) {
+                echo json_encode(['success' => false, 'message' => 'Start date cannot be in the past']);
+                exit;
+            }
+            
+            // Validate end date is after start date
+            if ($end_datetime <= $start_datetime) {
+                echo json_encode(['success' => false, 'message' => 'End date must be after start date']);
+                exit;
+            }
+            
+            // Validate reasonable date range (not more than 1 year)
+            $max_date = clone $start_datetime;
+            $max_date->add(new DateInterval('P1Y'));
+            if ($end_datetime > $max_date) {
+                echo json_encode(['success' => false, 'message' => 'Maintenance period cannot exceed 1 year']);
+                exit;
+            }
+        }
+
+        // Begin transaction for atomic updates
+        $conn->begin_transaction();
         
-        if ($stmt->execute()) {
+        try {
+            // Update room status
+            $stmt = $conn->prepare("UPDATE rooms SET RoomStatus = ? WHERE id = ?");
+            $stmt->bind_param("si", $new_status, $room_id);
+            
+            if (!$stmt->execute()) {
+                throw new Exception('Failed to update room status');
+            }
+            
             // Log maintenance record if setting to maintenance
             if ($new_status === 'maintenance') {
                 // If start_date and end_date are provided, use them
@@ -147,21 +182,32 @@ if ($_SERVER['REQUEST_METHOD'] === 'POST' && isset($_POST['action'])) {
                     ");
                     $stmt->bind_param("isi", $room_id, $reason, $admin_id);
                 }
-                $stmt->execute();
+                
+                if (!$stmt->execute()) {
+                    throw new Exception('Failed to log maintenance record');
+                }
             } else if ($new_status === 'available') {
                 // Close any open maintenance records
                 $stmt = $conn->prepare("
                     UPDATE room_maintenance 
-                    SET end_date = CURRENT_TIMESTAMP 
+                    SET end_date = NOW() 
                     WHERE room_id = ? AND end_date IS NULL
                 ");
                 $stmt->bind_param("i", $room_id);
-                $stmt->execute();
+                
+                if (!$stmt->execute()) {
+                    throw new Exception('Failed to close maintenance records');
+                }
             }
             
+            // Commit transaction
+            $conn->commit();
             echo json_encode(['success' => true, 'message' => 'Room status updated successfully']);
-        } else {
-            echo json_encode(['success' => false, 'message' => 'Failed to update room status']);
+            
+        } catch (Exception $e) {
+            // Rollback transaction on error
+            $conn->rollback();
+            echo json_encode(['success' => false, 'message' => 'Failed to update room status: ' . $e->getMessage()]);
         }
         exit;
     }
@@ -180,7 +226,12 @@ $rooms_query = "
         rm.reason as maintenance_reason,
         rm.start_date as maintenance_start,
         rm.end_date as maintenance_end,
-        CONCAT(da.FirstName, ' ', da.LastName) as maintenance_admin
+        CONCAT(da.FirstName, ' ', da.LastName) as maintenance_admin,
+        CASE 
+            WHEN r.RoomStatus = 'maintenance' AND rm.end_date IS NOT NULL AND rm.end_date <= DATE_ADD(NOW(), INTERVAL 24 HOUR) THEN 'expiring_soon'
+            WHEN r.RoomStatus = 'maintenance' AND rm.end_date IS NOT NULL AND rm.end_date <= DATE_ADD(NOW(), INTERVAL 72 HOUR) THEN 'expiring_3days'
+            ELSE NULL
+        END as expiry_warning
     FROM rooms r
     JOIN buildings b ON r.building_id = b.id
     LEFT JOIN (
@@ -197,7 +248,7 @@ $rooms_query = "
             FROM room_maintenance
             GROUP BY room_id
         ) latest ON rm.id = latest.max_id
-    ) rm ON r.id = rm.room_id AND (rm.end_date IS NULL OR rm.end_date >= CURDATE())
+    ) rm ON r.id = rm.room_id AND r.RoomStatus = 'maintenance' AND (rm.end_date IS NULL OR rm.end_date >= NOW())
     LEFT JOIN dept_admin da ON rm.admin_id = da.AdminID
     WHERE b.department = ? OR r.room_type = 'Gymnasium'
     ORDER BY b.building_name, r.room_name

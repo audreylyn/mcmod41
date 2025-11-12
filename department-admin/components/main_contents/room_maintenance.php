@@ -9,8 +9,9 @@
             Manage room status for <?php echo htmlspecialchars($department); ?> department and gymnasium
         </p>
     </div>
-    <button type="button" class="btn btn-info btn-sm" onclick="checkExpiredMaintenance()" id="checkExpiredMaintenanceBtn">
-        <i class="mdi mdi-clock-check"></i> Check Expired Maintenance
+    <button type="button" class="btn btn-info btn-sm" onclick="checkExpiredMaintenance()" id="checkExpiredMaintenanceBtn" 
+            title="Manually check for expired maintenance periods and update room status. Note: System automatically checks every 10 page loads.">
+        <i class="mdi mdi-clock-check"></i> Manual Expiry Check
     </button>
 </div>
 
@@ -82,7 +83,22 @@
                                 </div>
                             </td>
                             <td>
-                                <span class="status-badge status-<?php echo $room['RoomStatus']; ?>">
+                                <span class="status-badge status-<?php echo $room['RoomStatus']; ?><?php echo $room['expiry_warning'] ? ' ' . $room['expiry_warning'] : ''; ?>"
+                                    title="<?php
+                                        if ($room['RoomStatus'] === 'available') {
+                                            echo 'Room is available for reservations';
+                                        } elseif ($room['RoomStatus'] === 'occupied') {
+                                            echo 'Room is currently occupied by a reservation';
+                                        } elseif ($room['RoomStatus'] === 'maintenance') {
+                                            if ($room['expiry_warning'] === 'expiring_soon') {
+                                                echo 'Room under maintenance - expires within 24 hours (URGENT)';
+                                            } elseif ($room['expiry_warning'] === 'expiring_3days') {
+                                                echo 'Room under maintenance - expires within 3 days';
+                                            } else {
+                                                echo 'Room is under maintenance';
+                                            }
+                                        }
+                                    ?>">
                                     <?php echo ucfirst($room['RoomStatus']); ?>
                                 </span>
                             </td>

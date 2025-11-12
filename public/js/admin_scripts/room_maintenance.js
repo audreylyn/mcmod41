@@ -38,26 +38,7 @@ function checkExpiredMaintenance() {
   });
 }
 
-function showAlert(type, message) {
-  // Create alert element
-  const alertDiv = document.createElement('div');
-  alertDiv.className = `alert alert-${type}`;
-  alertDiv.innerHTML = `
-    <span>${message}</span>
-    <button type="button" class="close" onclick="this.parentElement.remove()">×</button>
-  `;
-  
-  // Insert at top of page
-  const container = document.querySelector('.maintenance-container');
-  container.insertBefore(alertDiv, container.firstChild);
-  
-  // Auto-remove after 5 seconds
-  setTimeout(() => {
-    if (alertDiv.parentNode) {
-      alertDiv.remove();
-    }
-  }, 5000);
-}
+// showAlert function is defined below at line 175
 
 function updateRoomStatus(roomId, newStatus, roomName) {
   if (!newStatus) return;
