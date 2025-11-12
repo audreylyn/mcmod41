@@ -111,8 +111,9 @@ include 'includes/dashboard_data.php';
                                             </span>
                                             <span class="detail-item">
                                                 <i class="mdi mdi-calendar"></i> Reported: <?php 
-                                                    $reported_date = new DateTime($issue['reported_at']);
-                                                    echo $reported_date->format('M j, Y g:i A');
+                                                    $utcTimestamp = strtotime($issue['reported_at']);
+                                                    $phTimestamp = $utcTimestamp + (8 * 3600);
+                                                    echo date('M j, Y g:i A', $phTimestamp);
                                                 ?>
                                             </span>
                                         </div>
@@ -180,8 +181,9 @@ include 'includes/dashboard_data.php';
                                         </span>
                                         <span class="detail-item">
                                             <i class="mdi mdi-clock"></i> Requested: <?php 
-                                                $request_date = new DateTime($usage['RequestDate']);
-                                                echo $request_date->format('M j, Y g:i A');
+                                                $utcTimestamp = strtotime($usage['RequestDate']);
+                                                $phTimestamp = $utcTimestamp + (8 * 3600);
+                                                echo date('M j, Y g:i A', $phTimestamp);
                                             ?>
                                         </span>
                                         <?php if ($usage['admin_first_name']): ?>
