@@ -8,7 +8,10 @@ checkAccess(['Student', 'Teacher']);
 <head>
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <title>Document</title>
+    <title>QR Code Scan</title>
+    <!-- Icons and Manifest -->
+    <link rel="icon" href="../public/assets/logo.webp" type="image/webp" />
+    <link rel="apple-touch-icon" href="../public/assets/logo.webp">
     <link rel="stylesheet" href="qr/qr.css">
     <link rel="stylesheet" href="qr/modal.css">
 
