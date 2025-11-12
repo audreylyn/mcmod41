@@ -20,16 +20,23 @@ function db(): mysqli
     $name = getenv('DB_NAME') ?: 'smartspace';
     $port = 3306;
 
-    // No SSL certificate for now - try a direct connection
+    // SSL Certificate path (same level as index.php)
+    $sslCert = __DIR__ . '/../DigiCertGlobalRootCA.crt.pem';
     
     $conn = mysqli_init();
     if (!$conn) {
         die('mysqli_init failed');
     }
 
-    // Disable SSL verification - crucial for Azure MySQL connections
-    if (!mysqli_options($conn, MYSQLI_OPT_SSL_VERIFY_SERVER_CERT, false)) {
-        error_log("Failed to set MYSQLI_OPT_SSL_VERIFY_SERVER_CERT option");
+    // Configure SSL options if certificate exists
+    if (file_exists($sslCert)) {
+        mysqli_ssl_set($conn, NULL, NULL, $sslCert, NULL, NULL);
+        mysqli_options($conn, MYSQLI_OPT_SSL_VERIFY_SERVER_CERT, true);
+        error_log("Using SSL certificate: " . $sslCert);
+    } else {
+        // Disable SSL verification if certificate not found
+        mysqli_options($conn, MYSQLI_OPT_SSL_VERIFY_SERVER_CERT, false);
+        error_log("SSL certificate not found at: " . $sslCert . " - connecting without verification");
     }
 
     // ✅ Use basic connection mode with proper error handling

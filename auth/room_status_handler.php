@@ -12,12 +12,21 @@
 function connectToDatabase()
 {
     try {
+        // SSL Certificate path (same level as index.php)
+        $sslCert = __DIR__ . '/../DigiCertGlobalRootCA.crt.pem';
+        
         // Initialize connection
         $conn = mysqli_init();
         
-        // Disable SSL verification
-        if (!$conn->options(MYSQLI_OPT_SSL_VERIFY_SERVER_CERT, false)) {
-            error_log("Failed to set MYSQLI_OPT_SSL_VERIFY_SERVER_CERT option");
+        // Configure SSL options if certificate exists
+        if (file_exists($sslCert)) {
+            mysqli_ssl_set($conn, NULL, NULL, $sslCert, NULL, NULL);
+            mysqli_options($conn, MYSQLI_OPT_SSL_VERIFY_SERVER_CERT, true);
+            error_log("Room Status Handler: Using SSL certificate: " . $sslCert);
+        } else {
+            // Disable SSL verification if certificate not found
+            mysqli_options($conn, MYSQLI_OPT_SSL_VERIFY_SERVER_CERT, false);
+            error_log("Room Status Handler: SSL certificate not found at: " . $sslCert);
         }
 
         // Try to connect with SSL first
