@@ -140,7 +140,11 @@
                                     <td data-label="Location"><?php echo htmlspecialchars($row['room_name'] ?? 'N/A') . ' (' . htmlspecialchars($row['building_name'] ?? 'N/A') . ')'; ?></td>
                                     <td data-label="Issue Type"><?php echo htmlspecialchars($row['issue_type']); ?></td>
                                     <td data-label="Reported By"><?php echo htmlspecialchars($row['reporter_name'] ?? 'Unknown'); ?></td>
-                                    <td data-label="Date"><?php echo date('M d, Y', strtotime($row['reported_at'])); ?></td>
+                                    <td data-label="Date"><?php 
+                                        $utcTimestamp = strtotime($row['reported_at']);
+                                        $phTimestamp = $utcTimestamp + (8 * 3600);
+                                        echo date('M d, Y', $phTimestamp);
+                                    ?></td>
                                     <td data-label="Status">
                                         <span class="status-badge status-<?php echo $row['status']; ?>">
                                             <?php echo ucfirst(str_replace('_', ' ', $row['status'])); ?>
@@ -228,12 +232,20 @@
                             </div>
                             <div class="info-group">
                                 <div class="info-label">Reported Date</div>
-                                <div class="info-value"><?php echo date('F d, Y - h:i A', strtotime($reportDetail['reported_at'])); ?></div>
+                                <div class="info-value"><?php 
+                                    $utcTimestamp = strtotime($reportDetail['reported_at']);
+                                    $phTimestamp = $utcTimestamp + (8 * 3600);
+                                    echo date('F d, Y - h:i A', $phTimestamp);
+                                ?></div>
                             </div>
                             <?php if ($reportDetail['resolved_at']): ?>
                                 <div class="info-group">
                                     <div class="info-label">Resolved Date</div>
-                                    <div class="info-value"><?php echo date('F d, Y - h:i A', strtotime($reportDetail['resolved_at'])); ?></div>
+                                    <div class="info-value"><?php 
+                                        $utcTimestamp = strtotime($reportDetail['resolved_at']);
+                                        $phTimestamp = $utcTimestamp + (8 * 3600);
+                                        echo date('F d, Y - h:i A', $phTimestamp);
+                                    ?></div>
                                 </div>
                             <?php endif; ?>
                         </div>
