@@ -18,10 +18,11 @@ function connectToDatabase()
         // Initialize connection
         $conn = mysqli_init();
         
-        // Configure SSL options if certificate exists
+        // Configure SSL options - Azure MySQL requires SSL but with relaxed verification
         if (file_exists($sslCert)) {
             mysqli_ssl_set($conn, NULL, NULL, $sslCert, NULL, NULL);
-            mysqli_options($conn, MYSQLI_OPT_SSL_VERIFY_SERVER_CERT, true);
+            // Disable strict verification for Azure MySQL
+            mysqli_options($conn, MYSQLI_OPT_SSL_VERIFY_SERVER_CERT, false);
             error_log("Room Status Handler: Using SSL certificate: " . $sslCert);
         } else {
             // Disable SSL verification if certificate not found

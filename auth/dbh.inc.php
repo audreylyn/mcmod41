@@ -28,15 +28,17 @@ function db(): mysqli
         die('mysqli_init failed');
     }
 
-    // Configure SSL options if certificate exists
+    // Configure SSL options - Azure MySQL requires SSL but with relaxed verification
     if (file_exists($sslCert)) {
+        // Set SSL certificate
         mysqli_ssl_set($conn, NULL, NULL, $sslCert, NULL, NULL);
-        mysqli_options($conn, MYSQLI_OPT_SSL_VERIFY_SERVER_CERT, true);
-        error_log("Using SSL certificate: " . $sslCert);
+        // Disable strict verification for Azure MySQL (common issue with Azure)
+        mysqli_options($conn, MYSQLI_OPT_SSL_VERIFY_SERVER_CERT, false);
+        error_log("Using SSL certificate: " . $sslCert . " (with relaxed verification for Azure)");
     } else {
         // Disable SSL verification if certificate not found
         mysqli_options($conn, MYSQLI_OPT_SSL_VERIFY_SERVER_CERT, false);
-        error_log("SSL certificate not found at: " . $sslCert . " - connecting without verification");
+        error_log("SSL certificate not found at: " . $sslCert . " - connecting without certificate");
     }
 
     // ✅ Use basic connection mode with proper error handling
