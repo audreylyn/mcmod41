@@ -112,10 +112,10 @@ checkAccess(['Student', 'Teacher']);
                             </div>
                         </div>
 
-                        <div class="form-group mb-3">
+                        <!-- <div class="form-group mb-3">
                             <label for="equipment-id" class="form-label">Equipment ID (Optional)</label>
                             <input type="text" class="form-control" id="equipment-id" placeholder="Enter equipment ID if known">
-                        </div>
+                        </div> -->
 
                         <!-- Hidden fields to store selected data -->
                         <input type="hidden" id="selected-unit-id">
