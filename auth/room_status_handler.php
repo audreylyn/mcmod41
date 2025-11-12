@@ -12,44 +12,25 @@
 function connectToDatabase()
 {
     try {
-        // SSL Certificate path (same level as index.php)
-        $sslCert = __DIR__ . '/../DigiCertGlobalRootCA.crt.pem';
-        
+        // Define the SSL certificate path
+        $ssl_cert = __DIR__ . '/../DigiCertGlobalRootCA.crt.pem';
+
         // Initialize connection
         $conn = mysqli_init();
-        
-        // Configure SSL options - Azure MySQL requires SSL but with relaxed verification
-        if (file_exists($sslCert)) {
-            mysqli_ssl_set($conn, NULL, NULL, $sslCert, NULL, NULL);
-            // Disable strict verification for Azure MySQL
-            mysqli_options($conn, MYSQLI_OPT_SSL_VERIFY_SERVER_CERT, false);
-            error_log("Room Status Handler: Using SSL certificate: " . $sslCert);
-        } else {
-            // Disable SSL verification if certificate not found
-            mysqli_options($conn, MYSQLI_OPT_SSL_VERIFY_SERVER_CERT, false);
-            error_log("Room Status Handler: SSL certificate not found at: " . $sslCert);
-        }
 
-        // Try to connect with SSL first
-        if (!$conn->real_connect(
-            "smartspace.mysql.database.azure.com", 
+        // Set SSL certificate
+        $conn->ssl_set(NULL, NULL, $ssl_cert, NULL, NULL);
+
+        // Establish connection with SSL
+        $conn->real_connect(
+            "mcismartdb.mysql.database.azure.com", 
             "adminuser", 
             "SmartDb2025!", 
-            "smartspace",
+            "mcismartdb",
             3306,
             NULL,
             MYSQLI_CLIENT_SSL
-        )) {
-            // If SSL fails, try without SSL as fallback
-            $conn = mysqli_init();
-            $conn->real_connect(
-                "smartspace.mysql.database.azure.com", 
-                "adminuser", 
-                "SmartDb2025!", 
-                "smartspace",
-                3306
-            );
-        }
+        );
 
         // Check for connection errors
         if ($conn->connect_error) {
@@ -66,6 +47,7 @@ function connectToDatabase()
         return null;
     }
 }
+
 
 /**
  * Update room statuses based on current time
