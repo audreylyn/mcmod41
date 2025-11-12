@@ -33,8 +33,6 @@ CREATE TABLE registrar (
   FOREIGN KEY (RoleID) REFERENCES roles(RoleID)
 );
 
-UPDATE registrar SET Reg_Password = '1234' WHERE regid = 1;
-
 -- =========================
 -- Department Admin
 -- =========================
