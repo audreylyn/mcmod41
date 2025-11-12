@@ -260,7 +260,7 @@ if ($_SERVER['REQUEST_METHOD'] === 'POST' && isset($_POST['submit_report'])) {
 
     // Only proceed with insert if we have a valid user ID and no errors
     if ($userId && !isset($error_message)) {
-    // Generate a unique random reference number like EQ####### (7 digits) and ensure no collision
+        // Generate a unique random reference number like EQ####### (7 digits) and ensure no collision
     $maxAttempts = 7;
     $referenceNumber = null;
     for ($attempt = 0; $attempt < $maxAttempts; $attempt++) {

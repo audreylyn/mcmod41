@@ -102,7 +102,12 @@
                                 </div>
                                 <div class="info-item">
                                     <div class="info-label">Reported:</div>
-                                    <div class="info-value"><?php echo date('M d, Y h:i A', strtotime($report['reported_at'])); ?></div>
+                                    <div class="info-value"><?php 
+                                        // Convert UTC timestamp to Philippines time (UTC+8)
+                                        $utcTimestamp = strtotime($report['reported_at']);
+                                        $phTimestamp = $utcTimestamp + (8 * 3600); // Add 8 hours
+                                        echo date('M d, Y h:i A', $phTimestamp);
+                                    ?></div>
                                 </div>
                             </div>
                             <a href="javascript:void(0)" class="view-details-btn" onclick="toggleDetails(this, <?php echo $report['id']; ?>)">
@@ -130,7 +135,11 @@
                                     <div class="admin-response">
                                         <p><?php echo nl2br(htmlspecialchars($report['admin_response'])); ?></p>
                                         <?php if (!empty($report['resolved_at'])): ?>
-                                            <div class="response-date">Responded on <?php echo date('M d, Y h:i A', strtotime($report['resolved_at'])); ?></div>
+                                            <div class="response-date">Responded on <?php 
+                                                $utcTimestamp = strtotime($report['resolved_at']);
+                                                $phTimestamp = $utcTimestamp + (8 * 3600);
+                                                echo date('M d, Y h:i A', $phTimestamp);
+                                            ?></div>
                                         <?php endif; ?>
                                     </div>
                                 </div>
@@ -142,7 +151,11 @@
                                             <div class="rejection-reason">
                                         <p><?php echo nl2br(htmlspecialchars($report['rejection_reason'])); ?></p>
                                         <?php if (!empty($report['resolved_at'])): ?>
-                                            <div class="response-date">Rejected on <?php echo date('M d, Y h:i A', strtotime($report['resolved_at'])); ?></div>
+                                            <div class="response-date">Rejected on <?php 
+                                                $utcTimestamp = strtotime($report['resolved_at']);
+                                                $phTimestamp = $utcTimestamp + (8 * 3600);
+                                                echo date('M d, Y h:i A', $phTimestamp);
+                                            ?></div>
                                         <?php endif; ?>
                                     </div>
                                 </div>
