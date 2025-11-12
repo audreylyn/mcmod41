@@ -96,26 +96,27 @@ function updateRoomStatuses()
 
         // Check what bookings are active right now
         $activeBookingsQuery = "
-            SELECT r.id, r.room_name, rr.StartTime, rr.EndTime
+            SELECT r.id, r.room_name, rr.ReservationDate, rr.StartTime, rr.EndTime
             FROM room_requests rr
             JOIN rooms r ON rr.RoomID = r.id
             WHERE rr.Status = 'approved'
-            AND '$currentDateTime' >= rr.StartTime 
-            AND '$currentDateTime' <= rr.EndTime";
+            AND rr.ReservationDate = CURDATE()
+            AND CURTIME() >= rr.StartTime 
+            AND CURTIME() <= rr.EndTime";
 
         $bookingsResult = $conn->query($activeBookingsQuery);
 
         if ($directRun) {
             echo "Current active bookings:\n";
             while ($row = $bookingsResult->fetch_assoc()) {
-                echo "Room {$row['room_name']} (ID: {$row['id']}) is booked from {$row['StartTime']} to {$row['EndTime']}\n";
+                echo "Room {$row['room_name']} (ID: {$row['id']}) is booked on {$row['ReservationDate']} from {$row['StartTime']} to {$row['EndTime']}\n";
             }
             // Reset result pointer
             $bookingsResult->data_seek(0);
         }
 
         // 1. Find rooms that should be marked as occupied
-        // (approved reservations where current time is between start and end time)
+        // (approved reservations where current DATE matches ReservationDate AND current TIME is between start and end time)
         $occupiedRoomsSql = "
             UPDATE rooms r
             SET r.RoomStatus = 'occupied'
@@ -123,8 +124,9 @@ function updateRoomStatuses()
                 SELECT DISTINCT rr.RoomID
                 FROM room_requests rr
                 WHERE rr.Status = 'approved'
-                AND '$currentDateTime' >= rr.StartTime 
-                AND '$currentDateTime' <= rr.EndTime
+                AND rr.ReservationDate = CURDATE()
+                AND CURTIME() >= rr.StartTime 
+                AND CURTIME() <= rr.EndTime
             )
             AND r.RoomStatus != 'maintenance'";
 
@@ -135,7 +137,7 @@ function updateRoomStatuses()
         if ($directRun) echo "Rooms marked as occupied: " . $occupiedCount . "\n";
 
         // 2. Find rooms that should be marked as available again
-        // (no current approved reservations)
+        // (no current approved reservations for TODAY)
         $availableRoomsSql = "
             UPDATE rooms r
             SET r.RoomStatus = 'available'
@@ -144,8 +146,9 @@ function updateRoomStatuses()
                 SELECT DISTINCT rr.RoomID
                 FROM room_requests rr
                 WHERE rr.Status = 'approved'
-                AND '$currentDateTime' >= rr.StartTime 
-                AND '$currentDateTime' <= rr.EndTime
+                AND rr.ReservationDate = CURDATE()
+                AND CURTIME() >= rr.StartTime 
+                AND CURTIME() <= rr.EndTime
             )";
 
         $conn->query($availableRoomsSql);
