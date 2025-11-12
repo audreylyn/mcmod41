@@ -48,9 +48,9 @@ body {
 }
 
 .logo {
-    width: 64px;
-    height: 64px;
-    margin-bottom: 1rem;
+    width: 96px;
+    height: 96px;
+    /* margin-bottom: 0.5rem; */
 }
 
 .brand-title {

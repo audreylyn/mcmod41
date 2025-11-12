@@ -374,13 +374,9 @@ document.addEventListener('DOMContentLoaded', function () {
 
   // Load building options
   function loadBuildingOptions() {
-    buildingSelect.classList.add('loading');
-
     fetch('api/get_equipment_data.php?action=buildings')
       .then((response) => response.json())
       .then((data) => {
-        buildingSelect.classList.remove('loading');
-
         if (data.success) {
           buildingSelect.innerHTML =
             '<option value="">-- Select Building --</option>';
@@ -397,7 +393,6 @@ document.addEventListener('DOMContentLoaded', function () {
         }
       })
       .catch((error) => {
-        buildingSelect.classList.remove('loading');
         console.error('Error loading buildings:', error);
         showError('Error loading building options');
       });
@@ -503,7 +498,7 @@ document.addEventListener('DOMContentLoaded', function () {
       room: selectedRoomName.value,
       building: selectedBuildingName.value,
       // Keep this for the optional manual ID entry
-      user_equipment_id: equipmentIdInput.value || null,
+      user_equipment_id: (equipmentIdInput && equipmentIdInput.value) || null,
       source: 'manual_entry',
     };
 

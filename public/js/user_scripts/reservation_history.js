@@ -28,7 +28,7 @@ document.addEventListener('DOMContentLoaded', function() {
 
             // Get filter type from data attribute
             var filterType = this.getAttribute('data-filter');
-            console.log('Tab clicked:', filterType);
+            // console.log('Tab clicked:', filterType);
 
             // Show/hide reservation cards based on type
             document.querySelectorAll('.reservation-card').forEach(function(card) {

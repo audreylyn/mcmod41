@@ -21,8 +21,8 @@ require_once __DIR__ . '/middleware/error_handler.php';
     <meta name="msapplication-TileImage" content="public/assets/logo.webp">
     
     <!-- Icons and Manifest -->
-    <link rel="icon" href="public/assets/logo.webp" type="image/webp" />
-    <link rel="apple-touch-icon" href="public/assets/logo.webp">
+    <link rel="icon" href="public/assets/final_logo.svg" type="image/svg+xml" />
+    <link rel="apple-touch-icon" href="public/assets/final_logo.svg">
     <link rel="manifest" href="manifest.json">
     <link rel="stylesheet" href="partials/terms.css">
     
@@ -56,7 +56,7 @@ require_once __DIR__ . '/middleware/error_handler.php';
     <div class="login-form">
         <div class="form-container">
             <div class="branding">
-                <img src="public/assets/logo.webp" alt="Logo" class="logo">
+                <img src="public/assets/final_logo.svg" alt="Logo" class="logo">
                 <h1 class="brand-title">MCiSmartSpace</h1>
                 <div class="college-name">Meycauayan College</div>
             </div>
