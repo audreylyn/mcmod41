@@ -25,6 +25,7 @@ require 'includes/approve-reject.php';
     <link rel="stylesheet" href="../public/css/admin_styles/form_2.css">
     <link rel="stylesheet" href="../public/css/admin_styles/room_approval.css">
     <link rel="stylesheet" href="../public/css/admin_styles/today_badge.css">
+    <link rel="stylesheet" href="../public/css/admin_styles/mobile_fix.css">
 </head>
 
 <body>

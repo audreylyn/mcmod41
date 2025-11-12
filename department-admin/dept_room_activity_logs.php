@@ -23,7 +23,7 @@ include 'includes/activity_logs.php';
     <link rel="stylesheet" href="../public/css/admin_styles/main_2.css">
     <link rel="stylesheet" href="../public/css/admin_styles/style-all.css">
     <link rel="stylesheet" href="../public/css/admin_styles/form_2.css">
-    
+    <link rel="stylesheet" href="../public/css/admin_styles/mobile_fix.css">
     <!-- DataTables CSS -->
     <link rel="stylesheet" href="https://cdn.datatables.net/1.11.5/css/jquery.dataTables.min.css">
     <link rel="stylesheet" href="../public/css/admin_styles/datatables.css">

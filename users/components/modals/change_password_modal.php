@@ -1,3 +1,11 @@
+<style>
+    .alert-actions .btn-action {
+  width: 100% !important;
+  display: flex !important;
+  justify-content: center !important;
+  align-items: center !important;
+}
+</style>
 <!-- Change Password Modal -->
 <div class="modal" id="changePasswordModal" tabindex="-1" role="dialog">
     <div class="modal-dialog modal-dialog-centered" role="document">

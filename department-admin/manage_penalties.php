@@ -20,7 +20,8 @@ include 'includes/manage_penalties.php';
     <link rel="stylesheet" href="../public/css/admin_styles/main_2.css">
     <link rel="stylesheet" href="../public/css/admin_styles/style-all.css">
     <link rel="stylesheet" href="../public/css/admin_styles/form_2.css">
-    <link href="../public/css/admin_styles/penalty.css" rel="stylesheet">
+    <link rel="stylesheet" href="../public/css/admin_styles/penalty.css">
+    <link rel="stylesheet" href="../public/css/admin_styles/mobile_fix.css">
     <!-- DataTables CSS -->
     <link rel="stylesheet" href="https://cdn.datatables.net/1.11.5/css/jquery.dataTables.min.css">
     <link rel="stylesheet" href="../public/css/admin_styles/datatables.css">
@@ -64,6 +65,7 @@ include 'includes/manage_penalties.php';
     <!-- Custom Admin Scripts -->
     <script type="text/javascript" src="../public/js/admin_scripts/custom_alert.js"></script>
     <script type="text/javascript" src="../public/js/admin_scripts/manage_penalties.js"></script>
+    <script type="text/javascript" src="../public/js/admin_scripts/mobile_menu_fix.js"></script>
 
     <script>
                 // Function to toggle dropdown menus

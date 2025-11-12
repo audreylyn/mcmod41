@@ -21,6 +21,7 @@ include 'includes/dashboard_data.php';
     <link rel="stylesheet" href="../public/css/admin_styles/main_2.css">
     <link rel="stylesheet" href="../public/css/admin_styles/style-all.css">
     <link rel="stylesheet" href="../public/css/admin_styles/dept_admin_dashboard.css">
+    <link rel="stylesheet" href="../public/css/admin_styles/mobile_fix.css">
 
     <!-- Chart.js CDN -->
     <script src="https://cdn.jsdelivr.net/npm/chart.js"></script>
@@ -367,7 +368,6 @@ include 'includes/dashboard_data.php';
     </div>
 
     <script type="text/javascript" src="../public/js/admin_scripts/main.min.js"></script>
-    <script type="text/javascript" src="../public/js/admin_scripts/topnav-dropdown.js"></script>
 
     <!-- Pass PHP data to JavaScript -->
     <script>

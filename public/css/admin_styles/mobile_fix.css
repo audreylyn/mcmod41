@@ -1,0 +1,18 @@
+/* Fix for mobile navigation visibility */
+@media (max-width: 1023px) {
+  .navbar-menu.active .navbar-dropdown {
+    display: block !important;
+    position: static;
+    transform: none;
+    box-shadow: none;
+    width: 100%;
+  }
+  
+  .navbar-item.has-dropdown:hover .navbar-dropdown {
+    display: block;
+  }
+  
+  .navbar-dropdown .navbar-item {
+    padding: 0.7rem 1.5rem;
+  }
+}

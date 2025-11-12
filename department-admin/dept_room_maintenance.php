@@ -20,6 +20,7 @@ include 'includes/maintenance.php';
     <link rel="stylesheet" href="../public/css/admin_styles/main_2.css">
     <link rel="stylesheet" href="../public/css/admin_styles/style-all.css">
     <link rel="stylesheet" href="../public/css/admin_styles/maintenance.css">
+    <link rel="stylesheet" href="../public/css/admin_styles/mobile_fix.css">
     
 
 </head>
@@ -41,5 +42,6 @@ include 'includes/maintenance.php';
 
 
     <script type="text/javascript" src="../public/js/admin_scripts/room_maintenance.js"></script>
+    <script type="text/javascript" src="../public/js/admin_scripts/mobile_menu_fix.js"></script>
 </body>
 </html>

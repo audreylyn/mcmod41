@@ -26,6 +26,7 @@ header('Access-Control-Allow-Headers: *');
     <link rel="stylesheet" href="../public/css/admin_styles/style-all.css">
     <link rel="stylesheet" href="../public/css/admin_styles/form_2.css">
     <link rel="stylesheet" href="../public/css/admin_styles/qr_generator.css">
+    <link rel="stylesheet" href="../public/css/admin_styles/mobile_fix.css">
 
     <style>
         .qr-panel-bodys {
