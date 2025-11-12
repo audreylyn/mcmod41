@@ -112,6 +112,7 @@ function filterRequests() {
     const cardDate = new Date(card.getAttribute('data-reservation-date'));
     const cardRequesterType = card.getAttribute('data-requester-type');
     const cardDaysUntil = parseInt(card.getAttribute('data-days-until'));
+    const cardIsExpired = card.getAttribute('data-is-expired') === 'true';
 
     // Filter by search text
     if (searchValue && !cardText.includes(searchValue)) {
@@ -127,8 +128,8 @@ function filterRequests() {
     if (priorityValue) {
       switch (priorityValue) {
         case 'expired':
-          if (cardDaysUntil >= 0) {
-            // Only show expired (negative days)
+          if (!cardIsExpired) {
+            // Only show expired requests (where time has passed)
             show = false;
           }
           break;

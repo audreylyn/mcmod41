@@ -86,7 +86,7 @@ $sql = "SELECT rr.*, r.room_name, r.room_type, b.building_name,
         LEFT JOIN student s ON rr.StudentID = s.StudentID
         LEFT JOIN teacher t ON rr.TeacherID = t.TeacherID
         LEFT JOIN dept_admin da ON rr.approvedBy = da.AdminID
-        WHERE rr.Status = 'approved'";
+        WHERE rr.Status IN ('approved', 'completed')";
 
 // Add filters
 $params = [];
@@ -143,14 +143,14 @@ $roomsResult = $conn->query($roomsSql);
 $buildingsSql = "SELECT id, building_name FROM buildings ORDER BY building_name";
 $buildingsResult = $conn->query($buildingsSql);
 
-// Get activity counts - only for approved status
+// Get activity counts - for approved and completed status
 $countSql = "SELECT 
     COUNT(*) as total_count,
     SUM(CASE WHEN ReservationDate > CURDATE() THEN 1 ELSE 0 END) as upcoming_count,
     SUM(CASE WHEN ReservationDate = CURDATE() THEN 1 ELSE 0 END) as active_count,
     SUM(CASE WHEN ReservationDate < CURDATE() THEN 1 ELSE 0 END) as completed_count
     FROM room_requests 
-    WHERE Status = 'approved'";
+    WHERE Status IN ('approved', 'completed')";
 
 // Add department filter if applicable
 if (!empty($adminDepartment)) {

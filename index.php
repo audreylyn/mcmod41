@@ -44,7 +44,7 @@ require_once __DIR__ . '/middleware/error_handler.php';
     <!-- Install App Button -->
     <div class="install-app-button">
         <div class="button-wrapper">
-            <button class="shine-button button-forest" onclick="window.open('https://mcismartspace-appwebsite.vercel.app/#download', '_blank')">
+            <button class="shine-button button-forest" onclick="window.open('https://app.mcismartspace.com/', '_blank')">
                 Install APK
             </button>
         </div>

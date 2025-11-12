@@ -44,6 +44,7 @@
                 <option value="">All Statuses</option>
                 <option value="pending">Pending</option>
                 <option value="approved">Approved</option>
+                <option value="completed">Completed</option>
                 <option value="rejected">Rejected</option>
             </select>
         </div>
@@ -75,6 +76,9 @@
     <!-- Room Request Cards -->
     <div id="requestsContainer">
         <?php
+        // Set timezone to Philippines
+        date_default_timezone_set('Asia/Manila');
+        
         // Get the department of the logged-in admin
         $admin_department = $_SESSION['department'] ?? '';
 
@@ -198,6 +202,17 @@
                 $priorityClass = $row['PriorityClass'];
                 $daysUntil = $row['DaysUntil'];
 
+                // Check if request is expired (date in past OR time has passed today)
+                $reservationDateTime = new DateTime($row['ReservationDate'] . ' ' . $row['EndTime']);
+                $now = new DateTime();
+                $isExpired = ($reservationDateTime <= $now);
+                
+                // Update priority for expired requests
+                if ($isExpired && $priorityLabel !== 'Expired') {
+                    $priorityLabel = 'Expired';
+                    $priorityClass = 'priority-expired expired-badge';
+                }
+
                 // Set info icon class based on status
                 $iconClass = 'info-icon-' . $status;
         ?>
@@ -207,6 +222,7 @@
                     data-building="<?php echo htmlspecialchars($buildingName); ?>"
                     data-requester-type="<?php echo $requesterType; ?>"
                     data-days-until="<?php echo $daysUntil; ?>"
+                    data-is-expired="<?php echo $isExpired ? 'true' : 'false'; ?>"
                     data-priority-score="<?php echo $row['PriorityScore']; ?>">
 
                     <div class="request-title">
@@ -260,7 +276,7 @@
                         <div class="action-buttons">
                             <form method="POST" style="flex: 1;">
                                 <input type="hidden" name="request_id" value="<?php echo $requestId; ?>">
-                                <button type="submit" name="approve_request" class="btn-approve" <?php echo ($daysUntil < 0) ? 'disabled' : ''; ?>>Approve</button>
+                                <button type="submit" name="approve_request" class="btn-approve" <?php echo ($isExpired) ? 'disabled' : ''; ?>>Approve</button>
                             </form>
                             <button type="button" class="btn-reject" onclick="showRejectModal(<?php echo $requestId; ?>)">Reject</button>
                         </div>

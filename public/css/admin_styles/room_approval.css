@@ -348,6 +348,20 @@
   /* Dark red text */
 }
 
+.info-icon-completed {
+  background-color: #e6f4ea;
+  /* Light green background */
+  color: #0d652d;
+  /* Dark green text */
+}
+
+.info-icon-cancelled {
+  background-color: #f1f5f9;
+  /* Light gray background */
+  color: #64748b;
+  /* Gray text */
+}
+
 .info-icon-auto_expired {
   background-color: #f5f5f5;
   /* Light gray background */
@@ -837,6 +851,14 @@ textarea:focus {
 
 .info-icon-rejected {
   background-color: #d32f2f;
+}
+
+.info-icon-completed {
+  background-color: #0d652d; /* Completed green */
+}
+
+.info-icon-cancelled {
+  background-color: #64748b; /* Cancelled gray */
 }
 
 .info-icon-auto_expired {

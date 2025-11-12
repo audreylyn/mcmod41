@@ -15,24 +15,22 @@ require 'includes/approve-reject.php';
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
     <title>Room Approval</title>
-        <!-- Icons and Manifest -->
+    <!-- Icons and Manifest -->
     <link rel="icon" href="../public/assets/logo.webp" type="image/webp" />
     <link rel="apple-touch-icon" href="../public/assets/logo.webp">
-    <link rel="stylesheet" href="https://cdn.materialdesignicons.com/4.9.95/css/materialdesignicons.min.css">
+    <link href="https://cdn.jsdelivr.net/npm/@mdi/font@latest/css/materialdesignicons.min.css" rel="stylesheet">
     <link rel="stylesheet" href="../public/css/admin_styles/main.css">
     <link rel="stylesheet" href="../public/css/admin_styles/main_2.css">
     <link rel="stylesheet" href="../public/css/admin_styles/style-all.css">
     <link rel="stylesheet" href="../public/css/admin_styles/form_2.css">
     <link rel="stylesheet" href="../public/css/admin_styles/room_approval.css">
     <link rel="stylesheet" href="../public/css/admin_styles/today_badge.css">
-
 </head>
 
 <body>
     <div id="app">
         <?php include 'layout/topnav.php'; ?>
         <?php include 'layout/sidebar.php'; ?>
-
 
         <div class="main-container">
             <div>
