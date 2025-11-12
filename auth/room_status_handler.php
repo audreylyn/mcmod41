@@ -12,25 +12,34 @@
 function connectToDatabase()
 {
     try {
-        // Define the SSL certificate path
-        $ssl_cert = __DIR__ . '/../DigiCertGlobalRootCA.crt.pem';
-
         // Initialize connection
         $conn = mysqli_init();
+        
+        // Disable SSL verification
+        if (!$conn->options(MYSQLI_OPT_SSL_VERIFY_SERVER_CERT, false)) {
+            error_log("Failed to set MYSQLI_OPT_SSL_VERIFY_SERVER_CERT option");
+        }
 
-        // Set SSL certificate
-        $conn->ssl_set(NULL, NULL, $ssl_cert, NULL, NULL);
-
-        // Establish connection with SSL
-        $conn->real_connect(
-            "mcismartdb.mysql.database.azure.com", 
+        // Try to connect with SSL first
+        if (!$conn->real_connect(
+            "smartspace.mysql.database.azure.com", 
             "adminuser", 
             "SmartDb2025!", 
-            "mcismartdb",
+            "smartspace",
             3306,
             NULL,
             MYSQLI_CLIENT_SSL
-        );
+        )) {
+            // If SSL fails, try without SSL as fallback
+            $conn = mysqli_init();
+            $conn->real_connect(
+                "smartspace.mysql.database.azure.com", 
+                "adminuser", 
+                "SmartDb2025!", 
+                "smartspace",
+                3306
+            );
+        }
 
         // Check for connection errors
         if ($conn->connect_error) {
@@ -47,7 +56,6 @@ function connectToDatabase()
         return null;
     }
 }
-
 
 /**
  * Update room statuses based on current time
