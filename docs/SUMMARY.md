@@ -16,7 +16,7 @@
 
 ## Department Administrators
 
-* [Administrator  Guide](department-administrators/department-admin-guide/README.md)
+* [Administrator Guide](department-administrators/department-admin-guide/README.md)
   * [Admin Navigation Menu](department-administrators/department-admin-guide/admin-navigation-menu.md)
   * [Admin Dashboard](department-administrators/department-admin-guide/admin-dashboard.md)
   * [Admin Room Approval](department-administrators/department-admin-guide/admin-room-approval.md)
@@ -40,11 +40,6 @@
 ## Technical Documentation
 
 * [System Architecture](technical/system-overview.md)
-* [Database Schema](technical/database-schema.md)
-* [Installation Guide](technical-documentation/installation-guide.md)
-* [Configuration](technical-documentation/configuration.md)
-* [Security Features](technical-documentation/security-features.md)
-* [PWA Features](technical-documentation/pwa-features.md)
 
 ## Support
 
