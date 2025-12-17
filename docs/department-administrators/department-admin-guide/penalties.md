@@ -8,7 +8,7 @@ description: >-
 
 **View List of students.**
 
-<figure><img src="broken-reference" alt=""><figcaption></figcaption></figure>
+<figure><img src="../../.gitbook/assets/penalties.jpg" alt=""><figcaption></figcaption></figure>
 
 **Banning Student View**
 

@@ -16,8 +16,8 @@ MCiSmartSpace is a comprehensive room management and equipment tracking system d
 
 #### Backend
 
-* **PHP 8.2** - Server-side logic and API endpoints
-* **MySQL /MariaDB** - Relational database management
+* **PHP 7.4+** - Server-side logic and API endpoints
+* **MySQL 5.7+** - Relational database management
 * **Apache/Nginx** - Web server configuration
 * **Session Management** - Secure user authentication
 * **Rate Limiting** - Security and performance protection
@@ -93,7 +93,9 @@ MCiSmartSpace is a comprehensive room management and equipment tracking system d
   * Access QR scanner
   * Manage profile settings
 
+### Permission Matrix
 
+<table><thead><tr><th>Feature</th><th width="140.3333740234375">Student</th><th width="165.33331298828125">Teacher</th><th width="159.3333740234375">Dept Admin</th><th>Registrar</th></tr></thead><tbody><tr><td>Room Reservations</td><td>✅</td><td>✅</td><td>✅</td><td>✅</td></tr><tr><td>Equipment Reporting</td><td>✅</td><td>✅</td><td>✅</td><td>✅</td></tr><tr><td>QR Scanning</td><td>✅</td><td>✅</td><td>✅</td><td>✅</td></tr><tr><td>Approve Reservations</td><td>❌</td><td>❌</td><td>✅</td><td>✅</td></tr><tr><td>Manage Equipment Issues</td><td>❌</td><td>❌</td><td>✅</td><td>✅</td></tr><tr><td>Generate Reports</td><td>❌</td><td>❌</td><td>✅</td><td>✅</td></tr><tr><td>User Management</td><td>❌</td><td>❌</td><td>✅</td><td>✅</td></tr><tr><td>Create QR Codes</td><td>❌</td><td>❌</td><td>✅</td><td>✅</td></tr><tr><td>Building Management</td><td>❌</td><td>❌</td><td>❌</td><td>✅</td></tr><tr><td>System Administration</td><td>❌</td><td>❌</td><td>❌</td><td>✅</td></tr></tbody></table>
 
 ## Data Structure
 
@@ -226,6 +228,9 @@ MCiSmartSpace is a comprehensive room management and equipment tracking system d
 ### Notification System
 
 * **Email Notifications** - Automated email alerts
+* **SMS Integration** - Text message notifications
+* **In-App Notifications** - Real-time system alerts
+* **Push Notifications** - Mobile app notifications
 
 ## Performance & Scalability
 
@@ -307,4 +312,4 @@ For technical questions, system administration, or development support:
 * **Installation Guide** - Setup and deployment instructions
 * **Troubleshooting** - Common issues and solutions
 
-**Next Steps**: Review the [Database Schema](broken-reference) or explore [API Documentation](api-documentation.md) for detailed technical information.
+**Next Steps**: Review the [Database Schema](database-schema.md) or explore [API Documentation](api-documentation.md) for detailed technical information.

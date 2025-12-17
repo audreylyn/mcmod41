@@ -16,7 +16,7 @@ A guide for the Room Management Information System implemented for Meycauayan Co
 
 * [**System Overview**](technical/system-overview.md) - Architecture and system components
 * [**API Documentation**](technical/api-documentation.md) - API endpoints and integration
-* [**Database Schema**](broken-reference) - Database structure and relationships
+* [**Database Schema**](technical/database-schema.md) - Database structure and relationships
 * [**Installation Guide**](technical/installation.md) - Setup and deployment instructions
 
 ### Support
@@ -24,6 +24,8 @@ A guide for the Room Management Information System implemented for Meycauayan Co
 * [**Troubleshooting**](support/troubleshooting.md) - Common issues and solutions
 * [**FAQ**](support/faq.md) - Frequently asked questions
 * [**Contact Support**](support/contact.md) - How to get help
+
+
 
 ## Quick Start
 
@@ -47,6 +49,8 @@ A guide for the Room Management Information System implemented for Meycauayan Co
 2. Manage buildings, rooms, and equipment
 3. Add new department administrators
 4. Monitor system-wide activities
+
+
 
 ## System Features
 
@@ -78,6 +82,8 @@ A guide for the Room Management Information System implemented for Meycauayan Co
 * **Profile Management** - User account controls
 * **Activity Logging** - Comprehensive audit trails
 
+
+
 ## System Requirements
 
 ### Minimum Requirements
@@ -86,6 +92,8 @@ A guide for the Room Management Information System implemented for Meycauayan Co
 * **Internet Connection**: Stable connection for real-time features
 * **Device**: Desktop, tablet, or mobile device
 * **Screen Resolution**: 1024x768 minimum (responsive design)
+
+
 
 ## Mobile Features
 
@@ -96,6 +104,8 @@ MCiSmartSpace is fully responsive and includes:
 * **Offline Capabilities** - Basic functionality without internet
 * **Push Notifications** - Real-time updates and alerts
 
+
+
 ## Supported Departments
 
 * **Accountancy** - ACC Building management
@@ -103,6 +113,8 @@ MCiSmartSpace is fully responsive and includes:
 * **Criminal Justice** - CJ Building operations
 * **Education and Arts** - EA Building coordination
 * **Hospitality Management** - HM Building administration
+
+
 
 ## Getting Help
 
