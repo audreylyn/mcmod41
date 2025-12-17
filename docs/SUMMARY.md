@@ -40,11 +40,6 @@
 ## Technical Documentation
 
 * [System Architecture](technical/system-overview.md)
-* [Database Schema](technical/database-schema.md)
-* [Installation Guide](technical-documentation/installation-guide.md)
-* [Configuration](technical-documentation/configuration.md)
-* [Security Features](technical-documentation/security-features.md)
-* [PWA Features](technical-documentation/pwa-features.md)
 
 ## Support
 
